@@ -6,7 +6,6 @@ package controle;
 
 import fachada.Cliente;
 import java.util.ArrayList;
-import persistencia.ConexaoMySQL;
 import persistencia.ConsultasClienteMySQL;
 
 /**
@@ -27,7 +26,8 @@ public class ClienteController {
     }
 
     public String editar() {
-        return cliente.editar();
+        ConsultasClienteMySQL consultaMySQL = new ConsultasClienteMySQL();
+        return consultaMySQL.editarCliente(cliente);
     }
 
     public void buscarClientes() {

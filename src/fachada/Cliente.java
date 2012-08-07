@@ -57,16 +57,10 @@ public class Cliente {
         this.id = id;
     }
 
-//    public String cadastrar() {
+//    public String editar(){
 //        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
-//        return c.cadastrarCliente(this);
+//        return c.editarCliente(this);
 //    }
-    
-    public String editar(){
-        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
-        return c.editarCliente(this);
-    }
-    
 
     public String getCpf() {
         return cpf;

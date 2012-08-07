@@ -38,11 +38,10 @@ public class ConsultasClienteMySQL {
             stmt.setInt(1, cliente.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            StringBuilder msg = new StringBuilder("Exclusão não Efetuada");
-            msg.append("\nMotivo: ").append(ex.getMessage());;
-            return "Exclusão não efetuada";
+            System.out.println(ex.getMessage());
+            return "Exclusão do Cliente não foi efetuada";
         }
-        return "Exclusão efetuada com sucesso!";
+        return "Exclusão do Cliente efetuada com sucesso!";
     }
 
     public String cadastrarCliente(Cliente cliente) {
@@ -64,9 +63,8 @@ public class ConsultasClienteMySQL {
             stmt.setString(10, cliente.getObservacoes());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            StringBuilder msg = new StringBuilder("Inclusao nao feita");
-            msg.append("\nMotivo: ").append(ex.getMessage());
-            return "Cadastro não efetuada";
+            System.out.println(ex.getMessage());
+            return "Cadastro do Cliente não foi efetuada";
         }
         return "Cadastro efetuado com sucesso!";
     }
@@ -74,12 +72,7 @@ public class ConsultasClienteMySQL {
     public String editarCliente(Cliente cliente) {
         Connection con;
         PreparedStatement stmt;
-//        String query = "UPDATE cliente SET nome ='" + c.getNome() + "', endereco='" + c.getEndereco() + "', cpf='" + c.getCpf()
-//                + "', rg= '" + c.getRg() + "', telefone1 ='" + c.getTelefone1() + "', telefone2 = '" + c.getTelefone2() + "', email='"
-//                + c.getEmail() + "', local_trabalho = '" + c.getLocalDeTrabalho() + "', telefone_comercial = '" + c.getTelefoneComercial()
-//                + "', observacoes = '" + c.getObservacoes() + "'" + "WHERE idcliente=" + c.getId();
         try {
-//            ConexaoMySQL.getInstance().execute(query);
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_EDITAR_CLIENTE);
             stmt.setString(1, cliente.getNome());
@@ -94,10 +87,11 @@ public class ConsultasClienteMySQL {
             stmt.setString(10, cliente.getObservacoes());
             stmt.setInt(11, cliente.getId());
             stmt.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             return "Erro na alteração do Cliente";
         }
-        return "Cliente alterado com sucesso ";
+        return "Cliente alterado com sucesso!";
     }
 
     public ArrayList<Cliente> buscarClientes() {
@@ -121,7 +115,7 @@ public class ConsultasClienteMySQL {
                 clientes.add(c);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ConsultasClienteMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return clientes;
     }

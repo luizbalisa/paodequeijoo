@@ -5,9 +5,14 @@
 package visao;
 
 import controle.ProdutoController;
+import fachada.Produto;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,7 +22,7 @@ public class JPanelMenuProdutosVenda extends javax.swing.JPanel {
 
     private Component rootPane;
     JFramePrincipal principal;
-    ProdutoController produto;
+    ProdutoController produto = new ProdutoController();
 
     /**
      * Creates new form JPanelMenuProdutosVenda
@@ -25,6 +30,7 @@ public class JPanelMenuProdutosVenda extends javax.swing.JPanel {
     public JPanelMenuProdutosVenda(JFramePrincipal principal) {
         initComponents();
         this.principal = principal;
+        preencherProdutos();
     }
 
     /**
@@ -124,12 +130,12 @@ public class JPanelMenuProdutosVenda extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -165,23 +171,25 @@ public class JPanelMenuProdutosVenda extends javax.swing.JPanel {
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 JOptionPane.showMessageDialog(rootPane, "");
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                //preencherClientes();
+                preencherProdutos();
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        principal.gerenciarClientes(0, 0);
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelGerenciarProduto(0, 0, this));
+        jPanel3.validate();
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (jTable1.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o cliente");
-        } else {
-            int linha = jTable1.getSelectedRow();
-            String id = jTable1.getModel().getValueAt(linha, 0).toString();
-            this.principal.editarCliente(Integer.parseInt(id));
-        }
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelGerenciarProduto(0, 1, this));
+        jPanel3.validate();
+        jButton1.setEnabled(false);
+        jButton4.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -195,4 +203,43 @@ public class JPanelMenuProdutosVenda extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    public void ativarBotoes(int tipo) {
+        if (tipo == 0) {
+            jButton3.setEnabled(true);
+            jButton4.setEnabled(true);
+        } else {
+            jButton1.setEnabled(true);
+            jButton4.setEnabled(true);
+        }
+    }
+    
+    public void preencherProdutos(){
+        this.produto.buscarProdutos();
+        ArrayList<Produto> listaProduto = this.produto.getListProdutos();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object [][]{},new String[]{"Codigo","Nome","Preco"}) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[]linha = new Object[3];
+        for (int i = 0; i < listaProduto.size(); i++) {
+            linha[0] = listaProduto.get(i).getIdProduto();
+            linha[1] = listaProduto.get(i).getNome();
+            linha[2] = listaProduto.get(i).getPreco();
+            tb.addRow(linha);
+        }
+        jTable1= new JTable(tb);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setBorder(null);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
 }

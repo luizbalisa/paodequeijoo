@@ -54,11 +54,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel2.validate();
         repaint();
     }
-    public void gerenciarProduto(int idProduto){
-        jPanel2.removeAll();
-        jPanel2.add(new JPanelGerenciarProduto());
-        
-    }
     //______________________________________________________________________________________________________________________
 
     /**

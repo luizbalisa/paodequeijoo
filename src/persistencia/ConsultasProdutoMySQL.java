@@ -4,15 +4,12 @@
  */
 package persistencia;
 
-import fachada.Cliente;
 import fachada.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class ConsultasProdutoMySQL {
 
-    private static final String SQL_EXCLUIR_PRODUTO = " DELETE FROM produto_venda WHERE codigo_produto=?";
+    private static final String SQL_EXCLUIR_PRODUTO = "DELETE FROM produto_venda WHERE codigo_produto=?";
     private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produto_venda ORDER BY nome";
     private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produto_venda (nome, preco) "
             + "VALUES (?, ?)";
@@ -39,11 +36,10 @@ public class ConsultasProdutoMySQL {
             stmt.setInt(1, prod.getIdProduto());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            StringBuilder msg = new StringBuilder("Exclusão não Efetuada");
-            msg.append("\nMotivo: ").append(ex.getMessage());;
-            return "Exclusão não efetuada";
+            System.out.println(ex.getMessage());
+            return "Exclusão do Produto não foi efetuada";
         }
-        return "Exclusão efetuada com sucesso!";
+        return "Exclusão do Produto efetuada com sucesso!";
     }
 
     public String cadastrarProduto(Produto prod) {
@@ -57,16 +53,16 @@ public class ConsultasProdutoMySQL {
             stmt.setString(2, prod.getPreco());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            StringBuilder msg = new StringBuilder("Inclusao nao feita");
-            msg.append("\nMotivo: ").append(ex.getMessage());
-            return "Cadastro não efetuada";
+            System.out.println(ex.getMessage());
+            return "Cadastro do Produto não foi efetuada";
         }
-        return "Cadastro efetuado com sucesso!";
+        return "Cadastro do Produto efetuado com sucesso!";
     }
 
     public String editarProduto(Produto prod) {
         Connection con;
         PreparedStatement stmt;
+        
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_EDITAR_PRODUTO);
@@ -74,15 +70,17 @@ public class ConsultasProdutoMySQL {
             stmt.setString(2, prod.getPreco());
             stmt.setInt(3, prod.getIdProduto());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            return "Erro na alteração do Cliente";
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "Erro na alteração do Produto";
         }
-        return "Cliente alterado com sucesso ";
+        return "Produto alterado com sucesso ";
     }
 
     public ArrayList<Produto> buscarProduto() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         String query = SQL_BUSCA_PRODUTO;
+        
         try {
             ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
             while (rs.next()) {
@@ -93,7 +91,7 @@ public class ConsultasProdutoMySQL {
                 produtos.add(prod);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ConsultasClienteMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return produtos;
     }
