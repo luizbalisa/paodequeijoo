@@ -6,7 +6,8 @@ package controle;
 
 import fachada.Cliente;
 import java.util.ArrayList;
-import persistencia.ConsultasMySQL;
+import persistencia.ConexaoMySQL;
+import persistencia.ConsultasClienteMySQL;
 
 /**
  *
@@ -21,19 +22,27 @@ public class ClienteController {
     }
 
     public String cadastrar() {
-        return cliente.cadastrar();
+        ConsultasClienteMySQL consultaMySQL = new ConsultasClienteMySQL();
+        return consultaMySQL.cadastrarCliente(cliente);
     }
-    public String editar(){
+
+    public String editar() {
         return cliente.editar();
     }
 
     public void buscarClientes() {
-        ConsultasMySQL c = new ConsultasMySQL();
+        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
         listaClientes = c.buscarClientes();
     }
-    public void editarClientes(Cliente c){
-        ConsultasMySQL consulta = new ConsultasMySQL();
+
+    public void editarClientes(Cliente c) {
+        ConsultasClienteMySQL consulta = new ConsultasClienteMySQL();
         consulta.editarCliente(c);
+    }
+    
+    public String excluirCliente(){
+        ConsultasClienteMySQL consulta = new ConsultasClienteMySQL();
+        return consulta.excluirCliente(cliente);
     }
 
     public ArrayList<Cliente> getListaClisntes() {
@@ -51,12 +60,12 @@ public class ClienteController {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    public Cliente getCliente(int id){
+
+    public void getCliente(int id) {
         for (int i = 0; i < this.listaClientes.size(); i++) {
-            if(this.listaClientes.get(i).getId() == id)
-                return this.listaClientes.get(i);
+            if (this.listaClientes.get(i).getId() == id) {
+                cliente = listaClientes.get(i);
+            }
         }
-        return null;
     }
 }

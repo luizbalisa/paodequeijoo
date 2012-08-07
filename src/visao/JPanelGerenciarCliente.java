@@ -7,6 +7,7 @@ package visao;
 import controle.ClienteController;
 import fachada.Cliente;
 import java.awt.Component;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,15 +31,20 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         this.tipoTela = tipo;
         this.idCliente = idCliente;
         this.cliente.buscarClientes();
-        Cliente c = this.cliente.getCliente(idCliente);
-        if(tipo==1){
+        jButton3.setVisible(false);
+        jButton4.setVisible(false);
+        if (tipo == 1) {
             jLabel1.setText("Detalhar cliente");
+            cliente.getCliente(idCliente);
+            jButton4.setVisible(true);
             jButton2.setVisible(false);//botao de cadastro
-            this.preencherDados(c);
-        }else if (tipo==2){
+            this.preencherDados(cliente.getCliente());
+        } else if (tipo == 2) {
             jLabel1.setText("Editar cliente");
+            cliente.getCliente(idCliente);
             jButton2.setVisible(false);
-            this.preencherDados(c);
+            jButton3.setVisible(true);
+            this.preencherDados(cliente.getCliente());
         }
     }
 
@@ -54,6 +60,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -79,8 +86,15 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14));
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         jLabel1.setText("Cadastrar Cliente");
+
+        jButton4.setText("Habilitar Edição");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,7 +103,9 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE))
@@ -98,7 +114,9 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -138,7 +156,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
         );
 
         jButton1.setText("Voltar");
@@ -192,9 +210,9 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
@@ -271,25 +289,33 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
         } else {
             cliente.setCliente(new Cliente(jTextField1.getText(), jTextField2.getText(), jTextField8.getText(), jTextField6.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText(), jTextField9.getText(), jTextField7.getText(), jTextArea1.getText()));
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             JOptionPane.showMessageDialog(rootPane, cliente.cadastrar());
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             limparDados();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jButton2.setVisible(false);
-        if(jTextField1.getText().equals("")){
+        if (jTextField1.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
-        }else{           
-            this.cliente.editarClientes(this.editarCliente(this.cliente.getCliente()));
+        } else {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            editarCliente();
             JOptionPane.showMessageDialog(rootPane, cliente.editar());
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        principal.editarCliente(idCliente);
+    }//GEN-LAST:event_jButton4ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -328,7 +354,20 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jTextField8.setText("");
         jTextField9.setText("");
     }
-    private void preencherDados(Cliente c){
+
+    private void preencherDados(Cliente c) {
+        if (tipoTela == 1) {
+            jTextArea1.setEnabled(false);
+            jTextField1.setEnabled(false);
+            jTextField2.setEnabled(false);
+            jTextField3.setEnabled(false);
+            jTextField4.setEnabled(false);
+            jTextField5.setEnabled(false);
+            jTextField6.setEnabled(false);
+            jTextField7.setEnabled(false);
+            jTextField8.setEnabled(false);
+            jTextField9.setEnabled(false);
+        }
         jTextField1.setText(c.getNome());
         jTextField2.setText(c.getEndereco());
         jTextField3.setText(c.getTelefone1());
@@ -340,17 +379,16 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jTextField9.setText(c.getLocalDeTrabalho());
         jTextArea1.setText(c.getObservacoes());
     }
-    private Cliente editarCliente(Cliente c){
-        c.setNome(jTextField1.getText());
-        c.setEndereco(jTextField2.getText());
-        c.setTelefone1(jTextField3.getText());
-        c.setTelefone2(jTextField4.getText());
-        c.setTelefoneComercial(jTextField5.getText());
-        c.setRg(jTextField6.getText());
-        c.setEmail(jTextField7.getText());
-        c.setCpf(jTextField8.getText());
-        c.setLocalDeTrabalho(jTextField9.getText());
-        return c;
+
+    private void editarCliente() {
+        cliente.getCliente().setNome(jTextField1.getText());
+        cliente.getCliente().setEndereco(jTextField2.getText());
+        cliente.getCliente().setTelefone1(jTextField3.getText());
+        cliente.getCliente().setTelefone2(jTextField4.getText());
+        cliente.getCliente().setTelefoneComercial(jTextField5.getText());
+        cliente.getCliente().setRg(jTextField6.getText());
+        cliente.getCliente().setEmail(jTextField7.getText());
+        cliente.getCliente().setCpf(jTextField8.getText());
+        cliente.getCliente().setLocalDeTrabalho(jTextField9.getText());
     }
-    
 }

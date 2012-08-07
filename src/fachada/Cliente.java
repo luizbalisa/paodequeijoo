@@ -4,7 +4,7 @@
  */
 package fachada;
 
-import persistencia.ConsultasMySQL;
+import persistencia.ConsultasClienteMySQL;
 
 /**
  *
@@ -57,13 +57,13 @@ public class Cliente {
         this.id = id;
     }
 
-    public String cadastrar() {
-        ConsultasMySQL c = new ConsultasMySQL();
-        return c.cadastrarCliente(this);
-    }
+//    public String cadastrar() {
+//        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
+//        return c.cadastrarCliente(this);
+//    }
     
     public String editar(){
-        ConsultasMySQL c = new ConsultasMySQL();
+        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
         return c.editarCliente(this);
     }
     

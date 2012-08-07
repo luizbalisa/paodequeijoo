@@ -4,6 +4,9 @@
  */
 package pqserver;
 
+import de.muntjak.tinylookandfeel.Theme;
+import de.muntjak.tinylookandfeel.TinyLookAndFeel;
+import javax.swing.UIManager;
 import visao.JFramePrincipal;
 
 /**
@@ -16,7 +19,14 @@ public class PqServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       JFramePrincipal principal = new JFramePrincipal();
-       principal.setVisible(true);
+        Theme.loadTheme(Theme.getAvailableThemes()[2]);
+        TinyLookAndFeel tiny = new TinyLookAndFeel();
+        try {
+            UIManager.setLookAndFeel(tiny);
+
+        } catch (Exception exception) {
+        }
+        JFramePrincipal principal = new JFramePrincipal();
+        principal.setVisible(true);
     }
 }

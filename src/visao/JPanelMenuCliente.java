@@ -7,6 +7,7 @@ package visao;
 import controle.ClienteController;
 import fachada.Cliente;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -52,7 +53,7 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14));
         jLabel1.setText("Gerenciar Clientes");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -119,6 +120,11 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
         });
 
         jButton4.setText("Remover Cliente");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -168,21 +174,37 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(rootPane, "Selecione o cliente");
         } else {
             int linha = jTable1.getSelectedRow();
-            String id = jTable1.getModel().getValueAt(linha, 0).toString();
+            String id = String.valueOf(jTable1.getModel().getValueAt(linha, 0));
             this.principal.gerenciarClientes(1, Integer.parseInt(id));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(jTable1.getSelectedRow() == -1){
+        if (jTable1.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o cliente");
-        }else{
+        } else {
             int linha = jTable1.getSelectedRow();
             String id = jTable1.getModel().getValueAt(linha, 0).toString();
             this.principal.editarCliente(Integer.parseInt(id));
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if (jTable1.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o cliente");
+        } else {
+            int linha = jTable1.getSelectedRow();
+            String id = jTable1.getModel().getValueAt(linha, 0).toString();
+            cliente.getCliente(Integer.parseInt(id));
+            int escolha = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o cliente " + cliente.getCliente().getNome() + " ?");
+            if (escolha == 0) {
+                this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                JOptionPane.showMessageDialog(rootPane, cliente.excluirCliente());
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                preencherClientes();
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
