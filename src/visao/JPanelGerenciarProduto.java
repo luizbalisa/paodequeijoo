@@ -137,15 +137,17 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
             } else if (jTextField2.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preco");
-            }else {
+            } else {
                 produto.setProduto(new Produto(jTextField1.getText(), jTextField2.getText()));
-                System.out.println(jTextField2.getText()+ "aki");
+                System.out.println(jTextField2.getText() + "aki");
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                JOptionPane.showMessageDialog(rootPane, produto.cadastrar());
-                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 jTextField1.setText("");
                 jTextField2.setText("");
+                JOptionPane.showMessageDialog(rootPane, produto.cadastrar());
+                pai.ativarBotoes(telaTipo);
                 pai.preencherProdutos();
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                this.setVisible(false);
             }
         } else {
             if (telaTipo == 1) {//edicao
@@ -157,8 +159,10 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                     this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     editarProduto();
                     JOptionPane.showMessageDialog(rootPane, produto.editar());
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    pai.ativarBotoes(telaTipo);
                     pai.preencherProdutos();
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    this.setVisible(false);
                 }
             }
         }

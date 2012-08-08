@@ -22,7 +22,6 @@ public class PqServer {
         Theme.loadTheme(Theme.getAvailableThemes()[2]);
         TinyLookAndFeel tiny = new TinyLookAndFeel();
         try {
-            System.out.println(tiny.getDescription() + "t");
             UIManager.setLookAndFeel(tiny);
 
         } catch (Exception exception) {
