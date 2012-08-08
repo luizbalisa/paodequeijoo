@@ -30,7 +30,7 @@ public class ProdutoController {
         return consultaProdutoMySQL.editarProduto(produto);
     }
 
-    public String excluirCliente() {
+    public String excluirProduto() {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         return consultaProdutoMySQL.excluirProduto(produto);
     }

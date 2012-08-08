@@ -26,13 +26,17 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     /**
      * Creates new form JPanelGerenciarProduto
      */
-    public JPanelGerenciarProduto(int produto, int tipo, JPanelMenuProdutosVenda pai) {
+    public JPanelGerenciarProduto(int idProduto, int tipo, JPanelMenuProdutosVenda pai) {
         initComponents();
         this.pai = pai;
         telaTipo = tipo;
+
         if (tipo == 1) {
+            this.produto.buscarProdutos();
             jButton1.setText("Editar");
             jPanel2.setBorder(BorderFactory.createTitledBorder("Editar Produto"));
+            this.produto.getProduto(idProduto);
+            this.preencherDadosProduto(this.produto.getProduto());
         }
     }
 
@@ -49,9 +53,9 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JFormattedTextField();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastrar Produto"));
 
@@ -73,6 +77,8 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             }
         });
 
+        jTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -80,20 +86,20 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 265, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 206, Short.MAX_VALUE)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -129,10 +135,11 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         if (telaTipo == 0) {
             if (jTextField1.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
-            } else if(jTextField2.getText().equals("")) {
+            } else if (jTextField2.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preco");
-            }else{
+            }else {
                 produto.setProduto(new Produto(jTextField1.getText(), jTextField2.getText()));
+                System.out.println(jTextField2.getText()+ "aki");
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 JOptionPane.showMessageDialog(rootPane, produto.cadastrar());
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -141,6 +148,19 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 pai.preencherProdutos();
             }
         } else {
+            if (telaTipo == 1) {//edicao
+                if (jTextField1.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
+                } else if (jTextField2.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preco");
+                } else {
+                    this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                    editarProduto();
+                    JOptionPane.showMessageDialog(rootPane, produto.editar());
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    pai.preencherProdutos();
+                }
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -156,6 +176,16 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JFormattedTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    private void preencherDadosProduto(Produto p) {
+        jTextField1.setText(p.getNome());
+        jTextField2.setText(p.getPreco());
+    }
+
+    private void editarProduto() {
+        produto.getProduto().setNome(jTextField1.getText());
+        produto.getProduto().setPreco(jTextField2.getText());
+    }
 }
