@@ -5,6 +5,7 @@
 package controle;
 
 import fachada.Cliente;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import persistencia.ConsultasClienteMySQL;
 
@@ -34,15 +35,28 @@ public class ClienteController {
         ConsultasClienteMySQL c = new ConsultasClienteMySQL();
         listaClientes = c.buscarClientes();
     }
-
-    public void editarClientes(Cliente c) {
-        ConsultasClienteMySQL consulta = new ConsultasClienteMySQL();
-        consulta.editarCliente(c);
-    }
     
     public String excluirCliente(){
         ConsultasClienteMySQL consulta = new ConsultasClienteMySQL();
         return consulta.excluirCliente(cliente);
+    }
+    
+    public ArrayList<Cliente> buscaDinamicaClientes(String busca) {
+        String desc2 = busca;
+        desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
+        desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
+        desc2 = desc2.toUpperCase();
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        for (int i = 0; i < listaClientes.size(); i++) {
+            String comp = listaClientes.get(i).getNome();
+            comp = Normalizer.normalize(comp, Normalizer.Form.NFD);
+            comp = comp.replaceAll("[^\\p{ASCII}]", "");
+            comp = comp.toUpperCase();
+            if (comp.contains(desc2)) {
+                clientes.add(listaClientes.get(i));
+            }
+        }
+        return clientes;
     }
 
     public ArrayList<Cliente> getListaClisntes() {

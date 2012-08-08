@@ -8,6 +8,9 @@ import controle.ClienteController;
 import fachada.Cliente;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -31,6 +34,7 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
         initComponents();
         this.principal = principal;
         preencherClientes();
+        buscaDinamica();
     }
 
     /**
@@ -52,8 +56,10 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14));
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         jLabel1.setText("Gerenciar Clientes");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -126,6 +132,8 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setText("Buscar:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +141,12 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,7 +163,6 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -160,7 +172,13 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
-                        .addGap(0, 199, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -211,11 +229,13 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void preencherClientes() {
@@ -252,5 +272,57 @@ public class JPanelMenuCliente extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         repaint();
+    }
+
+    private void buscaDinamica() {
+        jTextField1.addKeyListener(new KeyListener() {
+
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+
+                if (!jTextField1.getText().equals("")) {
+                    ArrayList<Cliente> clientes = cliente.buscaDinamicaClientes(jTextField1.getText());
+                    DefaultTableModel dt;
+                    dt = new DefaultTableModel(
+                            new Object[][]{},
+                            new String[]{
+                                "Id", "Nome", "Telefone", "Local de Trabalho"
+                            }) {
+
+                        @Override
+                        public boolean isCellEditable(int row, int col) {
+                            return false;
+                        }
+                    };
+                    Object[] linha = new Object[4];
+                    for (int i = 0; i < clientes.size(); i++) {
+                        linha[0] = clientes.get(i).getId();
+                        linha[1] = clientes.get(i).getNome();
+                        linha[2] = clientes.get(i).getTelefoneValido();
+                        linha[3] = clientes.get(i).getLocalDeTrabalho();
+                        dt.addRow(linha);
+                    }
+
+                    jTable1 = new JTable(dt);
+                    jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+                    jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+                    jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                    jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                    jScrollPane1.setViewportView(jTable1);
+                    jTable1.getTableHeader().setReorderingAllowed(false);
+                    jScrollPane1.setBorder(null);
+                    jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                    repaint();
+                } else {
+                    preencherClientes();
+                }
+            }
+        });
+
     }
 }

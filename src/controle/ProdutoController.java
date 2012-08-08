@@ -4,7 +4,9 @@
  */
 package controle;
 
+import fachada.Cliente;
 import fachada.Produto;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import persistencia.ConsultasProdutoMySQL;
 
@@ -38,6 +40,24 @@ public class ProdutoController {
     public void buscarProdutos() {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         this.listaProdutos = consultaProdutoMySQL.buscarProduto();
+    }
+
+    public ArrayList<Produto> buscaDinamicaProdutos(String busca) {
+        String desc2 = busca;
+        desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
+        desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
+        desc2 = desc2.toUpperCase();
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            String comp = listaProdutos.get(i).getNome();
+            comp = Normalizer.normalize(comp, Normalizer.Form.NFD);
+            comp = comp.replaceAll("[^\\p{ASCII}]", "");
+            comp = comp.toUpperCase();
+            if (comp.contains(desc2)) {
+                produtos.add(listaProdutos.get(i));
+            }
+        }
+        return produtos;
     }
 
     public ArrayList<Produto> getListProdutos() {
