@@ -4,7 +4,6 @@
  */
 package controle;
 
-import fachada.Cliente;
 import fachada.Produto;
 import java.text.Normalizer;
 import java.util.ArrayList;

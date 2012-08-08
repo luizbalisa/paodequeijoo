@@ -4,96 +4,85 @@
  */
 package controle;
 
-import fachada.Produto;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import fachada.FormaPagamento;
+import java.text.Normalizer;
 import java.util.ArrayList;
-import persistencia.ConexaoMySQL;
+import persistencia.ConsultasFormaDePagamentoMySQL;
 
 /**
  *
  * @author miserani
  */
 public class FormaDePagamentoController {
-    
-    private static final String SQL_EXCLUIR_FORMA_PAGAMENTO = "DELETE FROM produto_venda WHERE codigo_produto=?";
-    private static final String SQL_BUSCA_FORMA_PAGAMENTO = "SELECT * FROM produto_venda ORDER BY nome";
-    private static final String SQL_INCLUIR_FORMA_PAGAMENTO = "INSERT INTO produto_venda (nome, preco) "
-            + "VALUES (?, ?)";
-    private static final String SQL_EDITAR_FORMA_PAGAMENTO = "UPDATE produto_venda SET nome=?, preco=? WHERE codigo_produto=? ";
+
+    FormaPagamento formaPagamento = new FormaPagamento();
+    ArrayList<FormaPagamento> listaFormaPagamento = new ArrayList<FormaPagamento>();
 
     public FormaDePagamentoController() {
     }
 
-    public String excluirProduto(Produto prod) {
-        Connection con;
-        PreparedStatement stmt;
-
-        try {
-            con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_EXCLUIR_FORMA_PAGAMENTO);
-            stmt.setInt(1, prod.getIdProduto());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return "Exclusão do Produto não foi efetuada";
-        }
-        return "Exclusão do Produto efetuada com sucesso!";
+    public String cadastrar() {
+        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        return consultasFormaDePagamentoMySQL.cadastrarFormaPAgamento(formaPagamento);
     }
 
-    public String cadastrarProduto(Produto prod) {
-        Connection con;
-        PreparedStatement stmt;
-
-        try {
-            con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_INCLUIR_FORMA_PAGAMENTO);
-            stmt.setString(1, prod.getNome());
-            stmt.setString(2, prod.getPreco());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return "Cadastro do Produto não foi efetuada";
-        }
-        return "Cadastro do Produto efetuado com sucesso!";
+    public String editar() {
+        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        return consultasFormaDePagamentoMySQL.editarFormaPagamento(formaPagamento);
     }
 
-    public String editarProduto(Produto prod) {
-        Connection con;
-        PreparedStatement stmt;
-        
-        try {
-            con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_EDITAR_FORMA_PAGAMENTO);
-            stmt.setString(1, prod.getNome());
-            stmt.setString(2, prod.getPreco());
-            stmt.setInt(3, prod.getIdProduto());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return "Erro na alteração do Produto";
-        }
-        return "Produto alterado com sucesso ";
+    public String excluirProduto() {
+        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        return consultasFormaDePagamentoMySQL.excluirFormaPagamento(formaPagamento);
     }
 
-    public ArrayList<Produto> buscarProduto() {
-        ArrayList<Produto> produtos = new ArrayList<Produto>();
-        String query = SQL_BUSCA_FORMA_PAGAMENTO;
-        
-        try {
-            ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
-            while (rs.next()) {
-                Produto prod = new Produto();
-                prod.setIdProduto(rs.getInt("codigo_produto"));
-                prod.setNome(rs.getString("nome"));
-                prod.setPreco("R$ " + rs.getString("preco"));
-                produtos.add(prod);
+    public void buscarProdutos() {
+        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        this.listaFormaPagamento = consultasFormaDePagamentoMySQL.buscarFormaPagamento();
+    }
+
+    public ArrayList<FormaPagamento> buscaDinamicaFormaPagamento(String busca) {
+        String desc2 = busca;
+        desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
+        desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
+        desc2 = desc2.toUpperCase();
+        ArrayList<FormaPagamento> formaPagamentos = new ArrayList<FormaPagamento>();
+        for (int i = 0; i < listaFormaPagamento.size(); i++) {
+            String comp = listaFormaPagamento.get(i).getDescricao();
+            comp = Normalizer.normalize(comp, Normalizer.Form.NFD);
+            comp = comp.replaceAll("[^\\p{ASCII}]", "");
+            comp = comp.toUpperCase();
+            if (comp.contains(desc2)) {
+                formaPagamentos.add(listaFormaPagamento.get(i));
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
-        return produtos;
+        return formaPagamentos;
+    }
+
+    public ArrayList<FormaPagamento> getListFormaPagamento() {
+        return listaFormaPagamento;
+    }
+
+    public void setListFormaPagamento(ArrayList<FormaPagamento> listFormaPagamentos) {
+        this.listaFormaPagamento = listFormaPagamentos;
+    }
+
+//    public Produto getProduto(int id) {
+//        return produto;
+//    }
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPAgamento) {
+        this.formaPagamento = formaPAgamento;
+    }
+
+    public void getFormaPagamento(int id) {
+        for (int i = 0; i < this.listaFormaPagamento.size(); i++) {
+            if (this.listaFormaPagamento.get(i).getIdformaPAgamento() == id) {
+                formaPagamento = listaFormaPagamento.get(i);
+            }
+        }
     }
 }
