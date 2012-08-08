@@ -5,7 +5,6 @@
 package visao;
 
 import controle.ProdutoController;
-import fachada.Cliente;
 import fachada.Produto;
 import java.awt.Component;
 import java.awt.Cursor;

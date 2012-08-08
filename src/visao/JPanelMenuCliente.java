@@ -10,7 +10,6 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
