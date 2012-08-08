@@ -20,11 +20,11 @@ public class FormaDePagamentoController {
     
     private static final String SQL_EXCLUIR_FORMA_PAGAMENTO = "DELETE FROM produto_venda WHERE codigo_produto=?";
     private static final String SQL_BUSCA_FORMA_PAGAMENTO = "SELECT * FROM produto_venda ORDER BY nome";
-    private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produto_venda (nome, preco) "
+    private static final String SQL_INCLUIR_FORMA_PAGAMENTO = "INSERT INTO produto_venda (nome, preco) "
             + "VALUES (?, ?)";
-    private static final String SQL_EDITAR_PRODUTO = "UPDATE produto_venda SET nome=?, preco=? WHERE codigo_produto=? ";
+    private static final String SQL_EDITAR_FORMA_PAGAMENTO = "UPDATE produto_venda SET nome=?, preco=? WHERE codigo_produto=? ";
 
-    public ConsultasProdutoMySQL() {
+    public FormaDePagamentoController() {
     }
 
     public String excluirProduto(Produto prod) {
@@ -33,7 +33,7 @@ public class FormaDePagamentoController {
 
         try {
             con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_EXCLUIR_PRODUTO);
+            stmt = con.prepareStatement(SQL_EXCLUIR_FORMA_PAGAMENTO);
             stmt.setInt(1, prod.getIdProduto());
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -49,7 +49,7 @@ public class FormaDePagamentoController {
 
         try {
             con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_INCLUIR_PRODUTO);
+            stmt = con.prepareStatement(SQL_INCLUIR_FORMA_PAGAMENTO);
             stmt.setString(1, prod.getNome());
             stmt.setString(2, prod.getPreco());
             stmt.executeUpdate();
@@ -66,7 +66,7 @@ public class FormaDePagamentoController {
         
         try {
             con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_EDITAR_PRODUTO);
+            stmt = con.prepareStatement(SQL_EDITAR_FORMA_PAGAMENTO);
             stmt.setString(1, prod.getNome());
             stmt.setString(2, prod.getPreco());
             stmt.setInt(3, prod.getIdProduto());
@@ -80,7 +80,7 @@ public class FormaDePagamentoController {
 
     public ArrayList<Produto> buscarProduto() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
-        String query = SQL_BUSCA_PRODUTO;
+        String query = SQL_BUSCA_FORMA_PAGAMENTO;
         
         try {
             ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
