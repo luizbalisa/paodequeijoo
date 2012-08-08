@@ -31,12 +31,12 @@ public class FormaDePagamentoController {
         return consultasFormaDePagamentoMySQL.editarFormaPagamento(formaPagamento);
     }
 
-    public String excluirProduto() {
+    public String excluirFormaPagamento() {
         ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
         return consultasFormaDePagamentoMySQL.excluirFormaPagamento(formaPagamento);
     }
 
-    public void buscarProdutos() {
+    public void buscarFormaPagamento() {
         ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
         this.listaFormaPagamento = consultasFormaDePagamentoMySQL.buscarFormaPagamento();
     }
