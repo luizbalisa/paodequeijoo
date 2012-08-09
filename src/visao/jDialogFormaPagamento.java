@@ -8,7 +8,9 @@ import controle.FormaDePagamentoController;
 import fachada.FormaPagamento;
 import fachada.Produto;
 import java.awt.Cursor;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -34,6 +36,7 @@ public class jDialogFormaPagamento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -75,18 +78,19 @@ public class jDialogFormaPagamento extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioVista)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioPrazo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jButton1)
+                        .addGap(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,35 +146,49 @@ public class jDialogFormaPagamento extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        jRadioPrazo.setMnemonic(KeyEvent.VK_P);
+        jRadioVista.setMnemonic(KeyEvent.VK_V);
+        
+        buttonGroup1.add(jRadioPrazo);
+        buttonGroup1.add(jRadioVista);
+        
+        
         if (jTextField1.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Descrição");
-        }
-        
-        if (jRadioVista.isSelected()) {
+            
+        } else if (jRadioVista.isSelected()) {
+           
             formaPagamento.setFormaPagamento(new FormaPagamento(jTextField1.getText(), 1));
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            jTextField1.setText("");
+            JOptionPane.showMessageDialog(rootPane, formaPagamento.cadastrar());
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            this.setVisible(false);
+
         } else if (jRadioPrazo.isSelected()) {
             formaPagamento.setFormaPagamento(new FormaPagamento(jTextField1.getText(), 0));
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            jTextField1.setText("");
+            JOptionPane.showMessageDialog(rootPane, formaPagamento.cadastrar());
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            this.setVisible(false);
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione um Tipo de Pagamento");
         }
-        
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        jTextField1.setText("");
-        JOptionPane.showMessageDialog(rootPane, formaPagamento.cadastrar());
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        this.setVisible(false);
-
 
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
