@@ -22,6 +22,8 @@ public class ClienteController {
     }
 
     public String cadastrar() {
+        limparFormatacaoTelefone();
+        limparFormatacaoCPF();
         ConsultasClienteMySQL consultaMySQL = new ConsultasClienteMySQL();
         return consultaMySQL.cadastrarCliente(cliente);
     }
@@ -35,12 +37,12 @@ public class ClienteController {
         ConsultasClienteMySQL c = new ConsultasClienteMySQL();
         listaClientes = c.buscarClientes();
     }
-    
-    public String excluirCliente(){
+
+    public String excluirCliente() {
         ConsultasClienteMySQL consulta = new ConsultasClienteMySQL();
         return consulta.excluirCliente(cliente);
     }
-    
+
     public ArrayList<Cliente> buscaDinamicaClientes(String busca) {
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
@@ -57,6 +59,20 @@ public class ClienteController {
             }
         }
         return clientes;
+    }
+
+    public void limparFormatacaoTelefone() {
+        String tel1 = cliente.getTelefone1().replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+        cliente.setTelefone1(tel1);
+        String tel2 = cliente.getTelefone2().replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+        cliente.setTelefone2(tel2);
+        String tel3 = cliente.getTelefoneComercial().replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+        cliente.setTelefoneComercial(tel3);
+    }
+
+    public void limparFormatacaoCPF() {
+        String cpf = cliente.getCpf().replace(".", "").replace("-", "").replace(" ", "");
+        cliente.setCpf(cpf);
     }
 
     public ArrayList<Cliente> getListaClisntes() {

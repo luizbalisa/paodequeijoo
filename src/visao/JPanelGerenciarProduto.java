@@ -19,14 +19,14 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
 
     int idProduto;
     int telaTipo;
-    JPanelMenuProdutosVenda pai;
+    JPanelMenuGerenciarDados pai;
     ProdutoController produto = new ProdutoController();
     private Component rootPane;
 
     /**
      * Creates new form JPanelGerenciarProduto
      */
-    public JPanelGerenciarProduto(int idProduto, int tipo, JPanelMenuProdutosVenda pai) {
+    public JPanelGerenciarProduto(int idProduto, int tipo, JPanelMenuGerenciarDados pai) {
         initComponents();
         this.pai = pai;
         telaTipo = tipo;
