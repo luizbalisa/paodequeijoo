@@ -14,6 +14,15 @@ public class Produto {
     private String nome;
     private String preco;
 
+    public Boolean getVisivel() {
+        return visivel;
+    }
+
+    public void setVisivel(Boolean visivel) {
+        this.visivel = visivel;
+    }
+    private Boolean visivel;
+
     public Produto() {
     }
 

@@ -106,11 +106,11 @@ public class jDialogFormaPagamento extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jRadioVista)
                             .addComponent(jRadioPrazo))
-                        .addContainerGap(35, Short.MAX_VALUE))
+                        .addGap(0, 24, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addContainerGap())))
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -146,8 +146,8 @@ public class jDialogFormaPagamento extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,16 +157,16 @@ public class jDialogFormaPagamento extends javax.swing.JDialog {
 
         jRadioPrazo.setMnemonic(KeyEvent.VK_P);
         jRadioVista.setMnemonic(KeyEvent.VK_V);
-        
+
         buttonGroup1.add(jRadioPrazo);
         buttonGroup1.add(jRadioVista);
-        
-        
+
+
         if (jTextField1.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Descrição");
-            
+
         } else if (jRadioVista.isSelected()) {
-           
+
             formaPagamento.setFormaPagamento(new FormaPagamento(jTextField1.getText(), 1));
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             jTextField1.setText("");
@@ -185,8 +185,8 @@ public class jDialogFormaPagamento extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione um Tipo de Pagamento");
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;

@@ -87,7 +87,7 @@ public class ConsultasProdutoMySQL {
                 Produto prod = new Produto();
                 prod.setIdProduto(rs.getInt("codigo_produto"));
                 prod.setNome(rs.getString("nome"));
-                prod.setPreco("R$ " + rs.getString("preco"));
+                prod.setPreco(rs.getString("preco"));
                 produtos.add(prod);
             }
         } catch (SQLException ex) {

@@ -5,8 +5,10 @@
 package visao;
 
 import controle.ClienteController;
+import controle.FormaDePagamentoController;
 import controle.ProdutoController;
 import fachada.Cliente;
+import fachada.FormaPagamento;
 import fachada.Produto;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -28,6 +30,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     private Component rootPane;
     ClienteController cliente = new ClienteController();
     ProdutoController produto = new ProdutoController();
+    FormaDePagamentoController formaPagamento = new FormaDePagamentoController();
 
     /**
      * Creates new form JPanelMenuGerenciarDados
@@ -37,6 +40,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         this.principal = principal;
         preencherClientes();
         preencherProdutos();
+        preencherFormaPagamento();
         buscaDinamica();
     }
 
@@ -71,6 +75,13 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -129,7 +140,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,7 +168,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
-                        .addGap(0, 291, Short.MAX_VALUE))
+                        .addGap(0, 317, Short.MAX_VALUE))
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -222,7 +233,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,22 +267,76 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                         .addGap(26, 26, 26)))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Produtos de Venda", jPanel3);
 
+        jButton8.setText("Cadastrar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setText("Editar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton10.setText("Excluir");
+
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Título 1"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 764, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 423, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Formas de Pagamento", jPanel1);
@@ -369,27 +434,56 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jButton5.setEnabled(false);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        jPanel4.removeAll();
+        jPanel4.add(new JPanelGerenciarFormaPagamento(0, 0, this));
+        jPanel4.validate();
+        jButton9.setEnabled(false);
+        jButton10.setEnabled(false);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        if (jTable4.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione a Forma de Pagamento");
+        } else {
+            int linha = jTable4.getSelectedRow();
+            String id = jTable4.getModel().getValueAt(linha, 0).toString();
+            jPanel4.removeAll();
+            jPanel4.add(new JPanelGerenciarFormaPagamento(Integer.parseInt(id), 1, this));
+            jPanel4.validate();
+            jButton8.setEnabled(false);
+            jButton10.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
@@ -460,6 +554,41 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         repaint();
     }
 
+    public void preencherFormaPagamento() {
+        this.formaPagamento.buscarFormaPagamento();
+        ArrayList<FormaPagamento> listaFormaPagamento = this.formaPagamento.getListFormaPagamento();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"codigo", "descicao", "tipo"}) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[3];
+        for (int i = 0; i < listaFormaPagamento.size(); i++) {
+            linha[0] = listaFormaPagamento.get(i).getIdformaPAgamento();
+            linha[1] = listaFormaPagamento.get(i).getDescricao();
+
+            if (listaFormaPagamento.get(i).getTipoDePagamento() == 1) {
+                linha[2] = "À Vista";
+            } else {
+                linha[2] = "À Prazo";
+            }
+            tb.addRow(linha);
+        }
+        jTable4 = new JTable(tb);
+        jTable4.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable4.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable4.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable4.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane4.setViewportView(jTable4);
+        jTable4.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setBorder(null);
+        jTable4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
+
     public void ativarBotoes(int tipo) {
         if (tipo == 0) {
             jButton7.setEnabled(true);
@@ -467,6 +596,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         } else {
             jButton6.setEnabled(true);
             jButton5.setEnabled(true);
+        }
+    }
+
+    public void ativarBotoesFP(int tipo) {
+        if (tipo == 0) {
+            jButton9.setEnabled(true);
+            jButton10.setEnabled(true);
+        } else {
+            jButton8.setEnabled(true);
+            jButton10.setEnabled(true);
         }
     }
 
