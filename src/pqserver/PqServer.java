@@ -4,8 +4,8 @@
  */
 package pqserver;
 
-
 //import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.muntjak.tinylookandfeel.Theme;
 import de.muntjak.tinylookandfeel.TinyLookAndFeel;
 import java.text.ParseException;
@@ -25,14 +25,13 @@ public class PqServer {
      */
     public static void main(String[] args) throws ParseException {
         Theme.loadTheme(Theme.getAvailableThemes()[2]);
-//        TinyLookAndFeel tiny = new TinyLookAndFeel();
-//        SyntheticaAluOxideLookAndFeel syntetica = new SyntheticaAluOxideLookAndFeel();
+        //  TinyLookAndFeel tiny = new TinyLookAndFeel();
+        //   SyntheticaAluOxideLookAndFeel syntetica = new SyntheticaAluOxideLookAndFeel();
         try {
             UIManager.setLookAndFeel(new com.jtattoo.plaf.acryl.AcrylLookAndFeel());
-//            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+            // UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
 
         } catch (Exception exception) {
-            
         }
         JFramePrincipal principal = new JFramePrincipal();
         principal.setVisible(true);
