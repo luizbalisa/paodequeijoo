@@ -517,7 +517,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             if (escolha == 0) {
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 JOptionPane.showMessageDialog(rootPane, formaPagamento.excluirFormaPagamento());
-                preencherProdutos();
+                preencherFormaPagamento();
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         }
