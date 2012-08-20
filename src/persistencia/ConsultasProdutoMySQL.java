@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class ConsultasProdutoMySQL {
 
-    private static final String SQL_EXCLUIR_PRODUTO = "DELETE FROM produto_venda WHERE codigo_produto=?";
-    private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produto_venda ORDER BY nome";
+    private static final String SQL_EXCLUIR_PRODUTO = "UPDATE produto_venda SET visivel=0 WHERE codigo_produto=?";
+    private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produto_venda WHERE visivel=1 ORDER BY nome";
     private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produto_venda (nome, preco) "
             + "VALUES (?, ?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produto_venda SET nome=?, preco=? WHERE codigo_produto=? ";
