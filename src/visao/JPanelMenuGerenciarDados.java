@@ -329,6 +329,11 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jButton10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/money_delete.png"))); // NOI18N
         jButton10.setText("Excluir");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
@@ -501,6 +506,22 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        if (jTable4.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma forma de pagamento");
+        } else {
+            int linha = jTable4.getSelectedRow();
+            String id = jTable4.getModel().getValueAt(linha, 0).toString();
+            formaPagamento.getFormaPagamento(Integer.parseInt(id));
+            int escolha = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir essa forma de pagamento" + formaPagamento.getFormaPagamento().getDescricao() + " ?");
+            if (escolha == 0) {
+                this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                JOptionPane.showMessageDialog(rootPane, formaPagamento.excluirFormaPagamento());
+                preencherProdutos();
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -542,7 +563,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 new String[]{
                     "Id", "Nome", "Telefone", "Local de Trabalho"
                 }) {
-
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -574,7 +594,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco"}) {
-
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -604,7 +623,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<FormaPagamento> listaFormaPagamento = this.formaPagamento.getListFormaPagamento();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"codigo", "descicao", "tipo"}) {
-
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -656,7 +674,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
 
     private void buscaDinamica() {
         jTextField1.addKeyListener(new KeyListener() {
-
             public void keyTyped(KeyEvent e) {
             }
 
@@ -673,7 +690,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                             new String[]{
                                 "Id", "Nome", "Telefone", "Local de Trabalho"
                             }) {
-
                         @Override
                         public boolean isCellEditable(int row, int col) {
                             return false;
@@ -704,7 +720,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         });
         jTextField2.addKeyListener(new KeyListener() {
-
             public void keyTyped(KeyEvent e) {
             }
 
@@ -717,7 +732,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                     ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                     DefaultTableModel tb;
                     tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco"}) {
-
                         @Override
                         public boolean isCellEditable(int row, int col) {
                             return false;
