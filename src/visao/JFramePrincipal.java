@@ -32,6 +32,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
         repaint();
     }
 
+    public void menuRelatórios() {
+        jPanel2.removeAll();
+        jPanel2.add(new JPanelMenuRelatorios(this));
+        jPanel2.validate();
+        repaint();
+    }
+
     public void gerenciarClientes(int tipo, int idCliente) {
         jPanel2.removeAll();
         jPanel2.add(new JPanelGerenciarCliente(this, tipo, idCliente));
@@ -149,7 +156,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        menuRelatórios();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
     /**
      * @param args the command line arguments

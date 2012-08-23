@@ -191,7 +191,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -294,8 +294,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 30, Short.MAX_VALUE)))
+                                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -584,7 +583,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = listaProduto.get(i).getPreco();
+            linha[2] = listaProduto.get(i).getPreco_venda();
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -727,7 +726,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                     for (int i = 0; i < listaProduto.size(); i++) {
                         linha[0] = listaProduto.get(i).getIdProduto();
                         linha[1] = listaProduto.get(i).getNome();
-                        linha[2] = listaProduto.get(i).getPreco();
+                        linha[2] = listaProduto.get(i).getPreco_venda();
                         tb.addRow(linha);
                     }
                     jTable2 = new JTable(tb);

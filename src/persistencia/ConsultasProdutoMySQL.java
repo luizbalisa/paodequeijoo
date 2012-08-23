@@ -17,10 +17,10 @@ import java.util.ArrayList;
  */
 public class ConsultasProdutoMySQL {
 
-    private static final String SQL_EXCLUIR_PRODUTO = "UPDATE produto_venda SET visivel=0 WHERE codigo_produto=?";
-    private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produto_venda WHERE visivel=1 ORDER BY nome";
-    private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produto_venda (nome, preco) "
-            + "VALUES (?, ?)";
+    private static final String SQL_EXCLUIR_PRODUTO = "UPDATE produtos SET visivel=0 WHERE codigo_produto=?";
+    private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1 ORDER BY nome";
+    private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria) "
+            + "VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produto_venda SET nome=?, preco=? WHERE codigo_produto=? ";
 
     public ConsultasProdutoMySQL() {
@@ -50,7 +50,10 @@ public class ConsultasProdutoMySQL {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_INCLUIR_PRODUTO);
             stmt.setString(1, prod.getNome());
-            stmt.setString(2, prod.getPreco());
+            stmt.setString(2, prod.getPreco_venda());
+            stmt.setString(3, prod.getPreco_custo());
+            stmt.setInt(4, prod.getQuantidade());
+            stmt.setInt(5, prod.getCategoria());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -62,12 +65,12 @@ public class ConsultasProdutoMySQL {
     public String editarProduto(Produto prod) {
         Connection con;
         PreparedStatement stmt;
-        
+
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_EDITAR_PRODUTO);
             stmt.setString(1, prod.getNome());
-            stmt.setString(2, prod.getPreco());
+            stmt.setString(2, prod.getPreco_venda());
             stmt.setInt(3, prod.getIdProduto());
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -80,14 +83,17 @@ public class ConsultasProdutoMySQL {
     public ArrayList<Produto> buscarProduto() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         String query = SQL_BUSCA_PRODUTO;
-        
+
         try {
             ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
             while (rs.next()) {
                 Produto prod = new Produto();
                 prod.setIdProduto(rs.getInt("codigo_produto"));
                 prod.setNome(rs.getString("nome"));
-                prod.setPreco(rs.getString("preco"));
+                prod.setPreco_venda(rs.getString("preco_venda"));
+                prod.setPreco_custo(rs.getString("preco_custo"));
+                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setCategoria(rs.getInt("idCategoria"));
                 produtos.add(prod);
             }
         } catch (SQLException ex) {
