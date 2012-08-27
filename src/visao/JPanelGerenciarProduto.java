@@ -6,6 +6,7 @@ package visao;
 
 import controle.CategoriasController;
 import controle.ProdutoController;
+import controle.ValidadorCampos;
 import fachada.Produto;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -24,6 +25,10 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     int telaTipo;
     JPanelMenuGerenciarDados pai;
     ProdutoController produto = new ProdutoController();
+    ValidadorCampos validar = new ValidadorCampos();
+    String anterior = "";
+    String anterior2 = "";
+    String anterior3 = "";
     private Component rootPane;
 
     /**
@@ -117,6 +122,16 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 jTextField2ActionPerformed(evt);
             }
         });
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField2FocusLost(evt);
+            }
+        });
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -143,6 +158,16 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 jTextField3ActionPerformed(evt);
             }
         });
+        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField3FocusLost(evt);
+            }
+        });
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField3KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -167,6 +192,11 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
+            }
+        });
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField4KeyReleased(evt);
             }
         });
 
@@ -322,6 +352,56 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        if (!jTextField2.getText().equals("")) {
+            if (!validar.checarReal2(jTextField2.getText().replace(",", "."))) {
+                jTextField2.setText(anterior);
+            } else {
+                anterior = jTextField2.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+        if (!jTextField2.getText().equals("")) {
+            if (!validar.checarReal(jTextField2.getText().replace(",", "."))) {
+                jTextField2.setText("");
+            } else {
+                anterior = jTextField2.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField2FocusLost
+
+    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+        if (!jTextField3.getText().equals("")) {
+            if (!validar.checarReal2(jTextField3.getText().replace(",", "."))) {
+                jTextField3.setText(anterior2);
+            } else {
+                anterior2 = jTextField3.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField3KeyReleased
+
+    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+        if (!jTextField3.getText().equals("")) {
+            if (!validar.checarReal(jTextField3.getText().replace(",", "."))) {
+                jTextField3.setText("");
+            } else {
+                anterior2 = jTextField3.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField3FocusLost
+
+    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
+        if (!jTextField4.getText().equals("")) {
+            if (!validar.checarInteiro(jTextField4.getText())) {
+                jTextField4.setText(anterior3);
+            } else {
+                anterior3 = jTextField4.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField4KeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
