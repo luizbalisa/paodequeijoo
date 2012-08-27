@@ -56,10 +56,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     //Cadastrar Tipo de pagamento
     //______________________________________________________________________________________________________________________
-    public void tipoDePagamento() {
-        jDialogFormaPagamento formaDePagamento = new jDialogFormaPagamento(this, true);
-        formaDePagamento.setVisible(true);
-    }
+//    public void tipoDePagamento() {
+//        jDialogFormaPagamento formaDePagamento = new jDialogFormaPagamento(this, true);
+//        formaDePagamento.setVisible(true);
+//    }
     //______________________________________________________________________________________________________________________
 
     /**
