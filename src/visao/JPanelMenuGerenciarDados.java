@@ -4,6 +4,7 @@
  */
 package visao;
 
+import controle.CategoriasController;
 import controle.ClienteController;
 import controle.FormaDePagamentoController;
 import controle.ProdutoController;
@@ -12,6 +13,8 @@ import fachada.FormaPagamento;
 import fachada.Produto;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         preencherProdutos();
         preencherFormaPagamento();
         buscaDinamica();
+        preencherTipos();
     }
 
     /**
@@ -507,7 +511,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -582,18 +585,114 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         this.produto.buscarProdutos();
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
-        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco"}) {
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
 
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
-        Object[] linha = new Object[3];
+        Object[] linha = new Object[5];
+        for (int i = 0; i < listaProduto.size(); i++) {
+            linha[0] = listaProduto.get(i).getIdProduto();
+            linha[1] = listaProduto.get(i).getNome();
+            linha[2] = listaProduto.get(i).getPreco_custo();
+            linha[3] = listaProduto.get(i).getPreco_venda();
+            linha[4] = listaProduto.get(i).getQuantidade();
+            tb.addRow(linha);
+        }
+        jTable2 = new JTable(tb);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
+
+    public void preencherProdutosProduzidos() {
+        this.produto.buscarProdutosCategoria(0);
+        ArrayList<Produto> listaProduto = this.produto.getListProdutos();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[4];
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
             linha[2] = listaProduto.get(i).getPreco_venda();
+            linha[3] = listaProduto.get(i).getQuantidade();
+            tb.addRow(linha);
+        }
+        jTable2 = new JTable(tb);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
+
+    public void preencherProdutosAtacado() {
+        this.produto.buscarProdutosCategoria(1);
+        ArrayList<Produto> listaProduto = this.produto.getListProdutos();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[5];
+        for (int i = 0; i < listaProduto.size(); i++) {
+            linha[0] = listaProduto.get(i).getIdProduto();
+            linha[1] = listaProduto.get(i).getNome();
+            linha[2] = listaProduto.get(i).getPreco_custo();
+            linha[3] = listaProduto.get(i).getPreco_venda();
+            linha[4] = listaProduto.get(i).getQuantidade();
+            tb.addRow(linha);
+        }
+        jTable2 = new JTable(tb);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
+
+    public void preencherProdutosMP() {
+        this.produto.buscarProdutosCategoria(2);
+        ArrayList<Produto> listaProduto = this.produto.getListProdutos();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[4];
+        for (int i = 0; i < listaProduto.size(); i++) {
+            linha[0] = listaProduto.get(i).getIdProduto();
+            linha[1] = listaProduto.get(i).getNome();
+            linha[2] = listaProduto.get(i).getPreco_custo();
+            linha[3] = listaProduto.get(i).getQuantidade();
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -675,40 +774,42 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             public void keyReleased(KeyEvent e) {
 
                 if (!jTextField1.getText().equals("")) {
-                    ArrayList<Cliente> clientes = cliente.buscaDinamicaClientes(jTextField1.getText());
-                    DefaultTableModel dt;
-                    dt = new DefaultTableModel(
-                            new Object[][]{},
-                            new String[]{
-                                "Id", "Nome", "Telefone", "Local de Trabalho"
-                            }) {
+                    if (jComboBox1.getSelectedIndex() == 0) {
+                        ArrayList<Cliente> clientes = cliente.buscaDinamicaClientes(jTextField1.getText());
+                        DefaultTableModel dt;
+                        dt = new DefaultTableModel(
+                                new Object[][]{},
+                                new String[]{
+                                    "Id", "Nome", "Telefone", "Local de Trabalho"
+                                }) {
 
-                        @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[4];
+                        for (int i = 0; i < clientes.size(); i++) {
+                            linha[0] = clientes.get(i).getId();
+                            linha[1] = clientes.get(i).getNome();
+                            linha[2] = clientes.get(i).getTelefoneValido();
+                            linha[3] = clientes.get(i).getLocalDeTrabalho();
+                            dt.addRow(linha);
                         }
-                    };
-                    Object[] linha = new Object[4];
-                    for (int i = 0; i < clientes.size(); i++) {
-                        linha[0] = clientes.get(i).getId();
-                        linha[1] = clientes.get(i).getNome();
-                        linha[2] = clientes.get(i).getTelefoneValido();
-                        linha[3] = clientes.get(i).getLocalDeTrabalho();
-                        dt.addRow(linha);
-                    }
 
-                    jTable1 = new JTable(dt);
-                    jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
-                    jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-                    jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-                    jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-                    jScrollPane1.setViewportView(jTable1);
-                    jTable1.getTableHeader().setReorderingAllowed(false);
-                    jScrollPane1.setBorder(null);
-                    jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    repaint();
-                } else {
-                    preencherClientes();
+                        jTable1 = new JTable(dt);
+                        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane1.setViewportView(jTable1);
+                        jTable1.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane1.setBorder(null);
+                        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        repaint();
+                    } else {
+                        preencherClientes();
+                    }
                 }
             }
         });
@@ -722,39 +823,137 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
 
             public void keyReleased(KeyEvent e) {
 
-                if (!jTextField2.getText().equals("")) {
-                    ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
-                    DefaultTableModel tb;
-                    tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco"}) {
+                if (jComboBox1.getSelectedIndex() == 0 || jComboBox1.getSelectedIndex() == 2) {
+                    if (!jTextField2.getText().equals("")) {
+                        ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
+                        DefaultTableModel tb;
+                        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
 
-                        @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[5];
+                        for (int i = 0; i < listaProduto.size(); i++) {
+                            linha[0] = listaProduto.get(i).getIdProduto();
+                            linha[1] = listaProduto.get(i).getNome();
+                            linha[2] = listaProduto.get(i).getPreco_custo();
+                            linha[3] = listaProduto.get(i).getPreco_venda();
+                            linha[4] = listaProduto.get(i).getQuantidade();
+                            tb.addRow(linha);
                         }
-                    };
-                    Object[] linha = new Object[3];
-                    for (int i = 0; i < listaProduto.size(); i++) {
-                        linha[0] = listaProduto.get(i).getIdProduto();
-                        linha[1] = listaProduto.get(i).getNome();
-                        linha[2] = listaProduto.get(i).getPreco_venda();
-                        tb.addRow(linha);
+                        jTable2 = new JTable(tb);
+                        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane2.setViewportView(jTable2);
+                        jTable2.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane2.setBorder(null);
+                        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        repaint();
+                    } else {
+                        if (jComboBox1.getSelectedIndex() == 0) {
+                            preencherProdutos();
+                        } else {
+                            preencherProdutosAtacado();
+                        }
                     }
-                    jTable2 = new JTable(tb);
-                    jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
-                    jTable2.getColumnModel().getColumn(0).setMinWidth(0);
-                    jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-                    jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-                    jScrollPane2.setViewportView(jTable2);
-                    jTable2.getTableHeader().setReorderingAllowed(false);
-                    jScrollPane2.setBorder(null);
-                    jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    repaint();
+                } else if (jComboBox1.getSelectedIndex() == 1) {
+                    if (!jTextField2.getText().equals("")) {
+                        ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
+                        DefaultTableModel tb;
+                        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[4];
+                        for (int i = 0; i < listaProduto.size(); i++) {
+                            linha[0] = listaProduto.get(i).getIdProduto();
+                            linha[1] = listaProduto.get(i).getNome();
+                            linha[2] = listaProduto.get(i).getPreco_venda();
+                            linha[3] = listaProduto.get(i).getQuantidade();
+                            tb.addRow(linha);
+                        }
+                        jTable2 = new JTable(tb);
+                        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane2.setViewportView(jTable2);
+                        jTable2.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane2.setBorder(null);
+                        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        repaint();
+                    } else {
+                        preencherProdutosProduzidos();
+                    }
                 } else {
-                    preencherProdutos();
+                    if (!jTextField2.getText().equals("")) {
+                        ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
+                        DefaultTableModel tb;
+                        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[4];
+                        for (int i = 0; i < listaProduto.size(); i++) {
+                            linha[0] = listaProduto.get(i).getIdProduto();
+                            linha[1] = listaProduto.get(i).getNome();
+                            linha[2] = listaProduto.get(i).getPreco_custo();
+                            linha[3] = listaProduto.get(i).getQuantidade();
+                            tb.addRow(linha);
+                        }
+                        jTable2 = new JTable(tb);
+                        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane2.setViewportView(jTable2);
+                        jTable2.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane2.setBorder(null);
+                        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        repaint();
+                    } else {
+                        preencherProdutosMP();
+                    }
                 }
             }
         });
+    }
 
+    private void preencherTipos() {
+        CategoriasController c = new CategoriasController();
+        c.buscaCategorias();
+        jComboBox1.addItem("Todos");
+        for (int i = 0; i < c.getListaCategorias().size(); i++) {
+            jComboBox1.addItem(c.getListaCategorias().get(i).getDescricao());
+        }
+        jComboBox1.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jComboBox1.getSelectedIndex() == 0) {
+                    jTextField2.setText("");
+                    preencherProdutos();
+                } else if (jComboBox1.getSelectedIndex() == 1) {
+                    jTextField2.setText("");
+                    preencherProdutosProduzidos();
+                } else if (jComboBox1.getSelectedIndex() == 2) {
+                    jTextField2.setText("");
+                    preencherProdutosAtacado();
+                } else {
+                    jTextField2.setText("");
+                    preencherProdutosMP();
+                }
+            }
+        });
     }
 }

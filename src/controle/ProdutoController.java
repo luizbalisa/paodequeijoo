@@ -40,6 +40,10 @@ public class ProdutoController {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         this.listaProdutos = consultaProdutoMySQL.buscarProduto();
     }
+    public void buscarProdutosCategoria(int categoria) {
+        ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
+        this.listaProdutos = consultaProdutoMySQL.buscarProdutoCategoria(categoria);
+    }
 
     public ArrayList<Produto> buscaDinamicaProdutos(String busca) {
         String desc2 = busca;

@@ -267,7 +267,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             } else if (s == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Escolha a categoria");
             } else {
-                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), jTextField2.getText(), Integer.parseInt(jTextField4.getText()), s-1));
+                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), jTextField2.getText(), Integer.parseInt(jTextField4.getText()), s - 1));
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 jTextField1.setText("");
                 jTextField2.setText("");
@@ -281,10 +281,17 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             }
         } else {
             if (telaTipo == 1) {//edicao
+                int s = jComboBox1.getSelectedIndex();
                 if (jTextField1.getText().equals("")) {
                     JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
-                } else if (jTextField2.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preco");
+                } else if ((s == 1 || s == 2) && jTextField3.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preço de venda");
+                } else if ((s == 2 || s == 3) && jTextField2.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preço de custo");
+                } else if (jTextField4.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Preencha o campo Quantidade");
+                } else if (s == 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Escolha a categoria");
                 } else {
                     this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     editarProduto();
@@ -315,7 +322,6 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
@@ -338,12 +344,19 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
 
     private void preencherDadosProduto(Produto p) {
         jTextField1.setText(p.getNome());
-        jTextField2.setText(p.getPreco_venda());
+        jComboBox1.setSelectedIndex(p.getCategoria() + 1);
+        jComboBox1.setEnabled(false);
+        jTextField2.setText(p.getPreco_custo());
+        jTextField3.setText(p.getPreco_venda());
+        jTextField4.setText(String.valueOf(p.getQuantidade()));
+
     }
 
     private void editarProduto() {
         produto.getProduto().setNome(jTextField1.getText());
-        produto.getProduto().setPreco_venda(jTextField2.getText());
+        produto.getProduto().setPreco_venda(jTextField3.getText());
+        produto.getProduto().setPreco_custo(jTextField2.getText());
+        produto.getProduto().setQuantidade(Integer.parseInt(jTextField4.getText()));
     }
 
     private void dinamismo() {
