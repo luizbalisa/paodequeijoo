@@ -82,11 +82,11 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        JtextFild3 = new javax.swing.JFormattedTextField();
-        jTextField4 = new javax.swing.JFormattedTextField();
-        jTextField5 = new javax.swing.JFormattedTextField();
         jTextField6 = new javax.swing.JFormattedTextField();
-        jTextField8 = new javax.swing.JFormattedTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
 
         jFormattedTextField2.setText("jFormattedTextField2");
 
@@ -112,7 +112,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator1))
         );
@@ -180,7 +180,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
         );
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -210,35 +210,9 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
             }
         });
 
-        try {
-            JtextFild3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        JtextFild3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
-        try {
-            jTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jTextField4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
-        try {
-            jTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-#####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jTextField5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
         jTextField6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        try {
-            jTextField8.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jTextField8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextField5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -265,41 +239,35 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                             .addComponent(jTextField1)
                             .addComponent(jTextField2)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addGap(42, 42, 42)
+                        .addComponent(jTextField7))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField9))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(445, 445, 445))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField5))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField9))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(jTextField7))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(81, 81, 81)
-                                        .addComponent(JtextFild3))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField4)))
-                                .addGap(89, 89, 89)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(jTextField3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField6)))))
+                                .addComponent(jTextField4)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                            .addComponent(jTextField8))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -315,16 +283,17 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(JtextFild3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -334,10 +303,10 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,7 +327,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         if (jTextField1.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
         } else {
-            cliente.setCliente(new Cliente(jTextField1.getText(), jTextField2.getText(), jTextField8.getText(), jTextField6.getText(), JtextFild3.getText(), jTextField4.getText(), jTextField5.getText(), jTextField9.getText(), jTextField7.getText(), jTextArea1.getText()));
+            cliente.setCliente(new Cliente(jTextField1.getText(), jTextField2.getText(), jTextField8.getText(), jTextField6.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText(), jTextField9.getText(), jTextField7.getText(), jTextArea1.getText()));
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             JOptionPane.showMessageDialog(rootPane, cliente.cadastrar());
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -383,7 +352,6 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField JtextFild3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -407,11 +375,12 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JFormattedTextField jTextField4;
-    private javax.swing.JFormattedTextField jTextField5;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JFormattedTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JFormattedTextField jTextField8;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 
@@ -419,7 +388,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jTextArea1.setText("");
         jTextField1.setText("");
         jTextField2.setText("");
-        JtextFild3.setText("");
+        jTextField3.setText("");
         jTextField4.setText("");
         jTextField5.setText("");
         jTextField6.setText("");
@@ -433,7 +402,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
             jTextArea1.setEnabled(false);
             jTextField1.setEnabled(false);
             jTextField2.setEnabled(false);
-            JtextFild3.setEnabled(false);
+            jTextField3.setEnabled(false);
             jTextField4.setEnabled(false);
             jTextField5.setEnabled(false);
             jTextField6.setEnabled(false);
@@ -443,7 +412,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         }
         jTextField1.setText(c.getNome());
         jTextField2.setText(c.getEndereco());
-        JtextFild3.setText(c.getTelefone1());
+        jTextField3.setText(c.getTelefone1());
         jTextField4.setText(c.getTelefone2());
         jTextField5.setText(c.getTelefoneComercial());
         jTextField6.setText(c.getRg());
@@ -456,7 +425,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
     private void editarCliente() {
         cliente.getCliente().setNome(jTextField1.getText());
         cliente.getCliente().setEndereco(jTextField2.getText());
-        cliente.getCliente().setTelefone1(JtextFild3.getText());
+        cliente.getCliente().setTelefone1(jTextField3.getText());
         cliente.getCliente().setTelefone2(jTextField4.getText());
         cliente.getCliente().setTelefoneComercial(jTextField5.getText());
         cliente.getCliente().setRg(jTextField6.getText());
