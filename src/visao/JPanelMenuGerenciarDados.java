@@ -596,8 +596,12 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_custo().replace(",", ".")));
-            if (listaProduto.get(i).getPreco_venda() == null || listaProduto.get(i).getPreco_venda().equals("") ) {
+            if (listaProduto.get(i).getPreco_custo() == null || listaProduto.get(i).getPreco_custo().equals("")) {
+                linha[2] = "";
+            } else {
+                linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_custo().replace(",", ".")));
+            }
+            if (listaProduto.get(i).getPreco_venda() == null || listaProduto.get(i).getPreco_venda().equals("")) {
                 linha[3] = "";
             } else {
                 linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
