@@ -4,6 +4,8 @@
  */
 package fachada;
 
+import controle.ProdutoController;
+
 /**
  *
  * @author miserani
@@ -16,6 +18,7 @@ public class HistoricoSaidaProduto {
     private int quantidade;
     private String preco_custo;
     private String preco_venda;
+    private int idCategoria;
 
     public int getIdHistoricoSaidaProcuto() {
         return idHistoricoSaidaProcuto;
@@ -64,7 +67,21 @@ public class HistoricoSaidaProduto {
     public void setPreco_venda(String preco_venda) {
         this.preco_venda = preco_venda;
     }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
     
+    public void setIdCategoria(){
+        ProdutoController p = new ProdutoController();
+        p.buscarProdutos();
+        p.getProduto(idProduto);
+        idCategoria = p.getProduto().getCategoria();
+    }
     
     
 }

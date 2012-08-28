@@ -83,8 +83,8 @@ public class ConsultaMySQLMovimentoCaixa {
             while (rs.next()) {
                 MovimentoCaixa v = new MovimentoCaixa();
                 v.setData(rs.getString("data"));
-                v.setTipoPagamento(Integer.parseInt(rs.getString("idforma_pagamento")));
-                v.setIdMovimentoCaixa(Integer.parseInt(rs.getString("idmovimento_caixa")));
+                v.setTipoPagamento(rs.getInt("idforma_pagamento"));
+                v.setIdMovimentoCaixa(rs.getInt("idmovimento_caixa"));
                 v.setValor(rs.getString("valor"));
                 mCaixa.add(v);
             }
