@@ -4,18 +4,27 @@
  */
 package visao;
 
+import controle.HistoricoSaidaController;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author miserani
  */
 public class JPanelRelatProdMes extends javax.swing.JPanel {
 
+    HistoricoSaidaController controle = new HistoricoSaidaController();
+
     /**
      * Creates new form JPanelRelatProdMes
      */
-    public JPanelRelatProdMes(int mes) {
+    public JPanelRelatProdMes(int mes, int ano) {
         initComponents();
-        
+        controle.buscarHistorico();
+        preencherHistorico(controle.colunasHistoricoMes(mes, ano));
     }
 
     /**
@@ -61,4 +70,31 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void preencherHistorico(ArrayList<String[]> lista) {
+        DefaultTableModel dt;
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                controle.getColunasMes()) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[controle.getColunasMes().length];
+        for (int i = 0; i < lista.size(); i++) {
+            for (int j = 0; j < linha.length; j++) {
+                linha[j] = String.valueOf(lista.get(i)[j]);
+            }
+            dt.addRow(linha);
+        }
+
+        jTable1 = new JTable(dt);
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setBorder(null);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
 }
