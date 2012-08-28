@@ -40,6 +40,12 @@ public class ProdutoController {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         this.listaProdutos = consultaProdutoMySQL.buscarProduto();
     }
+
+    public void buscarProdutosHist() {
+        ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
+        this.listaProdutos = consultaProdutoMySQL.buscarProdutoHist();
+    }
+
     public void buscarProdutosCategoria(int categoria) {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         this.listaProdutos = consultaProdutoMySQL.buscarProdutoCategoria(categoria);

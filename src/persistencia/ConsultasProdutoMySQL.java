@@ -20,11 +20,35 @@ public class ConsultasProdutoMySQL {
     private static final String SQL_EXCLUIR_PRODUTO = "UPDATE produtos SET visivel=0 WHERE codigo_produto=?";
     private static final String SQL_BUSCA_PRODUTO_CATEGORIA = "SELECT * FROM produtos WHERE visivel=1 AND idCategoria=? ORDER BY nome";
     private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1  ORDER BY nome";
+    private static final String SQL_BUSCA_PRODUTO_HIST = "SELECT * FROM produtos WHERE visivel=1 AND idCategoria<>2 ORDER BY idCategoria, nome";
     private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria) "
             + "VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? WHERE codigo_produto=? ";
 
     public ConsultasProdutoMySQL() {
+    }
+
+    public ArrayList<Produto> buscarProdutoHist() {
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        String query = SQL_BUSCA_PRODUTO_HIST;
+
+        try {
+            ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
+            while (rs.next()) {
+                Produto prod = new Produto();
+                prod.setIdProduto(rs.getInt("codigo_produto"));
+                prod.setNome(rs.getString("nome"));
+                prod.setPreco_venda(rs.getString("preco_venda"));
+                prod.setCategoria(rs.getInt("idCategoria"));
+                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setPreco_custo(rs.getString("preco_custo"));
+                prod.setVisivel(rs.getInt("visivel") == 1);
+                produtos.add(prod);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return produtos;
     }
 
     public String excluirProduto(Produto prod) {
