@@ -7,6 +7,7 @@ package visao;
 import controle.HistoricoSaidaController;
 import controle.ProdutoController;
 import fachada.Cliente;
+import fachada.HistoricoSaidaProduto;
 import fachada.Produto;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -19,12 +20,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPanelRelatProdTotal extends javax.swing.JPanel {
     private HistoricoSaidaController historico = new HistoricoSaidaController();
+    private String data;
     /**
      * Creates new form JPanelRelatProdTotal
      */
-    public JPanelRelatProdTotal() {
+    public JPanelRelatProdTotal(String data) {
         initComponents();
         this.preencherTabela();
+        this.data = data;
     }
 
     /**
@@ -82,11 +85,12 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         };
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
-        for (int i = 0; i < historico.getListaHistorico().size(); i++) {
-            p.getProduto(this.historico.getListaHistorico().get(i).getIdProduto());
+        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(data);
+        for (int i = 0; i < listaProduto.size(); i++) {
+            p.getProduto(listaProduto.get(i).getIdProduto());
             linha[0] = p.getProduto().getNome();
-            linha[1] = this.historico.getListaHistorico().get(i).getQuantidade();
-            linha[2] = valorTotal(this.historico.getListaHistorico().get(i).getQuantidade(), this.historico.getListaHistorico().get(i).getPreco_venda());
+            linha[1] = listaProduto.get(i).getQuantidade();
+            linha[2] = valorTotal(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda());
             dt.addRow(linha);
         }
 
