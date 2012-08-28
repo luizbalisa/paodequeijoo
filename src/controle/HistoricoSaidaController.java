@@ -30,6 +30,6 @@ public class HistoricoSaidaController {
     public void setListaHistorico(ArrayList<HistoricoSaidaProduto> listaHistorico) {
         this.listaHistorico = listaHistorico;
     }
-    
+        
     
 }
