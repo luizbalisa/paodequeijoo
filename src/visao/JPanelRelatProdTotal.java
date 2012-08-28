@@ -4,17 +4,27 @@
  */
 package visao;
 
+import controle.HistoricoSaidaController;
+import controle.ProdutoController;
+import fachada.Cliente;
+import fachada.Produto;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author miserani
  */
 public class JPanelRelatProdTotal extends javax.swing.JPanel {
-
+    private HistoricoSaidaController historico = new HistoricoSaidaController();
     /**
      * Creates new form JPanelRelatProdTotal
      */
     public JPanelRelatProdTotal() {
         initComponents();
+        this.preencherTabela();
     }
 
     /**
@@ -26,17 +36,74 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome Produto", "Quantidade", "Valor Total"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 89, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
+
+    private void preencherTabela(){      
+        historico.buscarHistorico();
+        DefaultTableModel dt;
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Nome Produto", "Quantidade", "Valor Total"
+                }) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[3];
+        ProdutoController p = new ProdutoController();
+        for (int i = 0; i < historico.getListaHistorico().size(); i++) {
+            p.getProduto(this.historico.getListaHistorico().get(i).getIdProduto());
+            linha[0] = p.getProduto().getNome();
+            linha[1] = this.historico.getListaHistorico().get(i).getQuantidade();
+            linha[2] = valorTotal(this.historico.getListaHistorico().get(i).getQuantidade(), this.historico.getListaHistorico().get(i).getPreco_venda());
+            dt.addRow(linha);
+        }
+
+        jTable2 = new JTable(dt);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    
+    }
+    
+    private String valorTotal(int qnt,String valor){
+        return String.valueOf(qnt*Double.parseDouble(valor));
+    }
 }

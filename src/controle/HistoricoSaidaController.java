@@ -102,4 +102,35 @@ public class HistoricoSaidaController {
     public void setListaHistorico(ArrayList<HistoricoSaidaProduto> listaHistorico) {
         this.listaHistorico = listaHistorico;
     }
+    
+    public ArrayList<HistoricoSaidaProduto> getHistoricoSaidaProduto(int idCategoria){
+        ArrayList<HistoricoSaidaProduto> list = new ArrayList<HistoricoSaidaProduto>();
+        for (int i = 0; i < this.listaHistorico.size(); i++) {
+            if(this.listaHistorico.get(i).getIdCategoria() == idCategoria){
+                list.add(this.listaHistorico.get(i));
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList<HistoricoSaidaProduto> getHistoricoData(String dataDE, String dataATE){
+        ArrayList<HistoricoSaidaProduto> list = new ArrayList<HistoricoSaidaProduto>();
+        for (int i = 0; i < this.listaHistorico.size(); i++) {
+            String d = this.listaHistorico.get(i).getData();
+            if(dataToInt(d)>=dataToInt(dataDE) && dataToInt(d)<= dataToInt(dataATE)){
+                list.add(this.listaHistorico.get(i));
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList<HistoricoSaidaProduto> getHistoricoDia(String dia){
+        ArrayList<HistoricoSaidaProduto> list = new ArrayList<HistoricoSaidaProduto>();
+        for (int i = 0; i < this.listaHistorico.size(); i++) {
+            if(dataToInt(this.listaHistorico.get(i).getData()) == dataToInt(dia)){
+                list.add(this.listaHistorico.get(i));
+            }
+        }
+        return list;
+    }
 }
