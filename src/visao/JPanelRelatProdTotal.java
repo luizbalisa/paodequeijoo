@@ -92,6 +92,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
         ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(this.data);
+        p.buscarProdutos();
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());
             linha[0] = p.getProduto().getNome();
@@ -101,10 +102,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         }
 
         jTable2 = new JTable(dt);
-        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
-        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
-        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+
         jScrollPane2.setViewportView(jTable2);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);

@@ -118,7 +118,7 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
     }
     
     private String custoTotalReceita(int qnt, String valor){
-        return String.valueOf(Double.parseDouble(valor)*qnt);
+        return String.valueOf(qnt*Double.parseDouble(valor));
     }
     
 }
