@@ -278,6 +278,12 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel6.validate();
             repaint();
         }
+        if(jRadioButton1.isSelected()){
+            jPanel6.removeAll();
+            jPanel6.add(new JPanelRelatProdTotal());
+            jPanel6.validate();
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton2StateChanged
