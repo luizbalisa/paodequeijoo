@@ -58,10 +58,10 @@ public class HistoricoSaidaController {
         for (int i = 0; i < prod.getListProdutos().size(); i++) {
             String[] linha = new String[colunasMes.length];
             linha[0] = prod.getListProdutos().get(i).getNome();
-            for (int j = 1; j < colunasMes.length ; j++) {
+            for (int j = 1; j < colunasMes.length; j++) {
                 int qnt = 0;
                 for (int k = 0; k < listaHistorico.size(); k++) {
-                    if (listaHistorico.get(k).getData().contains(colunasMes[j])&& listaHistorico.get(k).getIdProduto()==prod.getListProdutos().get(i).getIdProduto()) {
+                    if (listaHistorico.get(k).getData().contains(colunasMes[j]) && listaHistorico.get(k).getIdProduto() == prod.getListProdutos().get(i).getIdProduto()) {
                         qnt += listaHistorico.get(k).getQuantidade();
                         break;
                     }
@@ -75,7 +75,15 @@ public class HistoricoSaidaController {
 
     public int dataToInt(String data) {
         String aux[] = data.split("/");
-        String date = aux[2] + aux[1] + aux[0];
+        String d = String.valueOf(aux[0]);
+        String m = String.valueOf(aux[1]);
+        if (d.length() < 2) {
+            d = "0" + d;
+        }
+        if(m.length()<2){
+            m = "0" + m;
+        }
+        String date = aux[2] + m + d;
         return Integer.parseInt(date);
     }
 
@@ -102,32 +110,32 @@ public class HistoricoSaidaController {
     public void setListaHistorico(ArrayList<HistoricoSaidaProduto> listaHistorico) {
         this.listaHistorico = listaHistorico;
     }
-    
-    public ArrayList<HistoricoSaidaProduto> getHistoricoSaidaProduto(int idCategoria){
+
+    public ArrayList<HistoricoSaidaProduto> getHistoricoSaidaProduto(int idCategoria) {
         ArrayList<HistoricoSaidaProduto> list = new ArrayList<HistoricoSaidaProduto>();
         for (int i = 0; i < this.listaHistorico.size(); i++) {
-            if(this.listaHistorico.get(i).getIdCategoria() == idCategoria){
+            if (this.listaHistorico.get(i).getIdCategoria() == idCategoria) {
                 list.add(this.listaHistorico.get(i));
             }
         }
         return list;
     }
-    
-    public ArrayList<HistoricoSaidaProduto> getHistoricoData(String dataDE, String dataATE){
+
+    public ArrayList<HistoricoSaidaProduto> getHistoricoData(String dataDE, String dataATE) {
         ArrayList<HistoricoSaidaProduto> list = new ArrayList<HistoricoSaidaProduto>();
         for (int i = 0; i < this.listaHistorico.size(); i++) {
             String d = this.listaHistorico.get(i).getData();
-            if(dataToInt(d)>=dataToInt(dataDE) && dataToInt(d)<= dataToInt(dataATE)){
+            if (dataToInt(d) >= dataToInt(dataDE) && dataToInt(d) <= dataToInt(dataATE)) {
                 list.add(this.listaHistorico.get(i));
             }
         }
         return list;
     }
-    
-    public ArrayList<HistoricoSaidaProduto> getHistoricoDia(String dia){
+
+    public ArrayList<HistoricoSaidaProduto> getHistoricoDia(String dia) {
         ArrayList<HistoricoSaidaProduto> list = new ArrayList<HistoricoSaidaProduto>();
         for (int i = 0; i < this.listaHistorico.size(); i++) {
-            if(dataToInt(this.listaHistorico.get(i).getData()) == dataToInt(dia)){
+            if (dataToInt(this.listaHistorico.get(i).getData()) == dataToInt(dia)) {
                 list.add(this.listaHistorico.get(i));
             }
         }

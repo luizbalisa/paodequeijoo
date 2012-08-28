@@ -5,6 +5,9 @@
 package visao;
 
 import controle.HistoricoSaidaController;
+import controle.ProdutoController;
+import fachada.HistoricoSaidaProduto;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -15,14 +18,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPanelRelatProdAtacado extends javax.swing.JPanel {
 
+    private String data;
     HistoricoSaidaController h = new HistoricoSaidaController();
 
     /**
      * Creates new form JPanelRelatProdAtacado
      */
-    public JPanelRelatProdAtacado() {
-        preencherTabela();
+    public JPanelRelatProdAtacado(String data) {
         initComponents();
+        this.data = data;
+        preencherTabela();
     }
 
     /**
@@ -45,7 +50,7 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nome Produo", "Quantidade", "Custo Total", "Receita Total", "% de Lucro"
+                "Nome Produo", "Quantidade", "Custo Total", "Receita Total", "Lucro"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -75,6 +80,7 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void preencherTabela() {
+        h.buscarHistorico();
         DefaultTableModel dt;
         dt = new DefaultTableModel(
                 new Object[][]{},
@@ -87,14 +93,17 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
             }
         };
         Object[] linha = new Object[5];
-//        for (int i = 0; i < ; i++) {
-//            linha[0] = ;
-//            linha[1] = ;
-//            linha[2] = ;
-//            linha[3] = ;
-//            linha[4] = ;
-//            dt.addRow(linha);
-//        }
+        ProdutoController p = new ProdutoController();
+        ArrayList<HistoricoSaidaProduto> listaProduto = h.getHistoricoDia(data);
+        for (int i = 0; i < listaProduto.size(); i++) {
+            p.getProduto(listaProduto.get(i).getIdProduto());
+            linha[0] = p.getProduto().getNome();
+            linha[1] = listaProduto.get(i).getQuantidade();
+            linha[2] = custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_custo());
+            linha[3] = custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda());
+            linha[4] = String.valueOf(Double.parseDouble(linha[3].toString())-Double.parseDouble(linha[2].toString()));
+            dt.addRow(linha);
+        }
 
         jTable1 = new JTable(dt);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -107,4 +116,9 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         repaint();
     }
+    
+    private String custoTotalReceita(int qnt, String valor){
+        return String.valueOf(Double.parseDouble(valor)*qnt);
+    }
+    
 }

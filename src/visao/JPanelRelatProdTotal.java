@@ -26,8 +26,8 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
      */
     public JPanelRelatProdTotal(String data) {
         initComponents();
-        this.preencherTabela();
         this.data = data;
+        this.preencherTabela();
     }
 
     /**
@@ -49,7 +49,15 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
             new String [] {
                 "Nome Produto", "Quantidade", "Valor Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -60,9 +68,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 89, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -85,7 +91,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         };
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
-        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(data);
+        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(this.data);
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());
             linha[0] = p.getProduto().getNome();

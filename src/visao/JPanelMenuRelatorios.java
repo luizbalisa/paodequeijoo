@@ -272,22 +272,42 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jRadioButton3.isSelected()) {
+        if (jRadioButton3.isSelected()) {//Mes
             jPanel6.removeAll();
             jPanel6.add(new JPanelRelatProdMes(8, 2012));
             jPanel6.validate();
             repaint();
         }
-        if(jRadioButton1.isSelected()){
-            jPanel6.removeAll();
-            jPanel6.add(new JPanelRelatProdTotal(jTextField1.getText()));
-            jPanel6.validate();
+
+        if (jComboBox1.getSelectedIndex() == 0) {//todos
+            if (jRadioButton1.isSelected()) {//data
+                jPanel6.removeAll();
+                jPanel6.add(new JPanelRelatProdTotal(jTextField1.getText()));
+                jPanel6.validate();
+            }
+            if (jRadioButton2.isSelected()) {//periodo
+                
+            }
+            if (jRadioButton3.isSelected()) {//mes
+                
+            }
+
         }
-        if(jComboBox1.getSelectedIndex() == 2){
-            
+
+        if (jComboBox1.getSelectedIndex() == 2) {//atacado
+            if (jRadioButton1.isSelected()) {//data
+                jPanel6.removeAll();
+                jPanel6.add(new JPanelRelatProdAtacado(jTextField1.getText()));
+            }
+            if (jRadioButton2.isSelected()) {//periodo
+                
+            }
+            if (jRadioButton3.isSelected()) {//mes
+                
+            }
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton2StateChanged
