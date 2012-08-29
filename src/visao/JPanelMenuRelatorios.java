@@ -296,7 +296,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel6.validate();
             repaint();
         }
-        
+
         if (jRadioButton1.isSelected()) {//data
             if (jComboBox1.getSelectedIndex() == 0) {//todos
                 jPanel6.removeAll();
@@ -307,6 +307,18 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 jPanel6.add(new JPanelRelatProdAtacado(jTextField1.getText()));
                 jPanel6.validate();
 
+            }
+        }
+
+        if (jRadioButton2.isSelected()) {//perido
+            if (jComboBox1.getSelectedIndex() == 0) {//todos
+                jPanel6.removeAll();
+                jPanel6.add(new JPanelRelatProdTotal(jTextField1.getText()));
+                jPanel6.validate();
+            } else if (jComboBox1.getSelectedIndex() == 1) {//atacado 
+                jPanel6.removeAll();
+                jPanel6.add(new JPanelRelatProdAtacado(jTextField1.getText()));
+                jPanel6.validate();
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
