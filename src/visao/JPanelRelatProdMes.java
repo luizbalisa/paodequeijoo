@@ -5,6 +5,9 @@
 package visao;
 
 import controle.HistoricoSaidaController;
+import fachada.Cliente;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -21,10 +24,13 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
     /**
      * Creates new form JPanelRelatProdMes
      */
-    public JPanelRelatProdMes(int mes, int ano) {
+    public JPanelRelatProdMes(int mes, int ano, int cat) {
         initComponents();
         controle.buscarHistorico();
-        preencherHistorico(controle.colunasHistoricoMes(mes, ano));
+        controle.colunasHistoricoMes(mes, ano, cat);
+        preencherHistorico(controle.getListaMes());
+        buscaDinamica();
+        jTextField1.setText("");
     }
 
     /**
@@ -38,6 +44,8 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -49,26 +57,39 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setText("Buscar produto: ");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jTextField1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void preencherHistorico(ArrayList<String[]> lista) {
@@ -96,5 +117,24 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         repaint();
+    }
+
+    private void buscaDinamica() {
+        jTextField1.addKeyListener(new KeyListener() {
+
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+                if (!jTextField1.getText().equals("")) {
+                    preencherHistorico(controle.buscaDinamicaMes(jTextField1.getText()));
+                } else {
+                    preencherHistorico(controle.getListaMes());
+                }
+            }
+        });
     }
 }
