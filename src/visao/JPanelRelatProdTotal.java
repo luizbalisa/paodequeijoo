@@ -85,7 +85,8 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         };
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
-        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(data);
+        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(data,-1);//todos
+        
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());
             linha[0] = p.getProduto().getNome();
