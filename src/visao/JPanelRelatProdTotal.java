@@ -6,9 +6,9 @@ package visao;
 
 import controle.HistoricoSaidaController;
 import controle.ProdutoController;
-import fachada.Cliente;
 import fachada.HistoricoSaidaProduto;
-import fachada.Produto;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -19,15 +19,30 @@ import javax.swing.table.DefaultTableModel;
  * @author miserani
  */
 public class JPanelRelatProdTotal extends javax.swing.JPanel {
+
     private HistoricoSaidaController historico = new HistoricoSaidaController();
-    private String data;
+    private String dataI;
+    private String dataF;
+    private int tipo;
+
     /**
      * Creates new form JPanelRelatProdTotal
      */
-    public JPanelRelatProdTotal(String data) {
+    public JPanelRelatProdTotal(String dataInicio, String dataFim, int t) {
         initComponents();
-        this.data = data;
-        this.preencherTabela();
+        dinamismo();
+        historico.buscarHistorico();
+        this.tipo = t;
+        if (tipo == 0) {
+            this.dataI = dataInicio;
+            historico.getHistoricoDia(this.dataI, jComboBox1.getSelectedIndex() - 1);
+            this.preencherTabela(historico.getListaDatas());
+        } else {
+            this.dataI = dataInicio;
+            this.dataF = dataFim;
+            historico.getHistoricoData(this.dataI, this.dataF, jComboBox1.getSelectedIndex() - 1);
+            this.preencherTabela(historico.getListaDatas());
+        }
     }
 
     /**
@@ -43,6 +58,8 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         jTable2 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,6 +81,10 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
 
         jLabel1.setText("Buscar produto: ");
 
+        jLabel2.setText("Ver: ");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Produzido", "Atacado" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,7 +95,11 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(1, 1, 1)
-                        .addComponent(jTextField1))
+                        .addComponent(jTextField1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -84,27 +109,31 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void preencherTabela(){      
-        historico.buscarHistorico();
+    private void preencherTabela(ArrayList<HistoricoSaidaProduto> listaProduto) {
         DefaultTableModel dt;
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "Nome Produto", "Quantidade", "Valor Total"
                 }) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -112,14 +141,16 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         };
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
-        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(this.data, -1);
-        p.buscarProdutos();
+
+        p.buscarProdutosHist();
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());
-            linha[0] = p.getProduto().getNome();
-            linha[1] = listaProduto.get(i).getQuantidade();
-            linha[2] = valorTotal(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda());
-            dt.addRow(linha);
+            if (p.getProduto().getCategoria() != 2) {
+                linha[0] = p.getProduto().getNome();
+                linha[1] = listaProduto.get(i).getQuantidade();
+                linha[2] = valorTotal(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda());
+                dt.addRow(linha);
+            }
         }
 
         jTable2 = new JTable(dt);
@@ -128,10 +159,76 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         repaint();
-    
+
     }
-    
-    private String valorTotal(int qnt,String valor){
-        return String.valueOf(qnt*Double.parseDouble(valor));
+
+    private void preencherTabelaAtacado(ArrayList<HistoricoSaidaProduto> listaProduto) {
+        DefaultTableModel dt;
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Nome Produto", "Quantidade", "Custo Total", "Receita Toral", "% de Lucro"
+                }) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[5];
+        ProdutoController p = new ProdutoController();
+        p.buscarProdutosHist();
+        for (int i = 0; i < listaProduto.size(); i++) {
+            p.getProduto(listaProduto.get(i).getIdProduto());
+            if (p.getProduto().getCategoria() != 2) {
+                linha[0] = p.getProduto().getNome();
+                linha[1] = listaProduto.get(i).getQuantidade();
+                linha[2] = custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_custo());
+                linha[3] = custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda());
+                linha[4] = String.valueOf(Double.parseDouble(linha[3].toString()) - Double.parseDouble(linha[2].toString()));
+                dt.addRow(linha);
+            }
+        }
+
+        jTable2 = new JTable(dt);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
+
+    private void dinamismo() {
+        jComboBox1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (tipo == 0) {
+                    if (jComboBox1.getSelectedIndex() == 2) {
+                        historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
+                        preencherTabelaAtacado(historico.getListaDatas());
+                    } else {
+                        historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
+                        preencherTabela(historico.getListaDatas());
+                    }
+                } else {
+                    if (jComboBox1.getSelectedIndex() == 2) {
+                        historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
+                        preencherTabelaAtacado(historico.getListaDatas());
+                    } else {
+                        historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
+                        preencherTabela(historico.getListaDatas());
+                    }
+                }
+            }
+        });
+    }
+
+    private String valorTotal(int qnt, String valor) {
+        return String.valueOf(qnt * Double.parseDouble(valor));
+    }
+
+    private String custoTotalReceita(int qnt, String valor) {
+        return String.valueOf(qnt * Double.parseDouble(valor));
     }
 }

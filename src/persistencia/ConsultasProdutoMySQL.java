@@ -20,7 +20,7 @@ public class ConsultasProdutoMySQL {
     private static final String SQL_EXCLUIR_PRODUTO = "UPDATE produtos SET visivel=0 WHERE codigo_produto=?";
     private static final String SQL_BUSCA_PRODUTO_CATEGORIA = "SELECT * FROM produtos WHERE visivel=1 AND idCategoria=? ORDER BY nome";
     private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1  ORDER BY nome";
-    private static final String SQL_BUSCA_PRODUTO_HIST = "SELECT * FROM produtos WHERE visivel=1 AND idCategoria<>2 ORDER BY idCategoria, nome";
+    private static final String SQL_BUSCA_PRODUTO_HIST = "SELECT * FROM produtos WHERE idCategoria<>2 ORDER BY idCategoria, nome";
     private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria) "
             + "VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? WHERE codigo_produto=? ";
