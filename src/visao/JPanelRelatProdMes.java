@@ -5,10 +5,18 @@
 package visao;
 
 import controle.HistoricoSaidaController;
+import fachada.Cliente;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -17,14 +25,20 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelRelatProdMes extends javax.swing.JPanel {
 
     HistoricoSaidaController controle = new HistoricoSaidaController();
+    int m, a;
 
     /**
      * Creates new form JPanelRelatProdMes
      */
     public JPanelRelatProdMes(int mes, int ano) {
         initComponents();
+        m = mes;
+        a = ano;
         controle.buscarHistorico();
-        preencherHistorico(controle.colunasHistoricoMes(mes, ano));
+        controle.colunasHistoricoMes(mes, ano, -1);
+        preencherHistorico(controle.getListaMes());
+        buscaDinamica();
+        jTextField1.setText("");
     }
 
     /**
@@ -38,6 +52,10 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -49,26 +67,52 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setText("Buscar produto: ");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Produzido", "Atacado" }));
+
+        jLabel2.setText("Ver: ");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jTextField1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel2)
+                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void preencherHistorico(ArrayList<String[]> lista) {
@@ -95,6 +139,59 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        repaint();
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(150);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(150);
+        jTable1.getColumnModel().getColumn(linha.length - 1).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(linha.length - 1).setMinWidth(100);
+        TableColumn column = jTable1.getColumnModel().getColumn(linha.length - 1);
+        column.setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(linha.length - 2).setMaxWidth(50);
+        jTable1.getColumnModel().getColumn(linha.length - 2).setMinWidth(50);
+        column = jTable1.getColumnModel().getColumn(linha.length - 2);
+        column.setCellRenderer(centerRenderer);
+        for (int i = 1; i < linha.length - 2; i++) {
+            jTable1.getColumnModel().getColumn(i).setMaxWidth(40);
+            jTable1.getColumnModel().getColumn(i).setMinWidth(40);
+            column = jTable1.getColumnModel().getColumn(i);
+            column.setCellRenderer(centerRenderer);
+        }
+
+    }
+
+    private void buscaDinamica() {
+        jTextField1.addKeyListener(new KeyListener() {
+
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+                if (!jTextField1.getText().equals("")) {
+                    preencherHistorico(controle.buscaDinamicaMes(jTextField1.getText()));
+                } else {
+                    preencherHistorico(controle.getListaMes());
+                }
+            }
+        });
+        jComboBox1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTextField1.setText("");
+                controle.colunasHistoricoMes(m, a, jComboBox1.getSelectedIndex() - 1);
+                preencherHistorico(controle.getListaMes());
+            }
+        });
+    }
+}
+
+class CenterRenderer extends DefaultTableCellRenderer {
+
+    public CenterRenderer() {
+        setHorizontalAlignment(CENTER);
     }
 }

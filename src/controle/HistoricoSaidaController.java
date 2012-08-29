@@ -4,7 +4,9 @@
  */
 package controle;
 
+import fachada.Cliente;
 import fachada.HistoricoSaidaProduto;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import persistencia.ConsultaHistoricoMySQL;
 
@@ -17,6 +19,7 @@ public class HistoricoSaidaController {
     private HistoricoSaidaProduto historico = new HistoricoSaidaProduto();
     private ArrayList<HistoricoSaidaProduto> listaHistorico = new ArrayList<HistoricoSaidaProduto>();
     private String[] colunasMes;
+    private ArrayList<String[]> listaMes;
 
     public HistoricoSaidaController() {
     }
@@ -26,7 +29,7 @@ public class HistoricoSaidaController {
         listaHistorico = c.buscarHistoricos();
     }
 
-    public ArrayList<String[]> colunasHistoricoMes(int mes, int ano) {
+    public void colunasHistoricoMes(int mes, int ano, int categoria) {
         ArrayList<String> r = new ArrayList<String>();
         String m = String.valueOf(mes);
         if (m.length() < 2) {
@@ -45,6 +48,7 @@ public class HistoricoSaidaController {
                 }
             }
         }
+        listaMes = new ArrayList<String[]>();
         colunasMes = new String[r.size() + 3];
         colunasMes[0] = "Produto";
         for (int i = 0; i < r.size(); i++) {
@@ -52,25 +56,52 @@ public class HistoricoSaidaController {
         }
         colunasMes[colunasMes.length - 2] = "Total";
         colunasMes[colunasMes.length - 1] = "Receita";
-        ProdutoController prod = new ProdutoController();
-        prod.buscarProdutos();
-        ArrayList<String[]> lista = new ArrayList<String[]>();
-        for (int i = 0; i < prod.getListProdutos().size(); i++) {
-            String[] linha = new String[colunasMes.length];
-            linha[0] = prod.getListProdutos().get(i).getNome();
-            for (int j = 1; j < colunasMes.length; j++) {
-                int qnt = 0;
-                for (int k = 0; k < listaHistorico.size(); k++) {
-                    if (listaHistorico.get(k).getData().contains(colunasMes[j]) && listaHistorico.get(k).getIdProduto() == prod.getListProdutos().get(i).getIdProduto()) {
-                        qnt += listaHistorico.get(k).getQuantidade();
-                        break;
+        if (r.size() > 0) {
+            ProdutoController prod = new ProdutoController();
+            prod.buscarProdutosHist();
+            for (int i = 0; i < prod.getListProdutos().size(); i++) {
+                if (categoria == -1 || categoria == prod.getListProdutos().get(i).getCategoria()) {
+                    String[] linha;
+                    linha = new String[colunasMes.length];
+                    linha[0] = prod.getListProdutos().get(i).getNome();
+                    int total = 0;
+                    double valor = 0;
+                    for (int j = 1; j < colunasMes.length; j++) {
+                        int qnt = 0;
+                        for (int k = 0; k < listaHistorico.size(); k++) {
+                            if (listaHistorico.get(k).getData().contains(colunasMes[j]) && listaHistorico.get(k).getIdProduto() == prod.getListProdutos().get(i).getIdProduto()) {
+                                qnt += listaHistorico.get(k).getQuantidade();
+                                valor += Double.parseDouble(listaHistorico.get(k).getPreco_venda().replace(",", ".")) * qnt;
+                                break;
+                            }
+                        }
+                        total += qnt;
+                        linha[j] = String.valueOf(qnt);
                     }
+                    linha[colunasMes.length - 2] = String.valueOf(total);
+                    linha[colunasMes.length - 1] = String.valueOf(valor);
+                    listaMes.add(linha);
                 }
-                linha[j] = String.valueOf(qnt);
             }
-            lista.add(linha);
         }
-        return lista;
+    }
+
+    public ArrayList<String[]> buscaDinamicaMes(String busca) {
+        String desc2 = busca;
+        desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
+        desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
+        desc2 = desc2.toUpperCase();
+        ArrayList<String[]> retorno = new ArrayList<String[]>();
+        for (int i = 0; i < listaMes.size(); i++) {
+            String comp = listaMes.get(i)[0];
+            comp = Normalizer.normalize(comp, Normalizer.Form.NFD);
+            comp = comp.replaceAll("[^\\p{ASCII}]", "");
+            comp = comp.toUpperCase();
+            if (comp.contains(desc2)) {
+                retorno.add(listaMes.get(i));
+            }
+        }
+        return retorno;
     }
 
     public int dataToInt(String data) {
@@ -85,6 +116,14 @@ public class HistoricoSaidaController {
         }
         String date = aux[2] + m + d;
         return Integer.parseInt(date);
+    }
+
+    public ArrayList<String[]> getListaMes() {
+        return listaMes;
+    }
+
+    public void setListaMes(ArrayList<String[]> listaMes) {
+        this.listaMes = listaMes;
     }
 
     public String[] getColunasMes() {
