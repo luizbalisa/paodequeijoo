@@ -20,14 +20,22 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPanelRelatProdTotal extends javax.swing.JPanel {
     private HistoricoSaidaController historico = new HistoricoSaidaController();
-    private String data;
+    private String data,data1;
+    private int categoria;
     /**
      * Creates new form JPanelRelatProdTotal
      */
-    public JPanelRelatProdTotal(String data) {
+    public JPanelRelatProdTotal(String data,String data1, int idCategoria) {
         initComponents();
-        this.preencherTabela();
         this.data = data;
+        this.data1 = data1;
+        this.categoria = idCategoria;
+        this.preencherTabela();
+    }
+    public JPanelRelatProdTotal(String data,int idCategoria){
+        initComponents();
+        this.data = data;
+        this.categoria = idCategoria;
     }
 
     /**
@@ -85,7 +93,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         };
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
-        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(data,-1);//todos
+        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(data,categoria);//todos
         
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());

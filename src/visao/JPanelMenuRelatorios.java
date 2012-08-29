@@ -291,15 +291,37 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jRadioButton3.isSelected()) {
-            jPanel6.removeAll();
-            jPanel6.add(new JPanelRelatProdMes(jComboBox2.getSelectedIndex() + 1, Integer.parseInt(jComboBox4.getSelectedItem().toString())));
-            jPanel6.validate();
-            repaint();
-        } else if (jRadioButton1.isSelected()) {
-            jPanel6.removeAll();
-            jPanel6.add(new JPanelRelatProdTotal(jTextField1.getText()));
-            jPanel6.validate();
+        if (jComboBox1.getSelectedIndex() == 0) {//todos
+            if (jRadioButton3.isSelected()) {
+                jPanel6.removeAll();
+                jPanel6.add(new JPanelRelatProdMes(jComboBox2.getSelectedIndex() + 1, Integer.parseInt(jComboBox4.getSelectedItem().toString())));
+                jPanel6.validate();
+                repaint();
+            } else if (jRadioButton1.isSelected()) {
+                jPanel6.removeAll();
+                jPanel6.add(new JPanelRelatProdTotal(jTextField1.getText(), -1));
+                jPanel6.validate();
+            } else if (jRadioButton2.isSelected()) {
+                jPanel6.removeAll();
+                jPanel6.add(new JPanelRelatProdTotal(jTextField2.getText(), jTextField3.getText(), -1));
+                jPanel6.validate();
+            } else if (jComboBox1.getSelectedIndex() == 1) {//atacado
+                if (jRadioButton3.isSelected()) {
+                    jPanel6.removeAll();
+                    jPanel6.add(new JPanelRelatProdMes(jComboBox2.getSelectedIndex() + 1, Integer.parseInt(jComboBox4.getSelectedItem().toString())));
+                    jPanel6.validate();
+                    repaint();
+                } else if (jRadioButton1.isSelected()) {
+                    jPanel6.removeAll();
+                    jPanel6.add(new JPanelRelatProdTotal(jTextField1.getText(), 0));
+                    jPanel6.validate();
+                } else if (jRadioButton2.isSelected()) {
+                    jPanel6.removeAll();
+                    jPanel6.add(new JPanelRelatProdTotal(jTextField2.getText(), jTextField3.getText(), 0));
+                    jPanel6.validate();
+                }
+
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
