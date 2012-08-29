@@ -41,42 +41,55 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Nome Produo", "Quantidade", "Custo Total", "Receita Total", "Lucro"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setText("Buscar produto: ");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel1)
+                        .add(1, 1, 1)
+                        .add(jTextField1))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(18, 18, 18)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void preencherTabela() {
@@ -94,7 +107,8 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
         };
         Object[] linha = new Object[5];
         ProdutoController p = new ProdutoController();
-        ArrayList<HistoricoSaidaProduto> listaProduto = h.getHistoricoDia(data);
+        ArrayList<HistoricoSaidaProduto> listaProduto = h.getHistoricoDia(this.data, 1);
+        p.buscarProdutosHist();
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());
             linha[0] = p.getProduto().getNome();
@@ -106,10 +120,6 @@ public class JPanelRelatProdAtacado extends javax.swing.JPanel {
         }
 
         jTable1 = new JTable(dt);
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);

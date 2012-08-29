@@ -41,6 +41,8 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -60,20 +62,39 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTable2);
 
+        jLabel1.setText("Buscar produto: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(1, 1, 1)
+                        .addComponent(jTextField1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     private void preencherTabela(){      
@@ -91,7 +112,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         };
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
-        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(this.data);
+        ArrayList<HistoricoSaidaProduto> listaProduto = historico.getHistoricoDia(this.data, -1);
         p.buscarProdutos();
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());
@@ -102,7 +123,6 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         }
 
         jTable2 = new JTable(dt);
-
         jScrollPane2.setViewportView(jTable2);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
