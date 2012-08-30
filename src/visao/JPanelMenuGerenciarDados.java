@@ -22,7 +22,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -617,6 +620,17 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+        column3.setCellRenderer(centerRenderer);
+
         repaint();
     }
 
@@ -634,7 +648,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda()));
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
             linha[3] = listaProduto.get(i).getQuantidade();
             tb.addRow(linha);
         }
@@ -647,6 +661,15 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+
         repaint();
     }
 
@@ -678,6 +701,17 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+        column3.setCellRenderer(centerRenderer);
+
         repaint();
     }
 
@@ -708,6 +742,15 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+
         repaint();
     }
 
@@ -742,6 +785,13 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setBorder(null);
         jTable4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column3 = jTable2.getColumnModel().getColumn(2);
+        column0.setCellRenderer(centerRenderer);
+        column3.setCellRenderer(centerRenderer);
+
         repaint();
     }
 
@@ -851,6 +901,17 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         jTable2.getTableHeader().setReorderingAllowed(false);
                         jScrollPane2.setBorder(null);
                         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        TableCellRenderer centerRenderer = new CenterRenderer();
+                        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+                        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+                        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+                        TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+                        column0.setCellRenderer(centerRenderer);
+                        column1.setCellRenderer(centerRenderer);
+                        column2.setCellRenderer(centerRenderer);
+                        column3.setCellRenderer(centerRenderer);
+
                         repaint();
                     } else {
                         if (jComboBox1.getSelectedIndex() == 0) {
@@ -886,6 +947,15 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         jTable2.getTableHeader().setReorderingAllowed(false);
                         jScrollPane2.setBorder(null);
                         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        TableCellRenderer centerRenderer = new CenterRenderer();
+                        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+                        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+                        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+                        column0.setCellRenderer(centerRenderer);
+                        column1.setCellRenderer(centerRenderer);
+                        column2.setCellRenderer(centerRenderer);
+
                         repaint();
                     } else {
                         preencherProdutosProduzidos();
@@ -917,6 +987,15 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         jTable2.getTableHeader().setReorderingAllowed(false);
                         jScrollPane2.setBorder(null);
                         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        TableCellRenderer centerRenderer = new CenterRenderer();
+                        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+                        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+                        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+                        column0.setCellRenderer(centerRenderer);
+                        column1.setCellRenderer(centerRenderer);
+                        column2.setCellRenderer(centerRenderer);
+
                         repaint();
                     } else {
                         preencherProdutosMP();
@@ -951,5 +1030,12 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 }
             }
         });
+    }
+
+    class CenterRenderer extends DefaultTableCellRenderer {
+
+        public CenterRenderer() {
+            setHorizontalAlignment(CENTER);
+        }
     }
 }
