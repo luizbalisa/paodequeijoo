@@ -426,8 +426,11 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jTextField1.setText(p.getNome());
         jComboBox1.setSelectedIndex(p.getCategoria() + 1);
         jComboBox1.setEnabled(false);
+        anterior = p.getPreco_custo();
         jTextField2.setText(p.getPreco_custo());
+        anterior2 = p.getPreco_venda();
         jTextField3.setText(p.getPreco_venda());
+        anterior3 = String.valueOf(p.getQuantidade());
         jTextField4.setText(String.valueOf(p.getQuantidade()));
 
     }

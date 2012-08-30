@@ -634,7 +634,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda()));
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
             linha[3] = listaProduto.get(i).getQuantidade();
             tb.addRow(linha);
         }
