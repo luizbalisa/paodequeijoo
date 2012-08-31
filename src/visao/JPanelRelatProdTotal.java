@@ -9,6 +9,8 @@ import controle.ProdutoController;
 import fachada.HistoricoSaidaProduto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -35,8 +37,8 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
      */
     public JPanelRelatProdTotal(String dataInicio, String dataFim, int t) {
         initComponents();
+        historico.buscarHistoricoSomado();
         dinamismo();
-        historico.buscarHistorico();
         this.tipo = t;
         if (tipo == 0) {
             this.dataI = dataInicio;
@@ -178,7 +180,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Nome Produto", "Quantidade", "Custo Total", "Receita Toral", "% de Lucro"
+                    "Nome Produto", "Quantidade", "Custo Total", "Receita Total", "% de Lucro"
                 }) {
             @Override
             public boolean isCellEditable(int row, int col) {
@@ -195,7 +197,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                 linha[1] = listaProduto.get(i).getQuantidade();
                 linha[2] = formatador.format(Double.parseDouble(custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_custo().replace(",", "."))));
                 linha[3] = formatador.format(Double.parseDouble(custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda().replace(",", "."))));
-                linha[4] = formatador.format(Double.parseDouble(porcentoLucro(listaProduto.get(i).getPreco_custo(), listaProduto.get(i).getPreco_venda(), listaProduto.get(i).getQuantidade()).replace(",", ".")));
+                linha[4] = formatador.format(Double.parseDouble(porcentoLucro(listaProduto.get(i).getPreco_custo().replace(",", "."), listaProduto.get(i).getPreco_venda(), listaProduto.get(i).getQuantidade()).replace(",", ".")));
                 dt.addRow(linha);
             }
         }
@@ -224,22 +226,48 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tipo == 0) {
+                    historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
                     if (jComboBox1.getSelectedIndex() == 2) {
-                        historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
                         preencherTabelaAtacado(historico.getListaDatas());
                     } else {
-                        historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
                         preencherTabela(historico.getListaDatas());
                     }
                 } else {
                     if (jComboBox1.getSelectedIndex() == 2) {
                         historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
                         preencherTabelaAtacado(historico.getListaDatas());
-                    } else {
-                        historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
+                    }else{
                         preencherTabela(historico.getListaDatas());
                     }
                 }
+            }
+        });
+        jTextField1.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+                if (jComboBox1.getSelectedIndex() == 2) {
+                    if (!jTextField1.getText().equals("")) {
+                        preencherTabelaAtacado(historico.buscaDimamicaData(jTextField1.getText()));
+                    } else {
+                        preencherTabelaAtacado(historico.getListaDatas());
+                    }
+                } else {
+                    if (!jTextField1.getText().equals("")) {
+                        preencherTabela(historico.buscaDimamicaData(jTextField1.getText()));
+                    } else {
+                        preencherTabela(historico.getListaDatas());
+                    }
+                }
+
             }
         });
     }
@@ -253,10 +281,11 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
     }
 
     private String porcentoLucro(String valor1, String valor2, int qnt) {
-        double custoQnt = Double.parseDouble(valor1)*qnt;
-        double vendQnt = Double.parseDouble(valor2)*qnt;
-        
-        return String.valueOf(((vendQnt)*custoQnt)/100);
+        double custoQnt = Double.parseDouble(valor1.replace(",", ".")) * qnt;
+        double vendQnt = Double.parseDouble(valor2.replace(",", ".")) * qnt;
+        double lucroReal = (vendQnt / custoQnt);
+
+        return String.valueOf((lucroReal -1)*100);
     }
 
     class CenterRenderer extends DefaultTableCellRenderer {
