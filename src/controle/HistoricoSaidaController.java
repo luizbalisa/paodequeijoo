@@ -36,14 +36,14 @@ public class HistoricoSaidaController {
         listaHistorico = c.buscarHistoricos();
         for (int i = 0; i < listaHistorico.size(); i++) {
             for (int j = i + 1; j < listaHistorico.size(); j++) {
-
-                if (listaHistorico.get(i).getIdProduto() == listaHistorico.get(j).getIdProduto()) {
-                    listaHistorico.get(i).setQuantidade(listaHistorico.get(i).getQuantidade() + listaHistorico.get(j).getQuantidade());
-                    listaHistorico.add(listaHistorico.get(i));
-                    listaHistorico.remove(j);
-                    listaHistorico.remove(i);
+                if (listaHistorico.get(i).getData().equals(listaHistorico.get(j).getData())) {
+                    if (listaHistorico.get(i).getIdProduto() == listaHistorico.get(j).getIdProduto()) {
+                        listaHistorico.get(i).setQuantidade(listaHistorico.get(i).getQuantidade() + listaHistorico.get(j).getQuantidade());
+                        listaHistorico.add(listaHistorico.get(i));
+                        listaHistorico.remove(j);
+                        listaHistorico.remove(i);
+                    }
                 }
-
             }
         }
     }
