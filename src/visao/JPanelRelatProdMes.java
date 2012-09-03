@@ -5,11 +5,11 @@
 package visao;
 
 import controle.HistoricoSaidaController;
-import fachada.Cliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -26,6 +26,7 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
 
     HistoricoSaidaController controle = new HistoricoSaidaController();
     int m, a;
+    DecimalFormat formatador = new DecimalFormat("###0.00");
 
     /**
      * Creates new form JPanelRelatProdMes
@@ -132,8 +133,10 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
             for (int j = 0; j < linha.length; j++) {
                 linha[j] = String.valueOf(lista.get(i)[j]);
             }
+            linha[linha.length-1] = formatador.format(Double.parseDouble(linha[linha.length-1].toString().replace(",", ".")));
             dt.addRow(linha);
         }
+        
 
         jTable1 = new JTable(dt);
         jScrollPane1.setViewportView(jTable1);

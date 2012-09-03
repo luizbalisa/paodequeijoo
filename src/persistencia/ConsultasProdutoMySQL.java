@@ -25,8 +25,10 @@ public class ConsultasProdutoMySQL {
             + "VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? WHERE codigo_produto=? ";
 
+    private static final String SQL_BUSCA_PRODUTO_TOTAL = "SELECT * FROM produtos ORDER BY nome";
     public ConsultasProdutoMySQL() {
     }
+    
 
     public ArrayList<Produto> buscarProdutoHist() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
@@ -139,6 +141,30 @@ public class ConsultasProdutoMySQL {
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_BUSCA_PRODUTO);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Produto prod = new Produto();
+                prod.setIdProduto(rs.getInt("codigo_produto"));
+                prod.setNome(rs.getString("nome"));
+                prod.setPreco_venda(rs.getString("preco_venda"));
+                prod.setPreco_custo(rs.getString("preco_custo"));
+                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setCategoria(rs.getInt("idCategoria"));
+                produtos.add(prod);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return produtos;
+    }
+    
+    public ArrayList<Produto> buscarProdutoTotal() {
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_BUSCA_PRODUTO_TOTAL);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Produto prod = new Produto();
