@@ -9,6 +9,7 @@ import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.muntjak.tinylookandfeel.Theme;
 import de.muntjak.tinylookandfeel.TinyLookAndFeel;
 import java.text.ParseException;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.synth.SynthLookAndFeel;
@@ -33,6 +34,8 @@ public class PqServer {
 
         } catch (Exception exception) {
         }
+        Locale l = new Locale("pt", "br");
+        Locale.setDefault(l);
         JFramePrincipal principal = new JFramePrincipal();
         principal.setVisible(true);
     }

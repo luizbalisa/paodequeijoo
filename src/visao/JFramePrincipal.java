@@ -52,15 +52,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel2.validate();
         repaint();
     }
-    //______________________________________________________________________________________________________________________
-
-    //Cadastrar Tipo de pagamento
-    //______________________________________________________________________________________________________________________
-//    public void tipoDePagamento() {
-//        jDialogFormaPagamento formaDePagamento = new jDialogFormaPagamento(this, true);
-//        formaDePagamento.setVisible(true);
-//    }
-    //______________________________________________________________________________________________________________________
+    public void contasReceber(int idCliente) {
+        jPanel2.removeAll();
+        jPanel2.add(new JPanelContasReceber(this));
+        jPanel2.validate();
+        repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,6 +72,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -113,6 +111,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Contas a receber");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -122,6 +122,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,6 +133,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 2, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,6 +168,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
