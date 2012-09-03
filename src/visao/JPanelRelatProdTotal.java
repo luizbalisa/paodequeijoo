@@ -225,6 +225,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         jComboBox1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                jTextField1.setText("");
                 if (tipo == 0) {
                     historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
                     if (jComboBox1.getSelectedIndex() == 2) {

@@ -4,17 +4,26 @@
  */
 package visao;
 
+import fachada.Cliente;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rafael
  */
 public class JPanelContasReceber extends javax.swing.JPanel {
 
+    JFramePrincipal principal;
+
     /**
      * Creates new form JPanelContasReceber
      */
-    public JPanelContasReceber() {
+    public JPanelContasReceber(JFramePrincipal principal) {
         initComponents();
+        this.principal = principal;
     }
 
     /**
@@ -253,7 +262,6 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
@@ -288,4 +296,33 @@ public class JPanelContasReceber extends javax.swing.JPanel {
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+private void preencherContas(){
+        DefaultTableModel dt;
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Id", "Cliente", "Valor"
+                }) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[4];
+        for (int i = 0; i < 0; i++) {
+            dt.addRow(linha);
+        }
+
+        jTable1 = new JTable(dt);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setBorder(null);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+}
 }
