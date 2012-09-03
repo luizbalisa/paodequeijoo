@@ -293,7 +293,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
         if (jRadioButton1.isSelected()) {//data
             jPanel6.removeAll();
-            jPanel6.add(new JPanelRelatProdTotal(jDateChooser1.getDateFormatString(), "", 0));
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser1.getDate()), "", 0));
             jPanel6.validate();
         }
 

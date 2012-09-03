@@ -225,10 +225,10 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
     }
 
     private String valorTotal(int qnt, String valor) {
-        return String.valueOf(qnt * Double.parseDouble(valor));
+        return String.valueOf(qnt * Double.parseDouble(valor.replace(",", ".")));
     }
 
     private String custoTotalReceita(int qnt, String valor) {
-        return String.valueOf(qnt * Double.parseDouble(valor));
+        return String.valueOf(qnt * Double.parseDouble(valor.replace(",", ".")));
     }
 }
