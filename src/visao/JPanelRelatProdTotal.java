@@ -37,16 +37,18 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
      */
     public JPanelRelatProdTotal(String dataInicio, String dataFim, int t) {
         initComponents();
-        historico.buscarHistoricoSomado();
+        
         dinamismo();
         this.tipo = t;
-        if (tipo == 0) {
+        if (tipo == 0) {//data
             this.dataI = dataInicio;
+            historico.buscarHistoricoSomadoDia(dataI);
             historico.getHistoricoDia(this.dataI, jComboBox1.getSelectedIndex() - 1);
             this.preencherTabela(historico.getListaDatas());
-        } else {
+        } else {//periodo
             this.dataI = dataInicio;
             this.dataF = dataFim;
+            historico.buscarHistoricoSomadoPeriodo(dataI, dataFim);
             historico.getHistoricoData(this.dataI, this.dataF, jComboBox1.getSelectedIndex() - 1);
             this.preencherTabela(historico.getListaDatas());
         }
@@ -67,6 +69,8 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,6 +96,12 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Produzido", "Atacado" }));
 
+        jLabel3.setFont(new java.awt.Font("Courier 10 Pitch", 1, 13)); // NOI18N
+        jLabel3.setText("jLabel3");
+
+        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
+        jLabel4.setText("Receita Total :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,7 +117,12 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,14 +135,19 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jLabel4)))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
@@ -147,7 +167,6 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         };
         Object[] linha = new Object[3];
         ProdutoController p = new ProdutoController();
-
         p.buscarProdutosHist();
         for (int i = 0; i < listaProduto.size(); i++) {
             p.getProduto(listaProduto.get(i).getIdProduto());
@@ -158,7 +177,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                 dt.addRow(linha);
             }
         }
-
+        
         jTable2 = new JTable(dt);
         jScrollPane2.setViewportView(jTable2);
         jTable2.getTableHeader().setReorderingAllowed(false);
@@ -171,6 +190,10 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         column0.setCellRenderer(centerRenderer);
         column1.setCellRenderer(centerRenderer);
 
+        
+        jLabel3.setText(String.valueOf(getReceitaTotal(listaProduto)));
+        
+        
         repaint();
 
     }
@@ -218,6 +241,8 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         column2.setCellRenderer(centerRenderer);
         column3.setCellRenderer(centerRenderer);
 
+        jLabel3.setText(String.valueOf(formatador.format(getReceitaTotal(listaProduto))));
+
         repaint();
     }
 
@@ -226,18 +251,18 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jTextField1.setText("");
-                if (tipo == 0) {
+                if (tipo == 0) {//dia
                     historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
                     if (jComboBox1.getSelectedIndex() == 2) {
                         preencherTabelaAtacado(historico.getListaDatas());
                     } else {
                         preencherTabela(historico.getListaDatas());
                     }
-                } else {
-                    if (jComboBox1.getSelectedIndex() == 2) {
+                } else {//periodo
                         historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
+                    if (jComboBox1.getSelectedIndex() == 2) {
                         preencherTabelaAtacado(historico.getListaDatas());
-                    }else{
+                    } else {
                         preencherTabela(historico.getListaDatas());
                     }
                 }
@@ -286,7 +311,15 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         double vendQnt = Double.parseDouble(valor2.replace(",", ".")) * qnt;
         double lucroReal = (vendQnt / custoQnt);
 
-        return String.valueOf((lucroReal -1)*100);
+        return String.valueOf((lucroReal - 1) * 100);
+    }
+
+    public double getReceitaTotal(ArrayList<HistoricoSaidaProduto> listaProduto) {
+        double soma = 0;
+        for (int i = 0; i < listaProduto.size(); i++) {
+            soma += (listaProduto.get(i).getQuantidade() * Double.parseDouble(listaProduto.get(i).getPreco_venda()));
+        }
+        return soma;
     }
 
     class CenterRenderer extends DefaultTableCellRenderer {
