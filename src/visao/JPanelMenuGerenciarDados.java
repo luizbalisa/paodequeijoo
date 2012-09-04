@@ -344,11 +344,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jButton10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/money_delete.png"))); // NOI18N
         jButton10.setText("Excluir");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
