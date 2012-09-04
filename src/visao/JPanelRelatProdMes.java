@@ -5,6 +5,7 @@
 package visao;
 
 import controle.HistoricoSaidaProdutoController;
+import fachada.HistoricoSaidaProduto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -57,6 +58,8 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,6 +77,10 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
 
         jLabel2.setText("Ver: ");
 
+        jLabel3.setText("Receita Total :");
+
+        jLabel4.setText("jLabel4");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,7 +96,12 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel4)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,14 +116,19 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
                         .add(jLabel1)
                         .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(18, 18, 18)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .add(22, 22, 22)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(jLabel4)))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
@@ -144,17 +161,20 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         jTable1.getColumnModel().getColumn(0).setMaxWidth(150);
         jTable1.getColumnModel().getColumn(0).setMinWidth(150);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMaxWidth(100);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMinWidth(100);
+        
         TableColumn column = jTable1.getColumnModel().getColumn(linha.length - 1);
         column.setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(linha.length - 2).setMaxWidth(50);
         jTable1.getColumnModel().getColumn(linha.length - 2).setMinWidth(50);
         column = jTable1.getColumnModel().getColumn(linha.length - 2);
         column.setCellRenderer(centerRenderer);
+        
         for (int i = 1; i < linha.length - 2; i++) {
             jTable1.getColumnModel().getColumn(i).setMaxWidth(40);
             jTable1.getColumnModel().getColumn(i).setMinWidth(40);
@@ -162,7 +182,9 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
             column.setCellRenderer(centerRenderer);
         }
 
+        
     }
+    
 
     private void buscaDinamica() {
         jTextField1.addKeyListener(new KeyListener() {

@@ -31,17 +31,35 @@ public class HistoricoSaidaProdutoController {
         listaHistorico = c.buscarHistoricos();
     }
 
-    public void buscarHistoricoSomado() {
+    public void buscarHistoricoSomadoDia(String data) {
         ConsultaHistoricoMySQL c = new ConsultaHistoricoMySQL();
         listaHistorico = c.buscarHistoricos();
         for (int i = 0; i < listaHistorico.size(); i++) {
             for (int j = i + 1; j < listaHistorico.size(); j++) {
+                if (dataToInt(listaHistorico.get(i).getData())== dataToInt(data) && dataToInt(listaHistorico.get(j).getData()) == dataToInt(data)) {
+                    if (listaHistorico.get(i).getIdProduto() == listaHistorico.get(j).getIdProduto()) {
+                        listaHistorico.get(i).setQuantidade(listaHistorico.get(i).getQuantidade() + listaHistorico.get(j).getQuantidade());
+                        listaHistorico.add(listaHistorico.get(i));
+                        listaHistorico.remove(j);
+                        listaHistorico.remove(i);
+                    }
+                }
 
-                if (listaHistorico.get(i).getIdProduto() == listaHistorico.get(j).getIdProduto()) {
-                    listaHistorico.get(i).setQuantidade(listaHistorico.get(i).getQuantidade() + listaHistorico.get(j).getQuantidade());
-                    listaHistorico.add(listaHistorico.get(i));
-                    listaHistorico.remove(j);
-                    listaHistorico.remove(i);
+            }
+        }
+    }
+    public void buscarHistoricoSomadoPeriodo(String dataDe, String dataAte) {
+        ConsultaHistoricoMySQL c = new ConsultaHistoricoMySQL();
+        listaHistorico = c.buscarHistoricos();
+        for (int i = 0; i < listaHistorico.size(); i++) {
+            for (int j = i + 1; j < listaHistorico.size(); j++) {
+                if ((dataToInt(listaHistorico.get(i).getData()) >= dataToInt(dataDe)) && (dataToInt(listaHistorico.get(i).getData()))<= dataToInt(dataAte)  &&(dataToInt(listaHistorico.get(j).getData()) >= dataToInt(dataDe)) && (dataToInt(listaHistorico.get(j).getData()))<= dataToInt(dataAte)) {
+                    if (listaHistorico.get(i).getIdProduto() == listaHistorico.get(j).getIdProduto()) {
+                        listaHistorico.get(i).setQuantidade(listaHistorico.get(i).getQuantidade() + listaHistorico.get(j).getQuantidade());
+                        listaHistorico.add(listaHistorico.get(i));
+                        listaHistorico.remove(j);
+                        listaHistorico.remove(i);
+                    }
                 }
 
             }
