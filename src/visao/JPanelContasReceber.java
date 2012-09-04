@@ -375,6 +375,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
 
             public void valueChanged(ListSelectionEvent e) {
                 jButton1.setEnabled(true);
+                 jButton2.setEnabled(true);
                 preencherDados();
                 pagamento.buscarPagamentos(controle.getVendaPrazo().getIdVenda());
                 preencherPagamentos(pagamento.getListaPagamento());
@@ -519,6 +520,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
 
     private void iniciarTela() {
         jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
         jLabel7.setText("");
         jLabel10.setText("");
         jLabel12.setText("");
