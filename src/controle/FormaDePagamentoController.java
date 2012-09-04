@@ -21,6 +21,15 @@ public class FormaDePagamentoController {
     public FormaDePagamentoController() {
     }
 
+    public int getIdFormaPagamento(String forma) {
+        for (int i = 0; i < this.listaFormaPagamento.size(); i++) {
+            if (this.listaFormaPagamento.get(i).getDescricao().equals(forma)) {
+                return listaFormaPagamento.get(i).getIdformaPAgamento();
+            }
+        }
+        return 0;
+    }
+
     public String cadastrar() {
         ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
         return consultasFormaDePagamentoMySQL.cadastrarFormaPAgamento(formaPagamento);

@@ -5,13 +5,9 @@
 package pqserver;
 
 //import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.muntjak.tinylookandfeel.Theme;
-import de.muntjak.tinylookandfeel.TinyLookAndFeel;
 import java.text.ParseException;
-import javax.swing.JOptionPane;
+import java.util.Locale;
 import javax.swing.UIManager;
-import javax.swing.plaf.synth.SynthLookAndFeel;
 import visao.JFramePrincipal;
 
 /**
@@ -24,7 +20,7 @@ public class PqServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ParseException {
-        Theme.loadTheme(Theme.getAvailableThemes()[2]);
+//        Theme.loadTheme(Theme.getAvailableThemes()[2]);
         //  TinyLookAndFeel tiny = new TinyLookAndFeel();
         //   SyntheticaAluOxideLookAndFeel syntetica = new SyntheticaAluOxideLookAndFeel();
         try {
@@ -33,6 +29,8 @@ public class PqServer {
 
         } catch (Exception exception) {
         }
+        Locale l = new Locale("pt", "br");
+        Locale.setDefault(l);
         JFramePrincipal principal = new JFramePrincipal();
         principal.setVisible(true);
     }

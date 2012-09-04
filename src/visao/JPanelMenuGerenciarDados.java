@@ -4,6 +4,7 @@
  */
 package visao;
 
+import controle.CategoriasController;
 import controle.ClienteController;
 import controle.FormaDePagamentoController;
 import controle.ProdutoController;
@@ -12,13 +13,19 @@ import fachada.FormaPagamento;
 import fachada.Produto;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -30,6 +37,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     private Component rootPane;
     ClienteController cliente = new ClienteController();
     ProdutoController produto = new ProdutoController();
+    DecimalFormat formatador = new DecimalFormat("###0.00");
     FormaDePagamentoController formaPagamento = new FormaDePagamentoController();
 
     /**
@@ -42,6 +50,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         preencherProdutos();
         preencherFormaPagamento();
         buscaDinamica();
+        preencherTipos();
     }
 
     /**
@@ -74,6 +83,8 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -182,20 +193,19 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -257,6 +267,9 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
 
         jTextField2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel1.setText("Ver:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -267,8 +280,12 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
+                        .addComponent(jTextField2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -284,26 +301,24 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 30, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(11, 11, 11))))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Produtos de Venda", jPanel3);
@@ -505,23 +520,6 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        if (jTable4.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione uma forma de pagamento");
-        } else {
-            int linha = jTable4.getSelectedRow();
-            String id = jTable4.getModel().getValueAt(linha, 0).toString();
-            formaPagamento.getFormaPagamento(Integer.parseInt(id));
-            int escolha = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir essa forma de pagamento" + formaPagamento.getFormaPagamento().getDescricao() + " ?");
-            if (escolha == 0) {
-                this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                JOptionPane.showMessageDialog(rootPane, formaPagamento.excluirFormaPagamento());
-                preencherFormaPagamento();
-                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        }
-    }//GEN-LAST:event_jButton10ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -533,6 +531,8 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -593,17 +593,27 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         this.produto.buscarProdutos();
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
-        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco"}) {
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
-        Object[] linha = new Object[3];
+        Object[] linha = new Object[5];
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = listaProduto.get(i).getPreco();
+            if (listaProduto.get(i).getPrecoCusto() == null || listaProduto.get(i).getPrecoCusto().equals("")) {
+                linha[2] = "";
+            } else {
+                linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+            }
+            if (listaProduto.get(i).getPreco() == null || listaProduto.get(i).getPreco().equals("")) {
+                linha[3] = "";
+            } else {
+                linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+            }
+            linha[4] = listaProduto.get(i).getQnt();
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -615,6 +625,137 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+        column3.setCellRenderer(centerRenderer);
+
+        repaint();
+    }
+
+    public void preencherProdutosProduzidos() {
+        this.produto.buscarProdutosCategoria(0);
+        ArrayList<Produto> listaProduto = this.produto.getListProdutos();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[4];
+        for (int i = 0; i < listaProduto.size(); i++) {
+            linha[0] = listaProduto.get(i).getIdProduto();
+            linha[1] = listaProduto.get(i).getNome();
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+            linha[3] = listaProduto.get(i).getQnt();
+            tb.addRow(linha);
+        }
+        jTable2 = new JTable(tb);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+
+        repaint();
+    }
+
+    public void preencherProdutosAtacado() {
+        this.produto.buscarProdutosCategoria(1);
+        ArrayList<Produto> listaProduto = this.produto.getListProdutos();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[5];
+        for (int i = 0; i < listaProduto.size(); i++) {
+            linha[0] = listaProduto.get(i).getIdProduto();
+            linha[1] = listaProduto.get(i).getNome();
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+            linha[4] = listaProduto.get(i).getQnt();
+            tb.addRow(linha);
+        }
+        jTable2 = new JTable(tb);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+        column3.setCellRenderer(centerRenderer);
+
+        repaint();
+    }
+
+    public void preencherProdutosMP() {
+        this.produto.buscarProdutosCategoria(2);
+        ArrayList<Produto> listaProduto = this.produto.getListProdutos();
+        DefaultTableModel tb;
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[4];
+        for (int i = 0; i < listaProduto.size(); i++) {
+            linha[0] = listaProduto.get(i).getIdProduto();
+            linha[1] = listaProduto.get(i).getNome();
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+            linha[3] = listaProduto.get(i).getQnt();
+            tb.addRow(linha);
+        }
+        jTable2 = new JTable(tb);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+
         repaint();
     }
 
@@ -649,6 +790,13 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setBorder(null);
         jTable4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column3 = jTable2.getColumnModel().getColumn(2);
+        column0.setCellRenderer(centerRenderer);
+        column3.setCellRenderer(centerRenderer);
+
         repaint();
     }
 
@@ -683,39 +831,41 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             public void keyReleased(KeyEvent e) {
 
                 if (!jTextField1.getText().equals("")) {
-                    ArrayList<Cliente> clientes = cliente.buscaDinamicaClientes(jTextField1.getText());
-                    DefaultTableModel dt;
-                    dt = new DefaultTableModel(
-                            new Object[][]{},
-                            new String[]{
-                                "Id", "Nome", "Telefone", "Local de Trabalho"
-                            }) {
-                        @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
+                    if (jComboBox1.getSelectedIndex() == 0) {
+                        ArrayList<Cliente> clientes = cliente.buscaDinamicaClientes(jTextField1.getText());
+                        DefaultTableModel dt;
+                        dt = new DefaultTableModel(
+                                new Object[][]{},
+                                new String[]{
+                                    "Id", "Nome", "Telefone", "Local de Trabalho"
+                                }) {
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[4];
+                        for (int i = 0; i < clientes.size(); i++) {
+                            linha[0] = clientes.get(i).getId();
+                            linha[1] = clientes.get(i).getNome();
+                            linha[2] = clientes.get(i).getTelefoneValido();
+                            linha[3] = clientes.get(i).getLocalDeTrabalho();
+                            dt.addRow(linha);
                         }
-                    };
-                    Object[] linha = new Object[4];
-                    for (int i = 0; i < clientes.size(); i++) {
-                        linha[0] = clientes.get(i).getId();
-                        linha[1] = clientes.get(i).getNome();
-                        linha[2] = clientes.get(i).getTelefoneValido();
-                        linha[3] = clientes.get(i).getLocalDeTrabalho();
-                        dt.addRow(linha);
-                    }
 
-                    jTable1 = new JTable(dt);
-                    jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
-                    jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-                    jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-                    jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-                    jScrollPane1.setViewportView(jTable1);
-                    jTable1.getTableHeader().setReorderingAllowed(false);
-                    jScrollPane1.setBorder(null);
-                    jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    repaint();
-                } else {
-                    preencherClientes();
+                        jTable1 = new JTable(dt);
+                        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable1.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable1.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane1.setViewportView(jTable1);
+                        jTable1.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane1.setBorder(null);
+                        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        repaint();
+                    } else {
+                        preencherClientes();
+                    }
                 }
             }
         });
@@ -728,34 +878,169 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
 
             public void keyReleased(KeyEvent e) {
 
-                if (!jTextField2.getText().equals("")) {
-                    ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
-                    DefaultTableModel tb;
-                    tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco"}) {
-                        @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
+                if (jComboBox1.getSelectedIndex() == 0 || jComboBox1.getSelectedIndex() == 2) {
+                    if (!jTextField2.getText().equals("")) {
+                        ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
+                        DefaultTableModel tb;
+                        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[5];
+                        for (int i = 0; i < listaProduto.size(); i++) {
+                            linha[0] = listaProduto.get(i).getIdProduto();
+                            linha[1] = listaProduto.get(i).getNome();
+                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+                            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            linha[4] = listaProduto.get(i).getQnt();
+                            tb.addRow(linha);
                         }
-                    };
-                    Object[] linha = new Object[3];
-                    for (int i = 0; i < listaProduto.size(); i++) {
-                        linha[0] = listaProduto.get(i).getIdProduto();
-                        linha[1] = listaProduto.get(i).getNome();
-                        linha[2] = listaProduto.get(i).getPreco();
-                        tb.addRow(linha);
+                        jTable2 = new JTable(tb);
+                        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane2.setViewportView(jTable2);
+                        jTable2.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane2.setBorder(null);
+                        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        TableCellRenderer centerRenderer = new CenterRenderer();
+                        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+                        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+                        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+                        TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+                        column0.setCellRenderer(centerRenderer);
+                        column1.setCellRenderer(centerRenderer);
+                        column2.setCellRenderer(centerRenderer);
+                        column3.setCellRenderer(centerRenderer);
+
+                        repaint();
+                    } else {
+                        if (jComboBox1.getSelectedIndex() == 0) {
+                            preencherProdutos();
+                        } else {
+                            preencherProdutosAtacado();
+                        }
                     }
-                    jTable2 = new JTable(tb);
-                    jScrollPane2.setViewportView(jTable2);
-                    jTable2.getTableHeader().setReorderingAllowed(false);
-                    jScrollPane2.setBorder(null);
-                    jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    repaint();
+                } else if (jComboBox1.getSelectedIndex() == 1) {
+                    if (!jTextField2.getText().equals("")) {
+                        ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
+                        DefaultTableModel tb;
+                        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[4];
+                        for (int i = 0; i < listaProduto.size(); i++) {
+                            linha[0] = listaProduto.get(i).getIdProduto();
+                            linha[1] = listaProduto.get(i).getNome();
+                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            linha[3] = listaProduto.get(i).getQnt();
+                            tb.addRow(linha);
+                        }
+                        jTable2 = new JTable(tb);
+                        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane2.setViewportView(jTable2);
+                        jTable2.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane2.setBorder(null);
+                        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        TableCellRenderer centerRenderer = new CenterRenderer();
+                        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+                        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+                        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+                        column0.setCellRenderer(centerRenderer);
+                        column1.setCellRenderer(centerRenderer);
+                        column2.setCellRenderer(centerRenderer);
+
+                        repaint();
+                    } else {
+                        preencherProdutosProduzidos();
+                    }
                 } else {
-                    preencherProdutos();
+                    if (!jTextField2.getText().equals("")) {
+                        ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
+                        DefaultTableModel tb;
+                        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+                            @Override
+                            public boolean isCellEditable(int row, int col) {
+                                return false;
+                            }
+                        };
+                        Object[] linha = new Object[4];
+                        for (int i = 0; i < listaProduto.size(); i++) {
+                            linha[0] = listaProduto.get(i).getIdProduto();
+                            linha[1] = listaProduto.get(i).getNome();
+                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+                            linha[3] = listaProduto.get(i).getQnt();
+                            tb.addRow(linha);
+                        }
+                        jTable2 = new JTable(tb);
+                        jTable2.getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getColumnModel().getColumn(0).setMinWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                        jTable2.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                        jScrollPane2.setViewportView(jTable2);
+                        jTable2.getTableHeader().setReorderingAllowed(false);
+                        jScrollPane2.setBorder(null);
+                        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        TableCellRenderer centerRenderer = new CenterRenderer();
+                        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+                        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+                        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+                        column0.setCellRenderer(centerRenderer);
+                        column1.setCellRenderer(centerRenderer);
+                        column2.setCellRenderer(centerRenderer);
+
+                        repaint();
+                    } else {
+                        preencherProdutosMP();
+                    }
                 }
             }
         });
+    }
 
+    private void preencherTipos() {
+        CategoriasController c = new CategoriasController();
+        c.buscaCategorias();
+        jComboBox1.addItem("Todos");
+        for (int i = 0; i < c.getListaCategorias().size(); i++) {
+            jComboBox1.addItem(c.getListaCategorias().get(i).getDescricao());
+        }
+        jComboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jComboBox1.getSelectedIndex() == 0) {
+                    jTextField2.setText("");
+                    preencherProdutos();
+                } else if (jComboBox1.getSelectedIndex() == 1) {
+                    jTextField2.setText("");
+                    preencherProdutosProduzidos();
+                } else if (jComboBox1.getSelectedIndex() == 2) {
+                    jTextField2.setText("");
+                    preencherProdutosAtacado();
+                } else {
+                    jTextField2.setText("");
+                    preencherProdutosMP();
+                }
+            }
+        });
+    }
 
+    class CenterRenderer extends DefaultTableCellRenderer {
+
+        public CenterRenderer() {
+            setHorizontalAlignment(CENTER);
+        }
     }
 }

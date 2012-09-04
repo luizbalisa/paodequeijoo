@@ -40,6 +40,21 @@ public class ProdutoController {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         this.listaProdutos = consultaProdutoMySQL.buscarProduto();
     }
+     public void buscarProdutosTotal() {
+        ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
+        this.listaProdutos = consultaProdutoMySQL.buscarProdutoTotal();
+    }
+
+
+    public void buscarProdutosHist() {
+        ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
+        this.listaProdutos = consultaProdutoMySQL.buscarProdutoHist();
+    }
+
+    public void buscarProdutosCategoria(int categoria) {
+        ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
+        this.listaProdutos = consultaProdutoMySQL.buscarProdutoCategoria(categoria);
+    }
 
     public ArrayList<Produto> buscaDinamicaProdutos(String busca) {
         String desc2 = busca;
@@ -85,4 +100,5 @@ public class ProdutoController {
             }
         }
     }
+
 }

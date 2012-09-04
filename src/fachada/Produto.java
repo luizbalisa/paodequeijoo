@@ -6,13 +6,53 @@ package fachada;
 
 /**
  *
- * @author Rafael
+ * @author Guil
  */
 public class Produto {
-
+    
     private int idProduto;
     private String nome;
     private String preco;
+    private Boolean visivel;
+    private int qnt;
+    private int categoria;
+    private String precoCusto;
+
+    public Produto() {
+    }
+
+    public Produto(String nome, String preco, Boolean visivel, int qnt, int categoria, String precoCusto) {
+        this.nome = nome;
+        this.preco = preco;
+        this.visivel = visivel;
+        this.qnt = qnt;
+        this.categoria = categoria;
+        this.precoCusto = precoCusto;
+    }
+
+    public int getQnt() {
+        return qnt;
+    }
+
+    public void setQnt(int qnt) {
+        this.qnt = qnt;
+    }
+
+    public int getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(int categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getPrecoCusto() {
+        return precoCusto;
+    }
+
+    public void setPrecoCusto(String precoCusto) {
+        this.precoCusto = precoCusto;
+    }
 
     public Boolean getVisivel() {
         return visivel;
@@ -21,12 +61,8 @@ public class Produto {
     public void setVisivel(Boolean visivel) {
         this.visivel = visivel;
     }
-    private Boolean visivel;
 
-    public Produto() {
-    }
-
-    public Produto(String nome, String preco) {
+    public Produto(String nome,String preco){
         this.nome = nome;
         this.preco = preco;
     }
@@ -54,4 +90,6 @@ public class Produto {
     public void setPreco(String preco) {
         this.preco = preco;
     }
+    
+    
 }
