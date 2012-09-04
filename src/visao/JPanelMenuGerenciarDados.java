@@ -598,17 +598,17 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            if (listaProduto.get(i).getPreco_custo() == null || listaProduto.get(i).getPreco_custo().equals("")) {
+            if (listaProduto.get(i).getPrecoCusto() == null || listaProduto.get(i).getPrecoCusto().equals("")) {
                 linha[2] = "";
             } else {
-                linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_custo().replace(",", ".")));
+                linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
             }
-            if (listaProduto.get(i).getPreco_venda() == null || listaProduto.get(i).getPreco_venda().equals("")) {
+            if (listaProduto.get(i).getPreco() == null || listaProduto.get(i).getPreco().equals("")) {
                 linha[3] = "";
             } else {
-                linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
+                linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
             }
-            linha[4] = listaProduto.get(i).getQuantidade();
+            linha[4] = listaProduto.get(i).getQnt();
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -648,8 +648,8 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
-            linha[3] = listaProduto.get(i).getQuantidade();
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+            linha[3] = listaProduto.get(i).getQnt();
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -687,9 +687,9 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_custo().replace(",", ".")));
-            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
-            linha[4] = listaProduto.get(i).getQuantidade();
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+            linha[4] = listaProduto.get(i).getQnt();
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -729,8 +729,8 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_custo().replace(",", ".")));
-            linha[3] = listaProduto.get(i).getQuantidade();
+            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+            linha[3] = listaProduto.get(i).getQnt();
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -887,9 +887,9 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         for (int i = 0; i < listaProduto.size(); i++) {
                             linha[0] = listaProduto.get(i).getIdProduto();
                             linha[1] = listaProduto.get(i).getNome();
-                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_custo().replace(",", ".")));
-                            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
-                            linha[4] = listaProduto.get(i).getQuantidade();
+                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+                            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            linha[4] = listaProduto.get(i).getQnt();
                             tb.addRow(linha);
                         }
                         jTable2 = new JTable(tb);
@@ -934,8 +934,8 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         for (int i = 0; i < listaProduto.size(); i++) {
                             linha[0] = listaProduto.get(i).getIdProduto();
                             linha[1] = listaProduto.get(i).getNome();
-                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
-                            linha[3] = listaProduto.get(i).getQuantidade();
+                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            linha[3] = listaProduto.get(i).getQnt();
                             tb.addRow(linha);
                         }
                         jTable2 = new JTable(tb);
@@ -974,8 +974,8 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         for (int i = 0; i < listaProduto.size(); i++) {
                             linha[0] = listaProduto.get(i).getIdProduto();
                             linha[1] = listaProduto.get(i).getNome();
-                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_custo().replace(",", ".")));
-                            linha[3] = listaProduto.get(i).getQuantidade();
+                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+                            linha[3] = listaProduto.get(i).getQnt();
                             tb.addRow(linha);
                         }
                         jTable2 = new JTable(tb);

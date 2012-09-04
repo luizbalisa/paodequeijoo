@@ -14,7 +14,7 @@ import persistencia.ConsultaHistoricoMySQL;
  *
  * @author Guil
  */
-public class HistoricoSaidaController {
+public class HistoricoSaidaProdutoController {
 
     private HistoricoSaidaProduto historico = new HistoricoSaidaProduto();
     private ArrayList<HistoricoSaidaProduto> listaHistorico = new ArrayList<HistoricoSaidaProduto>();
@@ -23,7 +23,7 @@ public class HistoricoSaidaController {
     private ArrayList<HistoricoSaidaProduto> listaDatas;
     private ValidadorCampos validar = new ValidadorCampos();
 
-    public HistoricoSaidaController() {
+    public HistoricoSaidaProdutoController() {
     }
 
     public void buscarHistorico() {

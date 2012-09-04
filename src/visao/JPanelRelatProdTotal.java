@@ -4,7 +4,7 @@
  */
 package visao;
 
-import controle.HistoricoSaidaController;
+import controle.HistoricoSaidaProdutoController;
 import controle.ProdutoController;
 import fachada.HistoricoSaidaProduto;
 import java.awt.event.ActionEvent;
@@ -26,7 +26,7 @@ import javax.swing.table.TableColumn;
  */
 public class JPanelRelatProdTotal extends javax.swing.JPanel {
 
-    private HistoricoSaidaController historico = new HistoricoSaidaController();
+    private HistoricoSaidaProdutoController historico = new HistoricoSaidaProdutoController();
     private String dataI;
     private String dataF;
     private int tipo;

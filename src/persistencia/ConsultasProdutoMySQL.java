@@ -24,11 +24,10 @@ public class ConsultasProdutoMySQL {
     private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria) "
             + "VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? WHERE codigo_produto=? ";
-
     private static final String SQL_BUSCA_PRODUTO_TOTAL = "SELECT * FROM produtos ORDER BY nome";
+
     public ConsultasProdutoMySQL() {
     }
-    
 
     public ArrayList<Produto> buscarProdutoHist() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
@@ -40,10 +39,10 @@ public class ConsultasProdutoMySQL {
                 Produto prod = new Produto();
                 prod.setIdProduto(rs.getInt("codigo_produto"));
                 prod.setNome(rs.getString("nome"));
-                prod.setPreco_venda(rs.getString("preco_venda"));
+                prod.setPreco(rs.getString("preco_venda"));
                 prod.setCategoria(rs.getInt("idCategoria"));
-                prod.setQuantidade(rs.getInt("quantidade"));
-                prod.setPreco_custo(rs.getString("preco_custo"));
+                prod.setQnt(rs.getInt("quantidade"));
+                prod.setPrecoCusto(rs.getString("preco_custo"));
                 prod.setVisivel(rs.getInt("visivel") == 1);
                 produtos.add(prod);
             }
@@ -77,9 +76,9 @@ public class ConsultasProdutoMySQL {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_INCLUIR_PRODUTO);
             stmt.setString(1, prod.getNome());
-            stmt.setString(2, prod.getPreco_venda());
-            stmt.setString(3, prod.getPreco_custo());
-            stmt.setInt(4, prod.getQuantidade());
+            stmt.setString(2, prod.getPreco());
+            stmt.setString(3, prod.getPrecoCusto());
+            stmt.setInt(4, prod.getQnt());
             stmt.setInt(5, prod.getCategoria());
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -97,9 +96,9 @@ public class ConsultasProdutoMySQL {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_EDITAR_PRODUTO);
             stmt.setString(1, prod.getNome());
-            stmt.setString(2, prod.getPreco_venda());
-            stmt.setString(3, prod.getPreco_custo());
-            stmt.setInt(4, prod.getQuantidade());
+            stmt.setString(2, prod.getPreco());
+            stmt.setString(3, prod.getPrecoCusto());
+            stmt.setInt(4, prod.getQnt());
             stmt.setInt(5, prod.getIdProduto());
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -122,9 +121,9 @@ public class ConsultasProdutoMySQL {
                 Produto prod = new Produto();
                 prod.setIdProduto(rs.getInt("codigo_produto"));
                 prod.setNome(rs.getString("nome"));
-                prod.setPreco_venda(rs.getString("preco_venda"));
-                prod.setPreco_custo(rs.getString("preco_custo"));
-                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setPreco(rs.getString("preco_venda"));
+                prod.setPrecoCusto(rs.getString("preco_custo"));
+                prod.setQnt(rs.getInt("quantidade"));
                 prod.setCategoria(rs.getInt("idCategoria"));
                 produtos.add(prod);
             }
@@ -146,9 +145,9 @@ public class ConsultasProdutoMySQL {
                 Produto prod = new Produto();
                 prod.setIdProduto(rs.getInt("codigo_produto"));
                 prod.setNome(rs.getString("nome"));
-                prod.setPreco_venda(rs.getString("preco_venda"));
-                prod.setPreco_custo(rs.getString("preco_custo"));
-                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setPreco(rs.getString("preco_venda"));
+                prod.setPrecoCusto(rs.getString("preco_custo"));
+                prod.setQnt(rs.getInt("quantidade"));
                 prod.setCategoria(rs.getInt("idCategoria"));
                 produtos.add(prod);
             }
@@ -157,7 +156,7 @@ public class ConsultasProdutoMySQL {
         }
         return produtos;
     }
-    
+
     public ArrayList<Produto> buscarProdutoTotal() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         Connection con;
@@ -170,9 +169,9 @@ public class ConsultasProdutoMySQL {
                 Produto prod = new Produto();
                 prod.setIdProduto(rs.getInt("codigo_produto"));
                 prod.setNome(rs.getString("nome"));
-                prod.setPreco_venda(rs.getString("preco_venda"));
-                prod.setPreco_custo(rs.getString("preco_custo"));
-                prod.setQuantidade(rs.getInt("quantidade"));
+                prod.setPreco(rs.getString("preco_venda"));
+                prod.setPrecoCusto(rs.getString("preco_custo"));
+                prod.setQnt(rs.getInt("quantidade"));
                 prod.setCategoria(rs.getInt("idCategoria"));
                 produtos.add(prod);
             }

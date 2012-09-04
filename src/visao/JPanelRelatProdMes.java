@@ -4,7 +4,7 @@
  */
 package visao;
 
-import controle.HistoricoSaidaController;
+import controle.HistoricoSaidaProdutoController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -24,7 +24,7 @@ import javax.swing.table.TableColumn;
  */
 public class JPanelRelatProdMes extends javax.swing.JPanel {
 
-    HistoricoSaidaController controle = new HistoricoSaidaController();
+    HistoricoSaidaProdutoController controle = new HistoricoSaidaProdutoController();
     int m, a;
     DecimalFormat formatador = new DecimalFormat("###0.00");
 

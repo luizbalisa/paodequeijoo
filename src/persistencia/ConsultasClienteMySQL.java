@@ -22,8 +22,38 @@ public class ConsultasClienteMySQL {
     private static final String SQL_INCLUIR_CLIENTE = "INSERT INTO cliente (nome, endereco, cpf, rg, telefone1, telefone2, email, local_trabalho, telefone_comercial, observacoes) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_EDITAR_CLIENTE = "UPDATE cliente SET nome=?, endereco=?, cpf=?, rg=?, telefone1=?, telefone2=?, email=?, local_trabalho=?, telefone_comercial=?, observacoes=? WHERE idcliente=? ";
+    private static final String SQL_BUSCA_CLIENTE_ID = "SELECT * FROM cliente WHERE idCliente=?";
 
     public ConsultasClienteMySQL() {
+    }
+
+    public Cliente buscarClienteId(int idCliente) {
+        Connection con;
+        PreparedStatement stmt;
+
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_BUSCA_CLIENTE_ID);
+            stmt.setInt(1, idCliente);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt("idcliente"));
+                c.setNome(rs.getString("nome"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setCpf(rs.getString("cpf"));
+                c.setRg(rs.getString("rg"));
+                c.setTelefone1(rs.getString("telefone1"));
+                c.setTelefone2(rs.getString("telefone2"));
+                c.setEmail(rs.getString("email"));
+                c.setLocalDeTrabalho(rs.getString("local_trabalho"));
+                c.setTelefoneComercial(rs.getString("telefone_comercial"));
+                c.setObservacoes(rs.getString("observacoes"));
+                return c;
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
     }
 
     public String excluirCliente(Cliente cliente) {

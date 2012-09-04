@@ -4,11 +4,25 @@
  */
 package visao;
 
+import controle.PagamentoController;
+import controle.VendaController;
 import fachada.Cliente;
+import fachada.Pagamento;
+import fachada.ProdutoVenda;
+import fachada.VendaPrazo;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import persistencia.ConsultasClienteMySQL;
 
 /**
  *
@@ -17,6 +31,10 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelContasReceber extends javax.swing.JPanel {
 
     JFramePrincipal principal;
+    VendaController controle = new VendaController();
+    PagamentoController pagamento = new PagamentoController();
+    DecimalFormat formatador = new DecimalFormat("###0.00");
+    String restante;
 
     /**
      * Creates new form JPanelContasReceber
@@ -24,6 +42,10 @@ public class JPanelContasReceber extends javax.swing.JPanel {
     public JPanelContasReceber(JFramePrincipal principal) {
         initComponents();
         this.principal = principal;
+        iniciarTela();
+        controle.buscaVendas();
+        preencherContas(controle.getListaVenda());
+        buscaDinamica();
     }
 
     /**
@@ -59,6 +81,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -166,6 +189,18 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         jLabel14.setText("VAR");
 
         jButton1.setText("Registrar pagamento");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("imprimir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,7 +234,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
@@ -210,7 +245,8 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -235,13 +271,17 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel9)
                                             .addComponent(jLabel10))
@@ -253,26 +293,33 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel13)
                                             .addComponent(jLabel14))
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jButton1))
-                                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JDialogRegistrarPagamento pag = new JDialogRegistrarPagamento(principal, true, this);
+        pag.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        imprimir();
+    }//GEN-LAST:event_jButton2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -280,14 +327,10 @@ public class JPanelContasReceber extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -297,20 +340,25 @@ public class JPanelContasReceber extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-private void preencherContas(){
+    private void preencherContas(ArrayList<VendaPrazo> lista) {
         DefaultTableModel dt;
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "Id", "Cliente", "Valor"
                 }) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
-        Object[] linha = new Object[4];
-        for (int i = 0; i < 0; i++) {
+        Object[] linha = new Object[3];
+        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
+        for (int i = 0; i < lista.size(); i++) {
+            linha[0] = lista.get(i).getIdVenda();
+            linha[1] = c.buscarClienteId(lista.get(i).getIdCliente()).getNome();
+            linha[2] = formatador.format(Double.parseDouble(lista.get(i).getValor().replace(",", ".")));
             dt.addRow(linha);
         }
 
@@ -323,6 +371,178 @@ private void preencherContas(){
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e) {
+                jButton1.setEnabled(true);
+                preencherDados();
+                pagamento.buscarPagamentos(controle.getVendaPrazo().getIdVenda());
+                preencherPagamentos(pagamento.getListaPagamento());
+                calcular();
+            }
+        });
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column1 = jTable1.getColumnModel().getColumn(2);
+        column1.setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(60);
         repaint();
-}
+    }
+
+    public void limparTela() {
+        jTextField1.setText("");
+        iniciarTela();
+        controle.buscaVendas();
+        preencherContas(controle.getListaVenda());
+        preencherDados();
+
+    }
+
+    public void preencherPag() {
+        pagamento.buscarPagamentos(controle.getVendaPrazo().getIdVenda());
+        preencherPagamentos(pagamento.getListaPagamento());
+        calcular();
+    }
+
+    private void preencherItens(ArrayList<ProdutoVenda> lista) {
+        DefaultTableModel dt;
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Data", "Produto", "Quantidade", "Valor"
+                }) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[4];
+        for (int i = 0; i < lista.size(); i++) {
+            linha[0] = lista.get(i).getData();
+            linha[1] = lista.get(i).getProduto().getNome();
+            linha[2] = lista.get(i).getQnt();
+            linha[3] = formatador.format(lista.get(i).getQnt() * Double.parseDouble(lista.get(i).getValor().replace(",", ".")));
+            dt.addRow(linha);
+        }
+
+        jTable2 = new JTable(dt);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+
+        repaint();
+    }
+
+    private void preencherPagamentos(ArrayList<Pagamento> lista) {
+        DefaultTableModel dt;
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Data", "Valor"
+                }) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[2];
+        for (int i = 0; i < lista.size(); i++) {
+            linha[0] = lista.get(i).getData();
+            linha[1] = formatador.format(Double.parseDouble(lista.get(i).getValor().replace(",", ".")));
+            dt.addRow(linha);
+        }
+
+        jTable3 = new JTable(dt);
+        jScrollPane3.setViewportView(jTable3);
+        jTable3.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setBorder(null);
+        jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable3.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable3.getColumnModel().getColumn(1);
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+
+        repaint();
+    }
+
+    public void preencherDados() {
+        int linha = jTable1.getSelectedRow();
+        if (linha != -1) {
+            int idVenda = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            controle.buscaVendaPrazo(idVenda);
+            jLabel7.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            preencherItens(controle.getVendaPrazo().getListVendaDatas());
+            jLabel10.setText(formatador.format(Double.parseDouble(controle.getVendaPrazo().getValor().replace(",", "."))));
+        } else {
+            jLabel7.setText("");
+            preencherItens(new ArrayList<ProdutoVenda>());
+            jLabel10.setText("");
+            preencherPagamentos(new ArrayList<Pagamento>());
+        }
+    }
+
+    private void buscaDinamica() {
+        jTextField1.addKeyListener(new KeyListener() {
+
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+                if (!jTextField1.getText().equals("")) {
+                    preencherContas(controle.buscaDinamicaClientes(jTextField1.getText()));
+                } else {
+                    preencherContas(controle.getListaVenda());
+                }
+            }
+        });
+
+    }
+
+    private void iniciarTela() {
+        jButton1.setEnabled(false);
+        jLabel7.setText("");
+        jLabel10.setText("");
+        jLabel12.setText("");
+        jLabel14.setText("");
+    }
+
+    private void calcular() {
+        jLabel12.setText(String.valueOf(formatador.format(pagamento.totalPagamento())));
+        restante = String.valueOf(Double.parseDouble(controle.getVendaPrazo().getValor().replace(",", ".")) - pagamento.totalPagamento());
+        jLabel14.setText(formatador.format(Double.parseDouble(restante.replace(",", "."))));
+    }
+
+    public void imprimir() {
+//        preencherPag();
+//        int idVenda = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+//        controle.buscaVendaPrazo(idVenda);
+//        ImpressoraController i = new ImpressoraController();
+//        i.imprimirConta(controle.getVendaPrazo(), controle.getVendaPrazo().getListVendaDatas(), pagamento.getListaPagamento(), jLabel12.getText(), jLabel14.getText());
+    }
+
+    class CenterRenderer extends DefaultTableCellRenderer {
+
+        public CenterRenderer() {
+            setHorizontalAlignment(CENTER);
+        }
+    }
 }

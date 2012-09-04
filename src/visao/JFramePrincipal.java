@@ -52,7 +52,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanel2.validate();
         repaint();
     }
+
     public void contasReceber(int idCliente) {
+        jPanel2.removeAll();
+        jPanel2.add(new JPanelContasReceber(this));
+        jPanel2.validate();
+        repaint();
+    }
+
+    public void contasReceber() {
         jPanel2.removeAll();
         jPanel2.add(new JPanelContasReceber(this));
         jPanel2.validate();
@@ -112,6 +120,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
 
         jButton1.setText("Contas a receber");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,6 +177,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         menuRelatórios();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        contasReceber();
+    }//GEN-LAST:event_jButton1ActionPerformed
     /**
      * @param args the command line arguments
      */

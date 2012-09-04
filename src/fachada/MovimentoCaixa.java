@@ -9,9 +9,9 @@ package fachada;
  * @author Guil
  */
 public class MovimentoCaixa {
-    private int idMovimentoCaixa;
+   private int idMovimentoCaixa;
     private String Data;
-    private int tipoPagamento;
+    private int formaPagamento;
     private String valor;
 
     public MovimentoCaixa() {
@@ -25,12 +25,12 @@ public class MovimentoCaixa {
         this.Data = Data;
     }
 
-    public int getTipoPagamento() {
-        return tipoPagamento;
+    public int getFormaPagamento() {
+        return formaPagamento;
     }
 
-    public void setTipoPagamento(int tipoPagamento) {
-        this.tipoPagamento = tipoPagamento;
+    public void setFormaPagamento(int formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
     public int getIdMovimentoCaixa() {

@@ -297,7 +297,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             } else if (s == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Escolha a categoria");
             } else {
-                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), jTextField2.getText(), Integer.parseInt(jTextField4.getText()), s - 1));
+                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), true, Integer.parseInt(jTextField4.getText()), s - 1, jTextField2.getText()));
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 jTextField1.setText("");
                 jTextField2.setText("");
@@ -426,20 +426,20 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jTextField1.setText(p.getNome());
         jComboBox1.setSelectedIndex(p.getCategoria() + 1);
         jComboBox1.setEnabled(false);
-        anterior = p.getPreco_custo();
-        jTextField2.setText(p.getPreco_custo());
-        anterior2 = p.getPreco_venda();
-        jTextField3.setText(p.getPreco_venda());
-        anterior3 = String.valueOf(p.getQuantidade());
-        jTextField4.setText(String.valueOf(p.getQuantidade()));
+        anterior = p.getPrecoCusto();
+        jTextField2.setText(p.getPrecoCusto());
+        anterior2 = p.getPreco();
+        jTextField3.setText(p.getPreco());
+        anterior3 = String.valueOf(p.getQnt());
+        jTextField4.setText(String.valueOf(p.getQnt()));
 
     }
 
     private void editarProduto() {
         produto.getProduto().setNome(jTextField1.getText());
-        produto.getProduto().setPreco_venda(jTextField3.getText());
-        produto.getProduto().setPreco_custo(jTextField2.getText());
-        produto.getProduto().setQuantidade(Integer.parseInt(jTextField4.getText()));
+        produto.getProduto().setPreco(jTextField3.getText());
+        produto.getProduto().setPrecoCusto(jTextField2.getText());
+        produto.getProduto().setQnt(Integer.parseInt(jTextField4.getText()));
     }
 
     private void dinamismo() {
