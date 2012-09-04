@@ -251,16 +251,16 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jTextField1.setText("");
-                if (tipo == 0) {
+                if (tipo == 0) {//dia
                     historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
                     if (jComboBox1.getSelectedIndex() == 2) {
                         preencherTabelaAtacado(historico.getListaDatas());
                     } else {
                         preencherTabela(historico.getListaDatas());
                     }
-                } else {
-                    if (jComboBox1.getSelectedIndex() == 2) {
+                } else {//periodo
                         historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
+                    if (jComboBox1.getSelectedIndex() == 2) {
                         preencherTabelaAtacado(historico.getListaDatas());
                     } else {
                         preencherTabela(historico.getListaDatas());
