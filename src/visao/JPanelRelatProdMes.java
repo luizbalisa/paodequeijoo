@@ -163,8 +163,8 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         
         TableCellRenderer centerRenderer = new CenterRenderer();
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(150);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(150);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(250);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(250);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMaxWidth(100);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMinWidth(100);
         
