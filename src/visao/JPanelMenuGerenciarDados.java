@@ -558,6 +558,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 new String[]{
                     "Id", "Nome", "Telefone", "Local de Trabalho"
                 }) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -589,6 +590,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -639,6 +641,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -678,6 +681,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -720,6 +724,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -759,6 +764,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<FormaPagamento> listaFormaPagamento = this.formaPagamento.getListFormaPagamento();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"codigo", "descicao", "tipo"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -817,6 +823,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
 
     private void buscaDinamica() {
         jTextField1.addKeyListener(new KeyListener() {
+
             public void keyTyped(KeyEvent e) {
             }
 
@@ -834,6 +841,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                                 new String[]{
                                     "Id", "Nome", "Telefone", "Local de Trabalho"
                                 }) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -865,6 +873,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         });
         jTextField2.addKeyListener(new KeyListener() {
+
             public void keyTyped(KeyEvent e) {
             }
 
@@ -878,6 +887,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -887,8 +897,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         for (int i = 0; i < listaProduto.size(); i++) {
                             linha[0] = listaProduto.get(i).getIdProduto();
                             linha[1] = listaProduto.get(i).getNome();
-                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
-                            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            if (listaProduto.get(i).getPrecoCusto() != null) {
+                                linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+                            } else {
+                                linha[2] = "";
+                            }
+                            if (listaProduto.get(i).getPreco() != null) {
+                                linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            } else {
+                                linha[3] = "";
+                            }
                             linha[4] = listaProduto.get(i).getQnt();
                             tb.addRow(linha);
                         }
@@ -925,6 +943,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -965,6 +984,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -1013,6 +1033,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jComboBox1.addItem(c.getListaCategorias().get(i).getDescricao());
         }
         jComboBox1.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jComboBox1.getSelectedIndex() == 0) {
