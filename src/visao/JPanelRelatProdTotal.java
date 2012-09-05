@@ -37,7 +37,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
      */
     public JPanelRelatProdTotal(String dataInicio, String dataFim, int t) {
         initComponents();
-        
+
         dinamismo();
         this.tipo = t;
         if (tipo == 0) {//data
@@ -160,6 +160,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                 new String[]{
                     "Nome Produto", "Quantidade", "Receita"
                 }) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -177,7 +178,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                 dt.addRow(linha);
             }
         }
-        
+
         jTable2 = new JTable(dt);
         jScrollPane2.setViewportView(jTable2);
         jTable2.getTableHeader().setReorderingAllowed(false);
@@ -190,10 +191,10 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         column0.setCellRenderer(centerRenderer);
         column1.setCellRenderer(centerRenderer);
 
-        
-        jLabel3.setText(String.valueOf(getReceitaTotal(listaProduto)));
-        
-        
+
+        jLabel3.setText(String.valueOf(formatador.format(getReceitaTotal(listaProduto))));
+
+
         repaint();
 
     }
@@ -205,6 +206,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                 new String[]{
                     "Nome Produto", "Quantidade", "Custo Total", "Receita Total", "% de Lucro"
                 }) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -248,6 +250,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
 
     private void dinamismo() {
         jComboBox1.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 jTextField1.setText("");
@@ -259,7 +262,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
                         preencherTabela(historico.getListaDatas());
                     }
                 } else {//periodo
-                        historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
+                    historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
                     if (jComboBox1.getSelectedIndex() == 2) {
                         preencherTabelaAtacado(historico.getListaDatas());
                     } else {
@@ -269,6 +272,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
             }
         });
         jTextField1.addKeyListener(new KeyListener() {
+
             @Override
             public void keyTyped(KeyEvent e) {
             }
