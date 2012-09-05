@@ -310,7 +310,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Id", "Cliente", "Valor"
+                    "Id", "Cliente"
                 }) {
 
             @Override
@@ -318,12 +318,11 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                 return false;
             }
         };
-        Object[] linha = new Object[3];
+        Object[] linha = new Object[2];
         ConsultasClienteMySQL c = new ConsultasClienteMySQL();
         for (int i = 0; i < lista.size(); i++) {
             linha[0] = lista.get(i).getIdVenda();
             linha[1] = c.buscarClienteId(lista.get(i).getIdCliente()).getNome();
-            linha[2] = formatador.format(Double.parseDouble(lista.get(i).getValor().replace(",", ".")));
             dt.addRow(linha);
         }
 
@@ -346,11 +345,6 @@ public class JPanelContasReceber extends javax.swing.JPanel {
             }
         });
 
-        TableCellRenderer centerRenderer = new CenterRenderer();
-        TableColumn column1 = jTable1.getColumnModel().getColumn(2);
-        column1.setCellRenderer(centerRenderer);
-        jTable1.getColumnModel().getColumn(2).setMaxWidth(60);
-        jTable1.getColumnModel().getColumn(2).setMinWidth(60);
         repaint();
     }
 
