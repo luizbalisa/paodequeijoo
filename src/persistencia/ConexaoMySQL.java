@@ -45,7 +45,7 @@ public class ConexaoMySQL {
             String driverName = "com.mysql.jdbc.Driver";
             Class.forName(driverName);
             // Configurando a nossa conexão com um banco de dados//    
-            String url = "jdbc:mysql://200.131.224.101:2200/paodequeijo";
+            String url = "jdbc:mysql://192.168.2.183:3306/paodequeijo";
             //      String url = "jdbc:mysql://50.31.138.79:3306/dietsmar_pqdb";
 //            String url = "jdbc:mysql://172.16.199.117:3306/paodequeijodb";
             //  String username = "dietsmar_pq";        //nome de um usuário de seu BD        
