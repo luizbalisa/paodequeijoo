@@ -58,8 +58,8 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,9 +77,9 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
 
         jLabel2.setText("Ver: ");
 
-        jLabel3.setText("Receita Total :");
+        jLabel4.setText("Receita total:");
 
-        jLabel4.setText("jLabel4");
+        jLabel3.setText("jLabel5");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -99,9 +99,9 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
                         .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
-                        .add(jLabel3)
+                        .add(jLabel4)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel4)))
+                        .add(jLabel3)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -117,10 +117,11 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
                         .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(18, 18, 18)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                .add(22, 22, 22)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(jLabel4)))
+                    .add(jLabel4))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -150,10 +151,10 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
             for (int j = 0; j < linha.length; j++) {
                 linha[j] = String.valueOf(lista.get(i)[j]);
             }
-            linha[linha.length-1] = formatador.format(Double.parseDouble(linha[linha.length-1].toString().replace(",", ".")));
+            linha[linha.length - 1] = formatador.format(Double.parseDouble(linha[linha.length - 1].toString().replace(",", ".")));
             dt.addRow(linha);
         }
-        
+
 
         jTable1 = new JTable(dt);
         jScrollPane1.setViewportView(jTable1);
@@ -161,30 +162,29 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        
+
         TableCellRenderer centerRenderer = new CenterRenderer();
         jTable1.getColumnModel().getColumn(0).setMaxWidth(250);
         jTable1.getColumnModel().getColumn(0).setMinWidth(250);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMaxWidth(100);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMinWidth(100);
-        
+
         TableColumn column = jTable1.getColumnModel().getColumn(linha.length - 1);
         column.setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(linha.length - 2).setMaxWidth(50);
         jTable1.getColumnModel().getColumn(linha.length - 2).setMinWidth(50);
         column = jTable1.getColumnModel().getColumn(linha.length - 2);
         column.setCellRenderer(centerRenderer);
-        
+
         for (int i = 1; i < linha.length - 2; i++) {
             jTable1.getColumnModel().getColumn(i).setMaxWidth(40);
             jTable1.getColumnModel().getColumn(i).setMinWidth(40);
             column = jTable1.getColumnModel().getColumn(i);
             column.setCellRenderer(centerRenderer);
         }
+        jLabel3.setText(String.valueOf(formatador.format(getReceitaTotal(lista))));
 
-        
     }
-    
 
     private void buscaDinamica() {
         jTextField1.addKeyListener(new KeyListener() {
@@ -212,6 +212,14 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
                 preencherHistorico(controle.getListaMes());
             }
         });
+    }
+
+    public double getReceitaTotal(ArrayList<String[]> lista) {
+        double soma = 0;
+        for (int i = 0; i < lista.size(); i++) {
+            soma += Double.parseDouble(lista.get(i)[lista.get(i).length - 1].replace(",", "."));
+        }
+        return soma;
     }
 }
 
