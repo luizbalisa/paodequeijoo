@@ -83,6 +83,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pão de Queijo - Servidor");
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         jPanel2.setLayout(new java.awt.BorderLayout());
