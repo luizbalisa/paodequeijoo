@@ -101,8 +101,8 @@ public class ConsultasProdutoMySQL {
             stmt.setString(2, prod.getPreco());
             stmt.setString(3, prod.getPrecoCusto());
             stmt.setInt(4, prod.getQnt());
-            stmt.setInt(5, prod.getIdProduto());
-            stmt.setInt(6, prod.getQntMinima());
+            stmt.setInt(5, prod.getQntMinima());
+            stmt.setInt(6, prod.getIdProduto());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
