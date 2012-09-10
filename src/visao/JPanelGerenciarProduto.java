@@ -476,7 +476,8 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jTextField3.setText(p.getPreco());
         anterior3 = String.valueOf(p.getQnt());
         jTextField4.setText(String.valueOf(p.getQnt()));
-        
+        anterior4 = String.valueOf(p.getQntMinima());
+        jTextField5.setText(String.valueOf(p.getQntMinima()));
     }
 
     private void editarProduto() {
@@ -484,6 +485,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         produto.getProduto().setPreco(jTextField3.getText());
         produto.getProduto().setPrecoCusto(jTextField2.getText());
         produto.getProduto().setQnt(Integer.parseInt(jTextField4.getText()));
+        produto.getProduto().setQntMinima(Integer.parseInt(jTextField5.getText()));
     }
 
     private void dinamismo() {

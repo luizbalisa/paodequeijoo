@@ -5,13 +5,17 @@
 package pqserver;
 
 //import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import controle.ProdutoController;
 import java.awt.Component;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import visao.JDialogQntMinima;
 import visao.JFramePrincipal;
 
 /**
@@ -42,16 +46,29 @@ public class PqServer {
 
     public static void checarEstoqueMinimo() {
         new Thread(new Runnable() {
+            ProdutoController a = new ProdutoController();
+            String nome;
+            ArrayList<String> aux = new ArrayList<String>();
 
+            @Override
             public void run() {
-                boolean controle = true;
+                boolean controle = false;
                 while (true) {
                     try {
                         //Aqui implementacao, usar arraylist string para controlar quais itens estao na lista
+                        if (aux != a.getProdsQntMinima()) {
+                            aux = a.getProdsQntMinima();
+                            controle = true;
+                        }
+
                         if (controle) {
                             controle = false;
-                            //Dialog 
+                            if (!aux.isEmpty()) {
+                                JDialogQntMinima dialog = new JDialogQntMinima(null, true);
+                                dialog.setVisible(true);
+                            }                         //Dialog 
                         }
+
                         Thread.sleep(3000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(PqServer.class.getName()).log(Level.SEVERE, null, ex);

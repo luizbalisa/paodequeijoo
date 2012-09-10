@@ -22,8 +22,8 @@ public class ConsultasProdutoMySQL {
     private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1  ORDER BY nome";
     private static final String SQL_BUSCA_PRODUTO_HIST = "SELECT * FROM produtos WHERE idCategoria<>2 ORDER BY idCategoria, nome";
     private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria,estoque_minimo) "
-            + "VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? WHERE codigo_produto=? ";
+            + "VALUES (?, ?, ?, ?, ?,?)";
+    private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? , estoque_minimo=? WHERE codigo_produto=? ";
     private static final String SQL_BUSCA_PRODUTO_TOTAL = "SELECT * FROM produtos ORDER BY nome";
 
     public ConsultasProdutoMySQL() {
