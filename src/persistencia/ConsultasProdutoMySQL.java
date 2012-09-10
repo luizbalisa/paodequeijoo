@@ -21,7 +21,7 @@ public class ConsultasProdutoMySQL {
     private static final String SQL_BUSCA_PRODUTO_CATEGORIA = "SELECT * FROM produtos WHERE visivel=1 AND idCategoria=? ORDER BY nome";
     private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1  ORDER BY nome";
     private static final String SQL_BUSCA_PRODUTO_HIST = "SELECT * FROM produtos WHERE idCategoria<>2 ORDER BY idCategoria, nome";
-    private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria) "
+    private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria,estoque_minimo) "
             + "VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? WHERE codigo_produto=? ";
     private static final String SQL_BUSCA_PRODUTO_TOTAL = "SELECT * FROM produtos ORDER BY nome";
@@ -44,6 +44,7 @@ public class ConsultasProdutoMySQL {
                 prod.setQnt(rs.getInt("quantidade"));
                 prod.setPrecoCusto(rs.getString("preco_custo"));
                 prod.setVisivel(rs.getInt("visivel") == 1);
+                prod.setQntMinima(rs.getInt("estoque_minimo"));
                 produtos.add(prod);
             }
         } catch (SQLException ex) {
@@ -80,6 +81,7 @@ public class ConsultasProdutoMySQL {
             stmt.setString(3, prod.getPrecoCusto());
             stmt.setInt(4, prod.getQnt());
             stmt.setInt(5, prod.getCategoria());
+            stmt.setInt(6, prod.getQntMinima());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -100,6 +102,7 @@ public class ConsultasProdutoMySQL {
             stmt.setString(3, prod.getPrecoCusto());
             stmt.setInt(4, prod.getQnt());
             stmt.setInt(5, prod.getIdProduto());
+            stmt.setInt(6, prod.getQntMinima());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -125,6 +128,7 @@ public class ConsultasProdutoMySQL {
                 prod.setPrecoCusto(rs.getString("preco_custo"));
                 prod.setQnt(rs.getInt("quantidade"));
                 prod.setCategoria(rs.getInt("idCategoria"));
+                prod.setQntMinima(rs.getInt("estoque_minimo"));
                 produtos.add(prod);
             }
         } catch (SQLException ex) {
@@ -149,6 +153,7 @@ public class ConsultasProdutoMySQL {
                 prod.setPrecoCusto(rs.getString("preco_custo"));
                 prod.setQnt(rs.getInt("quantidade"));
                 prod.setCategoria(rs.getInt("idCategoria"));
+                prod.setQntMinima(rs.getInt("estoque_minimo"));
                 produtos.add(prod);
             }
         } catch (SQLException ex) {
@@ -173,6 +178,7 @@ public class ConsultasProdutoMySQL {
                 prod.setPrecoCusto(rs.getString("preco_custo"));
                 prod.setQnt(rs.getInt("quantidade"));
                 prod.setCategoria(rs.getInt("idCategoria"));
+                prod.setQntMinima(rs.getInt("estoque_minimo"));
                 produtos.add(prod);
             }
         } catch (SQLException ex) {
