@@ -68,7 +68,7 @@ public class JPanelGerenciarFormaPagamento extends javax.swing.JPanel {
         jRadioVista.setSelected(true);
         jRadioVista.setText("À Vista");
 
-        jTextField1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Tipo:");

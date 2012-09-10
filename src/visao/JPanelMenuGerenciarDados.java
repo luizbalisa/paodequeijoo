@@ -157,7 +157,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/magnifier.png"))); // NOI18N
         jLabel3.setText("Buscar:");
 
-        jTextField1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -175,7 +175,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -205,7 +205,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -265,10 +265,12 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/magnifier.png"))); // NOI18N
         jLabel4.setText("Buscar:");
 
-        jTextField2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Ver:");
+
+        jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -309,7 +311,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +319,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -366,7 +368,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -406,7 +408,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -558,6 +560,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 new String[]{
                     "Id", "Nome", "Telefone", "Local de Trabalho"
                 }) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -589,6 +592,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -639,6 +643,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -678,6 +683,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -720,6 +726,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -759,6 +766,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         ArrayList<FormaPagamento> listaFormaPagamento = this.formaPagamento.getListFormaPagamento();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"codigo", "descicao", "tipo"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -817,6 +825,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
 
     private void buscaDinamica() {
         jTextField1.addKeyListener(new KeyListener() {
+
             public void keyTyped(KeyEvent e) {
             }
 
@@ -834,6 +843,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                                 new String[]{
                                     "Id", "Nome", "Telefone", "Local de Trabalho"
                                 }) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -865,6 +875,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         });
         jTextField2.addKeyListener(new KeyListener() {
+
             public void keyTyped(KeyEvent e) {
             }
 
@@ -878,6 +889,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -887,8 +899,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         for (int i = 0; i < listaProduto.size(); i++) {
                             linha[0] = listaProduto.get(i).getIdProduto();
                             linha[1] = listaProduto.get(i).getNome();
-                            linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
-                            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            if (listaProduto.get(i).getPrecoCusto() != null) {
+                                linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+                            } else {
+                                linha[2] = "";
+                            }
+                            if (listaProduto.get(i).getPreco() != null) {
+                                linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+                            } else {
+                                linha[3] = "";
+                            }
                             linha[4] = listaProduto.get(i).getQnt();
                             tb.addRow(linha);
                         }
@@ -925,6 +945,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -965,6 +986,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
+
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -1013,6 +1035,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jComboBox1.addItem(c.getListaCategorias().get(i).getDescricao());
         }
         jComboBox1.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jComboBox1.getSelectedIndex() == 0) {

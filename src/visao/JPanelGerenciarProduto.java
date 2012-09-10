@@ -97,7 +97,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Nome:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jButton5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/delete.png"))); // NOI18N
@@ -120,6 +120,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Preço de custo:");
 
+        jTextField2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -156,6 +157,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Preço de venda:");
 
+        jTextField3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -192,6 +194,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Quantidade: ");
 
+        jTextField4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -220,6 +223,9 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Categoria: ");
 
         jLabel6.setText("Qnt Mínima: ");

@@ -81,6 +81,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
+        jTable3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -99,7 +100,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTable3);
 
-        jLabel3.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel3.setText("Contas a receber");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -110,7 +111,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator3))
         );
@@ -124,6 +125,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -144,12 +146,18 @@ public class JPanelContasReceber extends javax.swing.JPanel {
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Buscar: ");
 
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Nome: ");
 
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Itens: ");
 
+        jTable2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -168,22 +176,30 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTable2);
 
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Nome cliente");
 
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Pagamentos realizados:");
 
         jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("Valor total: ");
 
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("VT");
 
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel11.setText("Valor recebido: ");
 
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel12.setText("VR");
 
+        jLabel13.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel13.setText("Valor a receber: ");
 
+        jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel14.setText("VAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
