@@ -34,7 +34,7 @@ public class ProdutoController {
     public ArrayList<Produto> getProdsQntMinimaProduto(){
         ArrayList<Produto> aux = new ArrayList<Produto>();
         for (int i = 0; i < listaProdutos.size(); i++) {
-            if(listaProdutos.get(i).getQnt() <= listaProdutos.get(i).getQntMinima()){
+            if(listaProdutos.get(i).getQnt() < listaProdutos.get(i).getQntMinima()){
                 aux.add(listaProdutos.get(i));
             }
         }
