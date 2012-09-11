@@ -612,7 +612,11 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             } else {
                 linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
             }
-            linha[4] = listaProduto.get(i).getQnt();
+            if (listaProduto.get(i).getQnt() < listaProduto.get(i).getQntMinima()) {
+                linha[4] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
+            } else {
+                linha[4] = listaProduto.get(i).getQnt();
+            }
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);

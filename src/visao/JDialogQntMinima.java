@@ -30,6 +30,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        System.out.println(jTable1.getWidth());
         preencherTabela();
     }
 
@@ -46,6 +47,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,32 +77,38 @@ public class JDialogQntMinima extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText("ATENÇÃO: Os seguintes produtos estão abaixo do estoque minimo.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,6 +126,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -131,7 +140,8 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Produto", "Qnt em Estoque", "Qnt Minima do Produto"}) {
+                    "Produto", "Em estoque", "Est. Minimo"}) {
+
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -142,8 +152,8 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         for (int i = 0; i < list.size(); i++) {
             valor +="<font color=\"red\">"+ list.get(i).getQnt()+"</font></html>";
             linha[0] = list.get(i).getNome();
-            linha[2] = list.get(i).getQnt();
-            linha[1] = valor;
+            linha[2] = list.get(i).getQntMinima();
+            linha[1] = "<html><font color=\"red\">"+list.get(i).getQnt()+"</font></html>";
             dt.addRow(linha);
         }
         jTable1 = new JTable(dt);
@@ -151,6 +161,10 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(85);
+        jTable1.getColumnModel().getColumn(1).setMinWidth(85);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(85);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(85);
 
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column = jTable1.getColumnModel().getColumn(1);
