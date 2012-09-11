@@ -20,6 +20,27 @@ public class ProdutoController {
 
     public ProdutoController() {
     }
+    
+    public ArrayList<String> getProdsQntMinima(){
+        ArrayList<String> aux = new ArrayList<String>();
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            if(listaProdutos.get(i).getQnt() <= listaProdutos.get(i).getQntMinima()){
+                aux.add(listaProdutos.get(i).getNome());
+            }
+        }
+        return aux;
+    }
+    
+    public ArrayList<Produto> getProdsQntMinimaProduto(){
+        ArrayList<Produto> aux = new ArrayList<Produto>();
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            if(listaProdutos.get(i).getQnt() <= listaProdutos.get(i).getQntMinima()){
+                aux.add(listaProdutos.get(i));
+            }
+        }
+        return aux;
+    }
+    
 
     public String cadastrar() {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();

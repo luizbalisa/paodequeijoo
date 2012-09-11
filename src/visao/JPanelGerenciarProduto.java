@@ -29,6 +29,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     String anterior = "";
     String anterior2 = "";
     String anterior3 = "";
+    String anterior4 = "";
     private Component rootPane;
 
     /**
@@ -77,6 +78,8 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,7 +213,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -224,6 +227,14 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Categoria: ");
+
+        jLabel6.setText("Qnt Mínima: ");
+
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField5KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -252,7 +263,12 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +286,11 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton5))
@@ -285,7 +305,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -300,15 +320,18 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preço de custo");
             } else if (jTextField4.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Preencha o campo Quantidade");
+            } else if (jTextField5.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Preencha o campo Quantidade Mínima");
             } else if (s == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Escolha a categoria");
             } else {
-                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), true, Integer.parseInt(jTextField4.getText()), s - 1, jTextField2.getText()));
+                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), true, Integer.parseInt(jTextField4.getText()), s - 1, jTextField2.getText(),Integer.parseInt(jTextField5.getText())));
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 jTextField1.setText("");
                 jTextField2.setText("");
                 jTextField3.setText("");
                 jTextField4.setText("");
+                jTextField5.setText("");
                 JOptionPane.showMessageDialog(rootPane, produto.cadastrar());
                 pai.ativarBotoes(telaTipo);
                 pai.preencherProdutos();
@@ -326,6 +349,8 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(rootPane, "Preencha o campo Preço de custo");
                 } else if (jTextField4.getText().equals("")) {
                     JOptionPane.showMessageDialog(rootPane, "Preencha o campo Quantidade");
+                } else if (jTextField5.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Preencha o campo Quantidade Mínima");
                 } else if (s == 0) {
                     JOptionPane.showMessageDialog(rootPane, "Escolha a categoria");
                 } else {
@@ -408,6 +433,17 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jTextField4KeyReleased
+
+    private void jTextField5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyReleased
+       if (!jTextField5.getText().equals("")) {
+            if (!validar.checarInteiro(jTextField5.getText())) {
+                jTextField5.setText(anterior4);
+            } else {
+                anterior4 = jTextField5.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField5KeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
@@ -417,6 +453,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -426,6 +463,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 
     private void preencherDadosProduto(Produto p) {
@@ -438,7 +476,8 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         jTextField3.setText(p.getPreco());
         anterior3 = String.valueOf(p.getQnt());
         jTextField4.setText(String.valueOf(p.getQnt()));
-
+        anterior4 = String.valueOf(p.getQntMinima());
+        jTextField5.setText(String.valueOf(p.getQntMinima()));
     }
 
     private void editarProduto() {
@@ -446,6 +485,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         produto.getProduto().setPreco(jTextField3.getText());
         produto.getProduto().setPrecoCusto(jTextField2.getText());
         produto.getProduto().setQnt(Integer.parseInt(jTextField4.getText()));
+        produto.getProduto().setQntMinima(Integer.parseInt(jTextField5.getText()));
     }
 
     private void dinamismo() {
@@ -456,7 +496,6 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             jComboBox1.addItem(c.getListaCategorias().get(i).getDescricao());
         }
         jComboBox1.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jComboBox1.getSelectedIndex() == 0) {

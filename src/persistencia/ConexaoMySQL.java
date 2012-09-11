@@ -38,9 +38,9 @@ public class ConexaoMySQL {
             //      String url = "jdbc:mysql://50.31.138.79:3306/dietsmar_pqdb";
 //            String url = "jdbc:mysql://172.16.199.117:3306/paodequeijodb";
             //  String username = "dietsmar_pq";        //nome de um usuário de seu BD        
-            String username = "root";        //nome de um usuário de seu BD        
+            String username = "paode";        //nome de um usuário de seu BD        
             //String password = "paodequeijo";      //sua senha de acesso  
-            String password = "root";      //sua senha de acesso  
+                String password = "queijo";      //sua senha de acesso  
             Connection connection = DriverManager.getConnection(url, username, password);
             return connection;
         } catch (ClassNotFoundException e) {  //Driver não encontrado  
