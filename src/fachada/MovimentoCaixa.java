@@ -9,12 +9,22 @@ package fachada;
  * @author Guil
  */
 public class MovimentoCaixa {
-   private int idMovimentoCaixa;
+
+    private int idMovimentoCaixa;
     private String Data;
     private int formaPagamento;
     private String valor;
+    private String descricao;
 
     public MovimentoCaixa() {
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getData() {

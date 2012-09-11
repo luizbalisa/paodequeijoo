@@ -202,7 +202,6 @@ public class JDialogRegistrarPagamento extends javax.swing.JDialog {
                 if (escolha == 0) {
                     this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     pagamento.cadastrarPagamento(jComboBox1.getSelectedItem().toString());
-                    pai.imprimir();
                     pagamento.darBaixa();
                     pai.limparTela();
                     this.dispose();
@@ -219,7 +218,6 @@ public class JDialogRegistrarPagamento extends javax.swing.JDialog {
                 if (escolha == 0) {
                     this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     JOptionPane.showMessageDialog(rootPane, pagamento.cadastrarPagamento(jComboBox1.getSelectedItem().toString()));
-                    pai.imprimir();
                     pai.preencherPag();
                     this.dispose();
                     this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

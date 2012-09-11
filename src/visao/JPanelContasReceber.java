@@ -504,13 +504,6 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         jLabel14.setText(formatador.format(Double.parseDouble(restante.replace(",", "."))));
     }
 
-    public void imprimir() {
-//        preencherPag();
-//        int idVenda = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-//        controle.buscaVendaPrazo(idVenda);
-//        ImpressoraController i = new ImpressoraController();
-//        i.imprimirConta(controle.getVendaPrazo(), controle.getVendaPrazo().getListVendaDatas(), pagamento.getListaPagamento(), jLabel12.getText(), jLabel14.getText());
-    }
 
     class CenterRenderer extends DefaultTableCellRenderer {
 
