@@ -28,7 +28,7 @@ import persistencia.ConsultasFormaDePagamentoMySQL;
  * @author Rafael
  */
 public class JPanelMenuRelatorios extends javax.swing.JPanel {
-
+    
     JFramePrincipal principal;
     DecimalFormat formatador = new DecimalFormat("###0.00");
 
@@ -42,6 +42,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel10.setVisible(false);
+        jPanel12.setVisible(false);
         jPanel9.setVisible(false);
         dinamismo();
         preencherAnos();
@@ -110,6 +111,14 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jComboBox7 = new javax.swing.JComboBox();
         jPanel11 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         jTabbedPane1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
@@ -329,7 +338,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                         .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(0, 66, Short.MAX_VALUE))
+                        .addGap(0, 225, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -513,6 +522,68 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             .addGap(0, 15, Short.MAX_VALUE)
         );
 
+        jButton3.setText("Lançar saída");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel15.setText("Descrição: ");
+
+        jLabel16.setText("Valor: ");
+
+        jButton4.setText("Lançar");
+
+        jButton5.setText("Cancelar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -529,7 +600,9 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                             .addComponent(jRadioButton4)
                             .addComponent(jRadioButton6)
                             .addComponent(jRadioButton5)))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -569,7 +642,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
@@ -590,7 +663,10 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)
-                                .addGap(0, 60, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))
                         .addContainerGap())))
         );
 
@@ -616,20 +692,20 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel6.validate();
             repaint();
         }
-
+        
         if (jRadioButton1.isSelected()) {//data
             jPanel6.removeAll();
             jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser1.getDate()), "", 0));
             jPanel6.validate();
         }
-
+        
         if (jRadioButton2.isSelected()) {//perido
             jPanel6.removeAll();
             jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser2.getDate()), format.format(jDateChooser3.getDate()), 1));
             jPanel6.validate();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton3StateChanged
         if (jRadioButton3.isSelected()) {
             jPanel5.setVisible(true);
@@ -637,7 +713,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel4.setVisible(false);
         }
     }//GEN-LAST:event_jRadioButton3StateChanged
-
+    
     private void jRadioButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton2StateChanged
         if (jRadioButton2.isSelected()) {
             jPanel3.setVisible(false);
@@ -645,7 +721,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel5.setVisible(false);
         }
     }//GEN-LAST:event_jRadioButton2StateChanged
-
+    
     private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
         if (jRadioButton1.isSelected()) {
             jPanel5.setVisible(false);
@@ -653,7 +729,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel4.setVisible(false);
         }
     }//GEN-LAST:event_jRadioButton1StateChanged
-
+    
     private void jRadioButton4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton4StateChanged
         if (jRadioButton4.isSelected()) {
             jPanel8.setVisible(true);
@@ -661,7 +737,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel9.setVisible(false);
         }
     }//GEN-LAST:event_jRadioButton4StateChanged
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MovimentoDeCaixaController m = new MovimentoDeCaixaController();
         m.buscarMovimento();
@@ -671,16 +747,16 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         if (jRadioButton4.isSelected()) {//Mes
             preencherMovimento(m.lista("00/" + dataMes(), "32/" + dataMes(), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
         }
-
+        
         if (jRadioButton5.isSelected()) {//data
             preencherMovimento(m.lista(d.format(jDateChooser6.getDate()), d.format(jDateChooser6.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
         }
-
+        
         if (jRadioButton6.isSelected()) {//perido
             preencherMovimento(m.lista(d.format(jDateChooser4.getDate()), d.format(jDateChooser5.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void jRadioButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton5StateChanged
         if (jRadioButton5.isSelected()) {
             jPanel9.setVisible(false);
@@ -688,7 +764,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel8.setVisible(false);
         }
     }//GEN-LAST:event_jRadioButton5StateChanged
-
+    
     private void jRadioButton6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton6StateChanged
         if (jRadioButton6.isSelected()) {
             jPanel10.setVisible(false);
@@ -696,11 +772,24 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel8.setVisible(false);
         }
     }//GEN-LAST:event_jRadioButton6StateChanged
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jPanel12.setVisible(true);
+        jButton3.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jPanel12.setVisible(false);
+        jButton3.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -720,6 +809,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -731,6 +822,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -751,6 +843,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
     private void preencherAnos() {
@@ -772,7 +866,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jButton1.doClick();
         jButton2.doClick();
     }
-
+    
     private void preencherFormaPagamento() {
         FormaDePagamentoController formaPagamento = new FormaDePagamentoController();
         formaPagamento.buscarFormaPagamento();
@@ -784,7 +878,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             }
         }
     }
-
+    
     public int buscarIdForma() {
         if (!jComboBox5.getSelectedItem().toString().equals("Todos")) {
             ConsultasFormaDePagamentoMySQL c = new ConsultasFormaDePagamentoMySQL();
@@ -793,7 +887,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             return 0;
         }
     }
-
+    
     public void preencherMovimento(ArrayList<MovimentoCaixa> movimento) {
         DefaultTableModel dt;
         ConsultasFormaDePagamentoMySQL c = new ConsultasFormaDePagamentoMySQL();
@@ -802,7 +896,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 new String[]{
                     "Data", "Descricao", "Tipo", "Valor"
                 }) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -831,22 +925,22 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jLabel8.setText(formatador.format(total));
             jLabel8.setForeground(Color.red);
         }
-
+        
         jTable1 = new JTable(dt);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-
+        
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column2 = jTable1.getColumnModel().getColumn(3);
-
+        
         column2.setCellRenderer(centerRenderer);
-
+        
         repaint();
     }
-
+    
     public String dataMes() {
         String mes = "";
         if (jComboBox3.getSelectedIndex() + 1 < 10) {
@@ -855,10 +949,10 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         mes += jComboBox3.getSelectedIndex() + 1;
         return mes + "/" + jComboBox6.getSelectedItem().toString();
     }
-
+    
     private void dinamismo() {
         jComboBox5.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 MovimentoDeCaixaController m = new MovimentoDeCaixaController();
@@ -867,18 +961,18 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 if (jRadioButton4.isSelected()) {//Mes
                     preencherMovimento(m.lista("00/" + dataMes(), "32/" + dataMes(), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
                 }
-
+                
                 if (jRadioButton5.isSelected()) {//data
                     preencherMovimento(m.lista(d.format(jDateChooser6.getDate()), d.format(jDateChooser6.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
                 }
-
+                
                 if (jRadioButton6.isSelected()) {//perido
                     preencherMovimento(m.lista(d.format(jDateChooser4.getDate()), d.format(jDateChooser5.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
                 }
             }
         });
         jComboBox7.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 MovimentoDeCaixaController m = new MovimentoDeCaixaController();
@@ -887,11 +981,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 if (jRadioButton4.isSelected()) {//Mes
                     preencherMovimento(m.lista("00/" + dataMes(), "32/" + dataMes(), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
                 }
-
+                
                 if (jRadioButton5.isSelected()) {//data
                     preencherMovimento(m.lista(d.format(jDateChooser6.getDate()), d.format(jDateChooser6.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
                 }
-
+                
                 if (jRadioButton6.isSelected()) {//perido
                     preencherMovimento(m.lista(d.format(jDateChooser4.getDate()), d.format(jDateChooser5.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
                 }
