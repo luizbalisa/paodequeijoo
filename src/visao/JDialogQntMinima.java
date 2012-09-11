@@ -131,17 +131,19 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Produto", "Qnt em Estoque", "Qnt Minima"}) {
+                    "Produto", "Qnt em Estoque", "Qnt Minima do Produto"}) {
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
         Object[] linha = new Object[3];
+        String valor = "<HTML>";
         for (int i = 0; i < list.size(); i++) {
+            valor +="<font color=\"red\">"+ list.get(i).getQnt()+"</font></html>";
             linha[0] = list.get(i).getNome();
-            linha[1] = list.get(i).getQntMinima();
             linha[2] = list.get(i).getQnt();
+            linha[1] = valor;
             dt.addRow(linha);
         }
         jTable1 = new JTable(dt);
