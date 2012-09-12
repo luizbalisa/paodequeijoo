@@ -371,6 +371,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
         buttonGroup2.add(jRadioButton4);
         jRadioButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jRadioButton4.setSelected(true);
         jRadioButton4.setText("Mês");
         jRadioButton4.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {

@@ -30,7 +30,6 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        System.out.println(jTable1.getWidth());
         preencherTabela();
     }
 
@@ -148,9 +147,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
             }
         };
         Object[] linha = new Object[3];
-        String valor = "<HTML>";
         for (int i = 0; i < list.size(); i++) {
-            valor +="<font color=\"red\">"+ list.get(i).getQnt()+"</font></html>";
             linha[0] = list.get(i).getNome();
             linha[2] = list.get(i).getQntMinima();
             linha[1] = "<html><font color=\"red\">"+list.get(i).getQnt()+"</font></html>";
