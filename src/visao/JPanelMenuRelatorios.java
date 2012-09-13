@@ -306,7 +306,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1352, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -371,6 +371,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
         buttonGroup2.add(jRadioButton4);
         jRadioButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jRadioButton4.setSelected(true);
         jRadioButton4.setText("Mês");
         jRadioButton4.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -622,7 +623,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                                 .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -683,60 +684,32 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        if (jRadioButton3.isSelected()) {//Mes
-            jPanel6.removeAll();
-            jPanel6.add(new JPanelRelatProdMes(jComboBox2.getSelectedIndex() + 1, Integer.parseInt(jComboBox4.getSelectedItem().toString())));
-            jPanel6.validate();
-            repaint();
-        }
-        
-        if (jRadioButton1.isSelected()) {//data
-            jPanel6.removeAll();
-            jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser1.getDate()), "", 0));
-            jPanel6.validate();
-        }
-        
-        if (jRadioButton2.isSelected()) {//perido
-            jPanel6.removeAll();
-            jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser2.getDate()), format.format(jDateChooser3.getDate()), 1));
-            jPanel6.validate();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-    private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton3StateChanged
-        if (jRadioButton3.isSelected()) {
-            jPanel5.setVisible(true);
-            jPanel3.setVisible(false);
-            jPanel4.setVisible(false);
-        }
-    }//GEN-LAST:event_jRadioButton3StateChanged
-    
-    private void jRadioButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton2StateChanged
-        if (jRadioButton2.isSelected()) {
-            jPanel3.setVisible(false);
-            jPanel4.setVisible(true);
-            jPanel5.setVisible(false);
-        }
-    }//GEN-LAST:event_jRadioButton2StateChanged
-    
-    private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
-        if (jRadioButton1.isSelected()) {
-            jPanel5.setVisible(false);
-            jPanel3.setVisible(true);
-            jPanel4.setVisible(false);
-        }
-    }//GEN-LAST:event_jRadioButton1StateChanged
-    
-    private void jRadioButton4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton4StateChanged
-        if (jRadioButton4.isSelected()) {
-            jPanel8.setVisible(true);
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jPanel12.setVisible(true);
+        jButton3.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jPanel12.setVisible(false);
+        jButton3.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jRadioButton6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton6StateChanged
+        if (jRadioButton6.isSelected()) {
             jPanel10.setVisible(false);
-            jPanel9.setVisible(false);
+            jPanel9.setVisible(true);
+            jPanel8.setVisible(false);
         }
-    }//GEN-LAST:event_jRadioButton4StateChanged
-    
+    }//GEN-LAST:event_jRadioButton6StateChanged
+
+    private void jRadioButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton5StateChanged
+        if (jRadioButton5.isSelected()) {
+            jPanel9.setVisible(false);
+            jPanel10.setVisible(true);
+            jPanel8.setVisible(false);
+        }
+    }//GEN-LAST:event_jRadioButton5StateChanged
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MovimentoDeCaixaController m = new MovimentoDeCaixaController();
         m.buscarMovimento();
@@ -746,41 +719,70 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         if (jRadioButton4.isSelected()) {//Mes
             preencherMovimento(m.lista("00/" + dataMes(), "32/" + dataMes(), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
         }
-        
+
         if (jRadioButton5.isSelected()) {//data
             preencherMovimento(m.lista(d.format(jDateChooser6.getDate()), d.format(jDateChooser6.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
         }
-        
+
         if (jRadioButton6.isSelected()) {//perido
             preencherMovimento(m.lista(d.format(jDateChooser4.getDate()), d.format(jDateChooser5.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-    private void jRadioButton5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton5StateChanged
-        if (jRadioButton5.isSelected()) {
-            jPanel9.setVisible(false);
-            jPanel10.setVisible(true);
-            jPanel8.setVisible(false);
-        }
-    }//GEN-LAST:event_jRadioButton5StateChanged
-    
-    private void jRadioButton6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton6StateChanged
-        if (jRadioButton6.isSelected()) {
+
+    private void jRadioButton4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton4StateChanged
+        if (jRadioButton4.isSelected()) {
+            jPanel8.setVisible(true);
             jPanel10.setVisible(false);
-            jPanel9.setVisible(true);
-            jPanel8.setVisible(false);
+            jPanel9.setVisible(false);
         }
-    }//GEN-LAST:event_jRadioButton6StateChanged
-    
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jPanel12.setVisible(true);
-        jButton3.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
-    
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jPanel12.setVisible(false);
-        jButton3.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jRadioButton4StateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        if (jRadioButton3.isSelected()) {//Mes
+            jPanel6.removeAll();
+            jPanel6.add(new JPanelRelatProdMes(jComboBox2.getSelectedIndex() + 1, Integer.parseInt(jComboBox4.getSelectedItem().toString())));
+            jPanel6.validate();
+            repaint();
+        }
+
+        if (jRadioButton1.isSelected()) {//data
+            jPanel6.removeAll();
+            jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser1.getDate()), "", 0));
+            jPanel6.validate();
+        }
+
+        if (jRadioButton2.isSelected()) {//perido
+            jPanel6.removeAll();
+            jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser2.getDate()), format.format(jDateChooser3.getDate()), 1));
+            jPanel6.validate();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton3StateChanged
+        if (jRadioButton3.isSelected()) {
+            jPanel5.setVisible(true);
+            jPanel3.setVisible(false);
+            jPanel4.setVisible(false);
+        }
+    }//GEN-LAST:event_jRadioButton3StateChanged
+
+    private void jRadioButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton2StateChanged
+        if (jRadioButton2.isSelected()) {
+            jPanel3.setVisible(false);
+            jPanel4.setVisible(true);
+            jPanel5.setVisible(false);
+        }
+    }//GEN-LAST:event_jRadioButton2StateChanged
+
+    private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
+        if (jRadioButton1.isSelected()) {
+            jPanel5.setVisible(false);
+            jPanel3.setVisible(true);
+            jPanel4.setVisible(false);
+        }
+    }//GEN-LAST:event_jRadioButton1StateChanged
+                                    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;

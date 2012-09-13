@@ -59,7 +59,7 @@ public class PqServer {
                         //Aqui implementacao, usar arraylist string para controlar quais itens estao na lista
                         if (a.getProdsQntMinima().size() > aux.size()) {
                             aux = a.getProdsQntMinima();
-                            controle = true;
+                            controle = true         ;
                         } else if (a.getProdsQntMinima().size() < aux.size()) {
                             aux = new ArrayList<String>();
                             aux = a.getProdsQntMinima();
