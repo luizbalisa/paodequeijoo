@@ -11,8 +11,10 @@ import java.util.ArrayList;
  * @author HIGOR
  */
 public class VendaGeral {
-    private int idVenda,idFormaPagamento,idCliente,idVendaPrazo,idStatus;
+    
+    private int idVenda, idFormaPagamento, idCliente, idVendaPrazo, idStatus;
     private String valor, data, hora;
+    
     private ArrayList<ProdutoVendaGeral> listaProduto = new ArrayList<ProdutoVendaGeral>();
 
     public ArrayList<ProdutoVendaGeral> getListaProduto() {

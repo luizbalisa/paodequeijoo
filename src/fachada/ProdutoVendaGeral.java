@@ -4,18 +4,17 @@
  */
 package fachada;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author HIGOR
  */
 public class ProdutoVendaGeral {
-    private int idLista, idVendaGeral,qnt,idProduto;
+
+    private int idLista, idVendaGeral, qnt, idProduto;
 
     public ProdutoVendaGeral() {
     }
-
+    
     public int getIdLista() {
         return idLista;
     }
