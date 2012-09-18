@@ -7,7 +7,7 @@ package controle;
 import fachada.Cliente;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import persistencia.ConsultasClienteMySQL;
+import persistencia.ConsultaClienteMySQL;
 
 /**
  *
@@ -24,22 +24,22 @@ public class ClienteController {
     public String cadastrar() {
         limparFormatacaoTelefone();
         limparFormatacaoCPF();
-        ConsultasClienteMySQL consultaMySQL = new ConsultasClienteMySQL();
+        ConsultaClienteMySQL consultaMySQL = new ConsultaClienteMySQL();
         return consultaMySQL.cadastrarCliente(cliente);
     }
 
     public String editar() {
-        ConsultasClienteMySQL consultaMySQL = new ConsultasClienteMySQL();
+        ConsultaClienteMySQL consultaMySQL = new ConsultaClienteMySQL();
         return consultaMySQL.editarCliente(cliente);
     }
 
     public void buscarClientes() {
-        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
+        ConsultaClienteMySQL c = new ConsultaClienteMySQL();
         listaClientes = c.buscarClientes();
     }
 
     public String excluirCliente() {
-        ConsultasClienteMySQL consulta = new ConsultasClienteMySQL();
+        ConsultaClienteMySQL consulta = new ConsultaClienteMySQL();
         return consulta.excluirCliente(cliente);
     }
 

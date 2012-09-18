@@ -7,7 +7,7 @@ package controle;
 import fachada.FormaPagamento;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import persistencia.ConsultasFormaDePagamentoMySQL;
+import persistencia.ConsultaFormaDePagamentoMySQL;
 
 /**
  *
@@ -31,22 +31,22 @@ public class FormaDePagamentoController {
     }
 
     public String cadastrar() {
-        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        ConsultaFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultaFormaDePagamentoMySQL();
         return consultasFormaDePagamentoMySQL.cadastrarFormaPAgamento(formaPagamento);
     }
 
     public String editar() {
-        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        ConsultaFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultaFormaDePagamentoMySQL();
         return consultasFormaDePagamentoMySQL.editarFormaPagamento(formaPagamento);
     }
 
     public String excluirFormaPagamento() {
-        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        ConsultaFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultaFormaDePagamentoMySQL();
         return consultasFormaDePagamentoMySQL.excluirFormaPagamento(formaPagamento);
     }
 
     public void buscarFormaPagamento() {
-        ConsultasFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultasFormaDePagamentoMySQL();
+        ConsultaFormaDePagamentoMySQL consultasFormaDePagamentoMySQL = new ConsultaFormaDePagamentoMySQL();
         this.listaFormaPagamento = consultasFormaDePagamentoMySQL.buscarFormaPagamento();
     }
 

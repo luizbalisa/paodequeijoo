@@ -11,19 +11,26 @@ import fachada.FormaPagamento;
 import fachada.MovimentoCaixa;
 import fachada.VendaGeral;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import persistencia.ConsultaFormaDePagamentoMySQL;
 import persistencia.ConsultaVendaGeralMySQL;
-import persistencia.ConsultasFormaDePagamentoMySQL;
 
 /**
  *
@@ -33,6 +40,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
     JFramePrincipal principal;
     DecimalFormat formatador = new DecimalFormat("###0.00");
+    private Component rootPane;
 
     /**
      * Creates new form JPanelMenuRelatorios
@@ -838,6 +846,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         );
 
         jButton7.setText("Estornar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("Receita final: ");
 
@@ -897,6 +910,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         );
 
         jButton8.setText("Detalhar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1107,6 +1125,26 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             preencherVendas(m.lista(d.format(jDateChooser8.getDate()), d.format(jDateChooser9.getDate()), buscarIdForma2()));
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        JDialogDetalharVendas d = new JDialogDetalharVendas(null, true, Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 5).toString()));
+        d.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        int escolha = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja realizar o estorno?");
+        if (escolha == 0) {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            VendaGeralController v = new VendaGeralController();
+            v.buscarVendasID(Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 5).toString()));
+            System.out.println(v.estornarVenda());
+            jButton1.doClick();
+            jButton2.doClick();
+            jButton6.doClick();
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
+
+    }//GEN-LAST:event_jButton7ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1241,15 +1279,16 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
     public int buscarIdForma() {
         if (!jComboBox5.getSelectedItem().toString().equals("Todos")) {
-            ConsultasFormaDePagamentoMySQL c = new ConsultasFormaDePagamentoMySQL();
+            ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
             return c.buscarIdForma(jComboBox5.getSelectedItem().toString());
         } else {
             return 0;
         }
     }
+
     public int buscarIdForma2() {
         if (!jComboBox11.getSelectedItem().toString().equals("Todos")) {
-            ConsultasFormaDePagamentoMySQL c = new ConsultasFormaDePagamentoMySQL();
+            ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
             return c.buscarIdForma(jComboBox11.getSelectedItem().toString());
         } else {
             return 0;
@@ -1258,7 +1297,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
     public void preencherMovimento(ArrayList<MovimentoCaixa> movimento) {
         DefaultTableModel dt;
-        ConsultasFormaDePagamentoMySQL c = new ConsultasFormaDePagamentoMySQL();
+        ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -1304,53 +1343,6 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column2 = jTable1.getColumnModel().getColumn(3);
 
-        column2.setCellRenderer(centerRenderer);
-
-        repaint();
-    }
-
-    public void preencherVendas(ArrayList<VendaGeral> venda) {
-        DefaultTableModel dt;
-        ConsultasFormaDePagamentoMySQL c = new ConsultasFormaDePagamentoMySQL();
-        ConsultaVendaGeralMySQL cS = new ConsultaVendaGeralMySQL();
-        dt = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "Data", "Hora", "Tipo", "Valor", "Status"
-                }) {
-
-            @Override
-            public boolean isCellEditable(int row, int col) {
-                return false;
-            }
-        };
-        double total = 0;
-        Object[] linha = new Object[5];
-        for (int i = 0; i < venda.size(); i++) {
-            linha[0] = venda.get(i).getData();
-            linha[1] = venda.get(i).getHora();
-            linha[2] = c.buscarNomeForma(venda.get(i).getIdFormaPagamento());
-            total += Double.parseDouble(venda.get(i).getValor().replace(",", "."));
-            linha[3] = formatador.format(Double.parseDouble(venda.get(i).getValor().replace(",", ".")));
-            linha[4] = cS.buscaStatus(venda.get(i).getIdStatus());
-            dt.addRow(linha);
-        }
-        jLabel24.setText(formatador.format(total));
-
-        jTable2 = new JTable(dt);
-        jScrollPane2.setViewportView(jTable2);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setBorder(null);
-        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-
-        TableCellRenderer centerRenderer = new CenterRenderer();
-        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
-        TableColumn column1 = jTable2.getColumnModel().getColumn(1);
-        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
-
-        column0.setCellRenderer(centerRenderer);
-        column1.setCellRenderer(centerRenderer);
         column2.setCellRenderer(centerRenderer);
 
         repaint();
@@ -1435,5 +1427,110 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 }
             }
         });
+    }
+
+    private void preencherVendas(ArrayList<VendaGeral> venda) {
+
+        DefaultTableModel dt;
+        ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
+        ConsultaVendaGeralMySQL cS = new ConsultaVendaGeralMySQL();
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Data", "Hora", "Tipo", "Valor", "Status", "idVenda"
+                }) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[6];
+        double total = 0;
+        for (int i = 0; i < venda.size(); i++) {
+            linha[0] = venda.get(i).getData();
+            linha[1] = venda.get(i).getHora();
+            linha[2] = c.buscarNomeForma(venda.get(i).getIdFormaPagamento());
+            if (venda.get(i).getIdStatus() != 3) {
+                total += Double.parseDouble(venda.get(i).getValor().replace(",", "."));
+            }
+            linha[3] = formatador.format(Double.parseDouble(venda.get(i).getValor().replace(",", ".")));
+            String status = "<html>";
+            if (venda.get(i).getIdStatus() == 2 || venda.get(i).getIdStatus() == 3) {
+                status += "<font color=\"red\">" + cS.buscaStatus(venda.get(i).getIdStatus()) + "</font></html>";
+
+            } else {
+                status += cS.buscaStatus(venda.get(i).getIdStatus()) + "</html>";
+            }
+            linha[4] = status;
+            linha[5] = venda.get(i).getIdVenda();
+            dt.addRow(linha);
+        }
+        jLabel24.setText(formatador.format(total));
+        jTable2 = new JTable(dt);
+        jTable2.getColumnModel().getColumn(5).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(5).setMinWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(5).setMaxWidth(0);
+        jTable2.getTableHeader().getColumnModel().getColumn(5).setMinWidth(0);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setBorder(null);
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable2.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+                VendaGeralController m = new VendaGeralController();
+                m.buscarVendas();
+                ArrayList<VendaGeral> venda = m.getListaVenda();
+                if (e.getClickCount() == 2) {
+                    if (venda.get(jTable2.getSelectedRow()).getIdStatus() != 3) {
+                        JDialogDetalharVendas d = new JDialogDetalharVendas(null, true, Integer.parseInt(jTable2.getValueAt(jTable2.getSelectedRow(), 5).toString()));
+                        d.setVisible(true);
+                    }
+                }
+            }
+        });
+        jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e) {
+                VendaGeralController m = new VendaGeralController();
+                m.buscarVendas();
+                ArrayList<VendaGeral> venda = m.getListaVenda();
+                SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
+                if (jRadioButton9.isSelected()) {//Mes
+                    venda = m.lista("00/" + dataMes2(), "32/" + dataMes2(), buscarIdForma2());
+                }
+
+                if (jRadioButton7.isSelected()) {//data
+                    venda = m.lista(d.format(jDateChooser7.getDate()), d.format(jDateChooser7.getDate()), buscarIdForma2());
+                }
+
+                if (jRadioButton8.isSelected()) {//perido
+                    venda = m.lista(d.format(jDateChooser8.getDate()), d.format(jDateChooser9.getDate()), buscarIdForma2());
+                }
+                if (venda.get(jTable2.getSelectedRow()).getIdStatus() == 1) {
+                    jButton7.setEnabled(false);
+                    jButton8.setEnabled(true);
+                } else if (venda.get(jTable2.getSelectedRow()).getIdStatus() == 2) {
+                    jButton8.setEnabled(true);
+                    jButton7.setEnabled(true);
+                } else {
+                    jButton7.setEnabled(false);
+                    jButton8.setEnabled(false);
+                }
+            }
+        });
+
+        TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column0 = jTable2.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(1);
+        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
+
+        column0.setCellRenderer(centerRenderer);
+        column1.setCellRenderer(centerRenderer);
+        column2.setCellRenderer(centerRenderer);
+        jButton7.setEnabled(false);
+        jButton8.setEnabled(false);
+        repaint();
     }
 }

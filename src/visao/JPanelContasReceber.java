@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import persistencia.ConsultasClienteMySQL;
+import persistencia.ConsultaClienteMySQL;
 
 /**
  *
@@ -335,7 +335,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
             }
         };
         Object[] linha = new Object[2];
-        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
+        ConsultaClienteMySQL c = new ConsultaClienteMySQL();
         for (int i = 0; i < lista.size(); i++) {
             linha[0] = lista.get(i).getIdVenda();
             linha[1] = c.buscarClienteId(lista.get(i).getIdCliente()).getNome();

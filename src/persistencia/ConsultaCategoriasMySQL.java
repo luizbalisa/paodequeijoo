@@ -14,11 +14,11 @@ import java.util.ArrayList;
  *
  * @author Rafael
  */
-public class ConsultasCategoriasMySQL {
+public class ConsultaCategoriasMySQL {
 
     private static final String SQL_BUSCA_CATEGORIAS = "SELECT * FROM categorias ORDER BY idCategoria";
 
-    public ConsultasCategoriasMySQL() {
+    public ConsultaCategoriasMySQL() {
     }
     
      public ArrayList<Categorias> buscarCategorias() {

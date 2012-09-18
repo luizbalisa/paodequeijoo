@@ -4,7 +4,9 @@
  */
 package controle;
 
-import fachada.*;
+import fachada.ProdutoVenda;
+import fachada.ProdutoVendaGeral;
+import fachada.VendaGeral;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +26,60 @@ public class VendaGeralController {
     private ArrayList<VendaGeral> listaVenda = new ArrayList<VendaGeral>();
 
     public VendaGeralController() {
+    }
+
+    public String estornarVenda() {
+        HistoricoSaidaProdutoController hist = new HistoricoSaidaProdutoController();
+        ProdutoController prod = new ProdutoController();
+        MovimentoDeCaixaController mov = new MovimentoDeCaixaController();
+        VendaController vendaPrazo = new VendaController();
+
+        ArrayList<int[]> prods = buscaProdutos();
+        for (int i = 0; i < prods.size(); i++) {
+            prod.estornar(prods.get(i)[0], prods.get(i)[1]);
+            hist.estornar(prods.get(i)[1], prods.get(i)[0], venda.getData());
+        }
+        if (venda.getIdVendaPrazo() != 0) {
+            vendaPrazo.buscaVendaPrazo(venda.getIdVendaPrazo());
+            for (int i = 0; i < prods.size(); i++) {
+                vendaPrazo.estornar(venda.getIdVendaPrazo(), prods.get(i)[0], venda.getData());
+            }
+            vendaPrazo.buscaVendaPrazo(venda.getIdVendaPrazo());
+            double novoValor = 0;
+            ArrayList<ProdutoVenda> prodVenda = vendaPrazo.getVendaPrazo().getListVendaDatas();
+            if (!prodVenda.isEmpty()) {
+                for (int i = 0; i < prodVenda.size(); i++) {
+                    novoValor += prodVenda.get(i).getQnt() * Double.parseDouble(prodVenda.get(i).getValor().replace(",", "."));
+                }
+                vendaPrazo.novoValor(String.valueOf(novoValor), venda.getIdVendaPrazo());
+            } else {
+                vendaPrazo.excluir(venda.getIdVendaPrazo());
+            }
+        } else {
+            mov.buscarMovimento();
+            for (int i = 0; i < mov.getListaMovimento().size(); i++) {
+                if (mov.getListaMovimento().get(i).getData().equals(venda.getData())
+                        && mov.getListaMovimento().get(i).getFormaPagamento() == venda.getIdFormaPagamento()
+                        && Double.parseDouble(mov.getListaMovimento().get(i).getValor().replace(",", ".")) == Double.parseDouble(venda.getValor().replace(",", "."))) {
+                    mov.excluir(mov.getListaMovimento().get(i).getIdMovimentoCaixa());
+                    break;
+                }
+            }
+        }
+        venda.setIdStatus(3);
+        ConsultaVendaGeralMySQL c = new ConsultaVendaGeralMySQL();
+        c.updateVenda(venda);
+        return "Estorno realizado com sucesso.";
+    }
+
+    public ArrayList<int[]> buscaProdutos() {
+        ConsultaVendaGeralMySQL c = new ConsultaVendaGeralMySQL();
+        return c.buscarProdutos(venda.getIdVenda());
+    }
+
+    public void buscarVendasID(int id) {
+        ConsultaVendaGeralMySQL c = new ConsultaVendaGeralMySQL();
+        venda = c.buscarVenda(id);
     }
 
     public void buscarVendas() {

@@ -23,6 +23,7 @@ public class ConsultaListaProdutoVendaMySQL {
     private static final String SQL_BUSCA_PROD = "SELECT * FROM lista_produto_venda WHERE idVenda=? AND idProduto=?";
     private static final String SQL_BUSCA = "SELECT * FROM lista_produto_venda WHERE idVenda=?";
     private static final String SQL_UPDATE = "UPDATE lista_produto_venda SET quantidade=? AND valor=? WHERE idlista_produto_venda=?";
+    private static final String SQL_DELETE_ESTORNO = "DELETE FROM lista_produto_venda WHERE idVenda=? and idProduto=? and data=?";
 
     public void insertProdutoVendaPrazo(int idVenda, ProdutoVenda produto) {
         Connection con;
@@ -95,6 +96,19 @@ public class ConsultaListaProdutoVendaMySQL {
             stmt.setInt(1, (int) valores[0]);
             stmt.setString(2, String.valueOf(valores[1]));
             stmt.setInt(3, (int) (valores[2]));
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+        }
+    }
+    public void updateEstorno( int idVenda, int idProd, String data) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_DELETE_ESTORNO);
+            stmt.setInt(1, idVenda);
+            stmt.setInt(2, idProd);
+            stmt.setString(3, data);
             stmt.executeUpdate();
         } catch (SQLException ex) {
         }

@@ -15,28 +15,32 @@ import persistencia.ConsultaHistoricoMySQL;
  * @author Guil
  */
 public class HistoricoSaidaProdutoController {
-
+    
     private HistoricoSaidaProduto historico = new HistoricoSaidaProduto();
     private ArrayList<HistoricoSaidaProduto> listaHistorico = new ArrayList<HistoricoSaidaProduto>();
     private String[] colunasMes;
     private ArrayList<String[]> listaMes;
     private ArrayList<HistoricoSaidaProduto> listaDatas;
-    private ValidadorCampos validar = new ValidadorCampos();
-
+    
     public HistoricoSaidaProdutoController() {
+    }
+
+    public void estornar(int quantidade, int pro, String data) {
+        ConsultaHistoricoMySQL c = new ConsultaHistoricoMySQL();
+        c.estornar(quantidade, pro, data);
     }
 
     public void buscarHistorico() {
         ConsultaHistoricoMySQL c = new ConsultaHistoricoMySQL();
         listaHistorico = c.buscarHistoricos();
     }
-
+    
     public void buscarHistoricoSomadoDia(String data) {
         ConsultaHistoricoMySQL c = new ConsultaHistoricoMySQL();
         listaHistorico = c.buscarHistoricos();
         for (int i = 0; i < listaHistorico.size(); i++) {
             for (int j = i + 1; j < listaHistorico.size(); j++) {
-                if (dataToInt(listaHistorico.get(i).getData())== dataToInt(data) && dataToInt(listaHistorico.get(j).getData()) == dataToInt(data)) {
+                if (dataToInt(listaHistorico.get(i).getData()) == dataToInt(data) && dataToInt(listaHistorico.get(j).getData()) == dataToInt(data)) {
                     if (listaHistorico.get(i).getIdProduto() == listaHistorico.get(j).getIdProduto()) {
                         listaHistorico.get(i).setQuantidade(listaHistorico.get(i).getQuantidade() + listaHistorico.get(j).getQuantidade());
                         listaHistorico.add(listaHistorico.get(i));
@@ -44,16 +48,17 @@ public class HistoricoSaidaProdutoController {
                         listaHistorico.remove(i);
                     }
                 }
-
+                
             }
         }
     }
+
     public void buscarHistoricoSomadoPeriodo(String dataDe, String dataAte) {
         ConsultaHistoricoMySQL c = new ConsultaHistoricoMySQL();
         listaHistorico = c.buscarHistoricos();
         for (int i = 0; i < listaHistorico.size(); i++) {
             for (int j = i + 1; j < listaHistorico.size(); j++) {
-                if ((dataToInt(listaHistorico.get(i).getData()) >= dataToInt(dataDe)) && (dataToInt(listaHistorico.get(i).getData()))<= dataToInt(dataAte)  &&(dataToInt(listaHistorico.get(j).getData()) >= dataToInt(dataDe)) && (dataToInt(listaHistorico.get(j).getData()))<= dataToInt(dataAte)) {
+                if ((dataToInt(listaHistorico.get(i).getData()) >= dataToInt(dataDe)) && (dataToInt(listaHistorico.get(i).getData())) <= dataToInt(dataAte) && (dataToInt(listaHistorico.get(j).getData()) >= dataToInt(dataDe)) && (dataToInt(listaHistorico.get(j).getData())) <= dataToInt(dataAte)) {
                     if (listaHistorico.get(i).getIdProduto() == listaHistorico.get(j).getIdProduto()) {
                         listaHistorico.get(i).setQuantidade(listaHistorico.get(i).getQuantidade() + listaHistorico.get(j).getQuantidade());
                         listaHistorico.add(listaHistorico.get(i));
@@ -61,11 +66,11 @@ public class HistoricoSaidaProdutoController {
                         listaHistorico.remove(i);
                     }
                 }
-
+                
             }
         }
     }
-
+    
     public void colunasHistoricoMes(int mes, int ano, int categoria) {
         ArrayList<String> r = new ArrayList<String>();
         String m = String.valueOf(mes);
@@ -122,7 +127,7 @@ public class HistoricoSaidaProdutoController {
             }
         }
     }
-
+    
     public ArrayList<HistoricoSaidaProduto> buscaDimamicaData(String busca) {
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
@@ -143,7 +148,7 @@ public class HistoricoSaidaProdutoController {
         }
         return retorno;
     }
-
+    
     public ArrayList<String[]> buscaDinamicaMes(String busca) {
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
@@ -161,7 +166,7 @@ public class HistoricoSaidaProdutoController {
         }
         return retorno;
     }
-
+    
     public int dataToInt(String data) {
         String aux[] = data.split("/");
         String d = String.valueOf(aux[0]);
@@ -175,7 +180,7 @@ public class HistoricoSaidaProdutoController {
         String date = aux[2] + m + d;
         return Integer.parseInt(date);
     }
-
+    
     public void getHistoricoDia(String dia, int categoria) {
         listaDatas = new ArrayList<HistoricoSaidaProduto>();
         if (categoria == -1) {//TODOS
@@ -203,9 +208,9 @@ public class HistoricoSaidaProdutoController {
                 }
             }
         }
-
+        
     }
-
+    
     public ArrayList<HistoricoSaidaProduto> getHistoricoSaidaProduto(int idCategoria) {
         ArrayList<HistoricoSaidaProduto> list = new ArrayList<HistoricoSaidaProduto>();
         for (int i = 0; i < this.listaHistorico.size(); i++) {
@@ -215,7 +220,7 @@ public class HistoricoSaidaProdutoController {
         }
         return list;
     }
-
+    
     public void getHistoricoData(String dataDE, String dataATE, int categoria) {
         listaDatas = new ArrayList<HistoricoSaidaProduto>();
         if (categoria == -1) {//TODOS
@@ -249,43 +254,43 @@ public class HistoricoSaidaProdutoController {
             }
         }
     }
-
+    
     public ArrayList<HistoricoSaidaProduto> getListaDatas() {
         return listaDatas;
     }
-
+    
     public void setListaDatas(ArrayList<HistoricoSaidaProduto> listaDatas) {
         this.listaDatas = listaDatas;
     }
-
+    
     public ArrayList<String[]> getListaMes() {
         return listaMes;
     }
-
+    
     public void setListaMes(ArrayList<String[]> listaMes) {
         this.listaMes = listaMes;
     }
-
+    
     public String[] getColunasMes() {
         return colunasMes;
     }
-
+    
     public void setColunasMes(String[] colunasMes) {
         this.colunasMes = colunasMes;
     }
-
+    
     public HistoricoSaidaProduto getHistorico() {
         return historico;
     }
-
+    
     public void setHistorico(HistoricoSaidaProduto historico) {
         this.historico = historico;
     }
-
+    
     public ArrayList<HistoricoSaidaProduto> getListaHistorico() {
         return listaHistorico;
     }
-
+    
     public void setListaHistorico(ArrayList<HistoricoSaidaProduto> listaHistorico) {
         this.listaHistorico = listaHistorico;
     }

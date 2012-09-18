@@ -4,9 +4,7 @@
  */
 package persistencia;
 
-import fachada.ProdutoVendaGeral;
 import fachada.VendaGeral;
-import fachada.VendaPrazo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +22,68 @@ public class ConsultaVendaGeralMySQL {
     private static final String SQL_BUSCAR_ID = "SELECT MAX(idVenda) FROM venda";
     private static final String SQL_BUSCAR = "SELECT * FROM venda";
     private static final String SQL_BUSCA_STATUS = "SELECT descricao from status_venda WHERE idStatus=?";
+    private static final String SQL_BUSCAR_VENDA = "SELECT * FROM venda WHERE idVenda=?";
+    private static final String SQL_PRODUTOS = "SELECT * FROM lista_produto WHERE idVenda=?";
+    private static final String SQL_ATUALIZAR = "UPDATE venda SET idStatus=? WHERE idVenda=?";
+
+    public void updateVenda(VendaGeral venda) {
+        Connection con;
+        PreparedStatement stmt;
+
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_ATUALIZAR);
+            stmt.setInt(1, venda.getIdStatus());
+            stmt.setInt(2, venda.getIdVenda());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+        }
+    }
+
+    public ArrayList<int[]> buscarProdutos(int id) {
+        Connection con;
+        PreparedStatement stmt;
+        ArrayList<int[]> retorno = new ArrayList<int[]>();
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_PRODUTOS);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int[] aux = new int[2];
+                aux[0] = rs.getInt("idProduto");
+                aux[1] = rs.getInt("quantidade");
+                retorno.add(aux);
+            }
+        } catch (SQLException ex) {
+        }
+        return retorno;
+    }
+
+    public VendaGeral buscarVenda(int id) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_BUSCAR_VENDA);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                VendaGeral aux = new VendaGeral();
+                aux.setIdVenda(rs.getInt("idVenda"));
+                aux.setIdCliente(rs.getInt("idCliente"));
+                aux.setIdVendaPrazo(rs.getInt("idVendaPrazo"));
+                aux.setIdStatus(rs.getInt("idStatus"));
+                aux.setIdFormaPagamento(rs.getInt("idFormaPagamento"));
+                aux.setData(rs.getString("data"));
+                aux.setHora(rs.getString("hora"));
+                aux.setValor(rs.getString("valor"));
+                return aux;
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
 
     public void insertVenda(VendaGeral venda) {
         Connection con;

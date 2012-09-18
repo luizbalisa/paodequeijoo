@@ -20,6 +20,7 @@ public class ConsultaProdutoMySQL {
     private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1 AND quantidade<>0 AND idCategoria<>2 ORDER BY nome ";
     private static final String SQL_BUSCA_PRODUTO_ID = "SELECT * FROM produtos WHERE  codigo_produto=?";
     private static final String SQL_UPDATE = "UPDATE produtos SET quantidade=? WHERE codigo_produto=?";
+    private static final String SQL_UPDATE_ESTORNO = "UPDATE produtos SET quantidade=quantidade+? WHERE codigo_produto=?";
 
     public ConsultaProdutoMySQL() {
     }
@@ -78,6 +79,19 @@ public class ConsultaProdutoMySQL {
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_UPDATE);
+            stmt.setInt(1, quantidade);
+            stmt.setInt(2, idProduto);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void updateQntDoProdutoEstorno(int quantidade, int idProduto) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_UPDATE_ESTORNO);
             stmt.setInt(1, quantidade);
             stmt.setInt(2, idProduto);
             stmt.executeUpdate();

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author miserani
  */
-public class ConsultasFormaDePagamentoMySQL {
+public class ConsultaFormaDePagamentoMySQL {
 
     private static final String SQL_EXCLUIR_FORMA_PAGAMENTO = "DELETE FROM forma_pagamento WHERE idforma_pagamento=?";
     private static final String SQL_BUSCA_FORMA_PAGAMENTO = "SELECT * FROM forma_pagamento ORDER BY descricao";
@@ -25,7 +25,7 @@ public class ConsultasFormaDePagamentoMySQL {
     private static final String SQL_BUSCAR_FORMA_PAGAMENTO_ID = "SELECT descricao FROM forma_pagamento WHERE idforma_pagamento=?";
     private static final String SQL_BUSCAR_FORMA_PAGAMENTO_DESCRICAO = "SELECT idforma_pagamento FROM forma_pagamento WHERE descricao=?";
 
-    public ConsultasFormaDePagamentoMySQL() {
+    public ConsultaFormaDePagamentoMySQL() {
     }
 
     public String excluirFormaPagamento(FormaPagamento formaPagamento) {

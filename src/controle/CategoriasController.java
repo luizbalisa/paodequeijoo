@@ -7,7 +7,7 @@ package controle;
 import fachada.Categorias;
 import java.util.ArrayList;
 import persistencia.ConexaoMySQL;
-import persistencia.ConsultasCategoriasMySQL;
+import persistencia.ConsultaCategoriasMySQL;
 
 /**
  *
@@ -22,7 +22,7 @@ public class CategoriasController {
     }
 
     public void buscaCategorias(){
-        ConsultasCategoriasMySQL c = new ConsultasCategoriasMySQL();
+        ConsultaCategoriasMySQL c = new ConsultaCategoriasMySQL();
         listaCategorias = c.buscarCategorias();
     }
     

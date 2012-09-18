@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Rafael
  */
-public class ConsultasClienteMySQL {
+public class ConsultaClienteMySQL {
 
     private static final String SQL_EXCLUIR_CLIENTE = " DELETE FROM cliente WHERE idCliente=?";
     private static final String SQL_BUSCA_CLIENTE = "SELECT * FROM cliente ORDER BY nome";
@@ -24,7 +24,7 @@ public class ConsultasClienteMySQL {
     private static final String SQL_EDITAR_CLIENTE = "UPDATE cliente SET nome=?, endereco=?, cpf=?, rg=?, telefone1=?, telefone2=?, email=?, local_trabalho=?, telefone_comercial=?, observacoes=? WHERE idcliente=? ";
     private static final String SQL_BUSCA_CLIENTE_ID = "SELECT * FROM cliente WHERE idCliente=?";
 
-    public ConsultasClienteMySQL() {
+    public ConsultaClienteMySQL() {
     }
 
     public Cliente buscarClienteId(int idCliente) {

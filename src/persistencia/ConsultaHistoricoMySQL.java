@@ -4,7 +4,10 @@
  */
 package persistencia;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import fachada.HistoricoSaidaProduto;
+import fachada.MovimentoCaixa;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,10 +19,28 @@ import java.util.ArrayList;
 public class ConsultaHistoricoMySQL {
 
     private static final String BUSCA_PRODUTO = "SELECT * FROM historico_saida_produto";
+    private static final String UPDATE_ESTORNO = "UPDATE historico_saida_produto SET quantidade=quantidade-? WHERE idProduto=? and data=?";
+    
 
     public ConsultaHistoricoMySQL() {
     }
 
+    
+    public void estornar(int quantidade, int prod, String data) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = (Connection) ConexaoMySQL.conectar();
+            stmt = (PreparedStatement) con.prepareStatement(UPDATE_ESTORNO);
+            stmt.setInt(1, quantidade);
+            stmt.setInt(2, prod);
+            stmt.setString(3, data);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     public ArrayList<HistoricoSaidaProduto> buscarHistoricos() {
         ArrayList<HistoricoSaidaProduto> hist = new ArrayList<HistoricoSaidaProduto>();
         String query = BUSCA_PRODUTO;

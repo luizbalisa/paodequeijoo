@@ -22,6 +22,7 @@ public class ConsultaMovimentoCaixaMySQL {
 
     private static final String SQL_INCLUIR = "INSERT INTO movimento_caixa(data, forma_pagamento, valor, descricao) VALUES (?, ?, ?, ?)";
     private static final String SQL_BUSCAR = "SELECT * FROM movimento_caixa";
+    private static final String SQL_EXCLUIR = "DELETE FROM movimento_caixa WHERE idmovimento_caixa=?";
 
     public ConsultaMovimentoCaixaMySQL() {
     }
@@ -42,12 +43,25 @@ public class ConsultaMovimentoCaixaMySQL {
         }
     }
 
+    public void excluirMovimento(int id) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = (Connection) ConexaoMySQL.conectar();
+            stmt = (PreparedStatement) con.prepareStatement(SQL_EXCLUIR);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+        }
+    }
+
     public ArrayList<MovimentoCaixa> buscarTodos() {
         ArrayList<MovimentoCaixa> retorno = new ArrayList<MovimentoCaixa>();
         try {
             ResultSet rs = ConexaoMySQL.getInstance().executeQuery(SQL_BUSCAR);
-            while(rs.next()){
+            while (rs.next()) {
                 MovimentoCaixa aux = new MovimentoCaixa();
+                aux.setIdMovimentoCaixa(rs.getInt("idmovimento_caixa"));
                 aux.setData(rs.getString("data"));
                 aux.setFormaPagamento(rs.getInt("forma_pagamento"));
                 aux.setValor(rs.getString("valor"));

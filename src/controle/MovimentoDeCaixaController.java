@@ -17,6 +17,11 @@ public class MovimentoDeCaixaController {
     private MovimentoCaixa movimento = new MovimentoCaixa();
     private ArrayList<MovimentoCaixa> listaMovimento = new ArrayList<MovimentoCaixa>();
 
+    public void excluir(int id){
+        ConsultaMovimentoCaixaMySQL c = new ConsultaMovimentoCaixaMySQL();
+        c.excluirMovimento(id);
+    }
+    
     public void inserirNoCaixa() {
         ConsultaMovimentoCaixaMySQL consultaCaixa = new ConsultaMovimentoCaixaMySQL();
         consultaCaixa.cadastrarItemCaixa(movimento);

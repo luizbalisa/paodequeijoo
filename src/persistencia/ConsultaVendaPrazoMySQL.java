@@ -20,6 +20,7 @@ public class ConsultaVendaPrazoMySQL {
     private static final String SQL_INCLUIR = "INSERT INTO venda_prazo(idcliente, valor, forma_pagamento)"
             + "VALUES (?,?,?)";
     private static final String SQL_UPDATE = "UPDATE venda_prazo SET valor=? WHERE idcliente=?";
+    private static final String SQL_UPDATE_ESTORNO = "UPDATE venda_prazo SET valor=? WHERE idvenda_prazo=?";
     private static final String SQL_BUSCAR_CLIENTE = "SELECT * FROM venda_prazo WHERE idcliente=?";
     private static final String SQL_BUSCAR_ID = "SELECT MAX(idvenda_prazo) FROM venda_prazo";
     private static final String SQL_BUSCAR = "SELECT * FROM venda_prazo";
@@ -64,6 +65,20 @@ public class ConsultaVendaPrazoMySQL {
             stmt = con.prepareStatement(SQL_UPDATE);
             stmt.setString(1, vendaPrazo.getValor());
             stmt.setInt(2, vendaPrazo.getIdCliente());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public void updateVendaPrazoEstorno(String valor, int idVenda) {
+        Connection con;
+        PreparedStatement stmt;
+
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_UPDATE_ESTORNO);
+            stmt.setString(1, valor);
+            stmt.setInt(2, idVenda);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

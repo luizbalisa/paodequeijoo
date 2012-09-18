@@ -13,26 +13,39 @@ import java.util.ArrayList;
 import java.util.Date;
 import persistencia.ConsultaListaProdutoVendaMySQL;
 import persistencia.ConsultaVendaPrazoMySQL;
-import persistencia.ConsultasClienteMySQL;
+import persistencia.ConsultaClienteMySQL;
 
 /**
  *
  * @author Guil
  */
 public class VendaController {
-
+    
     private VendaPrazo venda = new VendaPrazo();
     private ArrayList<VendaPrazo> listaVenda = new ArrayList<VendaPrazo>();
-
+    
     public VendaController() {
     }
-
+    public void excluir(int id){
+        ConsultaVendaPrazoMySQL c = new ConsultaVendaPrazoMySQL();
+        c.deleteVendaPrazo(id);
+    }
+    public void estornar( int idVenda, int idProd, String data) {
+        ConsultaListaProdutoVendaMySQL c = new ConsultaListaProdutoVendaMySQL();
+        c.updateEstorno(idVenda, idProd, data);
+    }
+    
+    public void novoValor(String valor, int id) {
+        ConsultaVendaPrazoMySQL c = new ConsultaVendaPrazoMySQL();
+        c.updateVendaPrazoEstorno(valor, id);
+    }
+    
     public void buscaVendas() {
         listaVenda = new ArrayList<VendaPrazo>();
         ConsultaVendaPrazoMySQL vendas = new ConsultaVendaPrazoMySQL();
         listaVenda = vendas.buscarTodas();
     }
-
+    
     public void buscaVendaPrazo(int id) {
         buscaVendas();
         for (int i = 0; i < listaVenda.size(); i++) {
@@ -43,9 +56,7 @@ public class VendaController {
             }
         }
     }
-
-   
-
+    
     public void excluirProdutoVenda(int id, int qnt) {
         for (int i = 0; i < venda.getListVenda().size(); i++) {
             if (id == venda.getListVenda().get(i).getProduto().getIdProduto() && qnt == venda.getListVenda().get(i).getQnt()) {
@@ -53,7 +64,7 @@ public class VendaController {
             }
         }
     }
-
+    
     public void editarProdutoVenda(ProdutoVenda p, ProdutoVenda p2) {
         for (int i = 0; i < venda.getListVenda().size(); i++) {
             if (p.getProduto().getIdProduto() == venda.getListVenda().get(i).getProduto().getIdProduto() && p.getQnt() == venda.getListVenda().get(i).getQnt()) {
@@ -62,7 +73,7 @@ public class VendaController {
             }
         }
     }
-
+    
     public void inserirVendaPrazo() {
         ConsultaVendaPrazoMySQL vendaP = new ConsultaVendaPrazoMySQL();
         String banco = vendaP.bsucaCliente(venda.getIdCliente());
@@ -78,7 +89,7 @@ public class VendaController {
             venda.setIdVenda(vendaP.buscarID());
         }
     }
-
+    
     public void inserirProdutoVenda() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ProdutoController p = new ProdutoController();
@@ -103,9 +114,9 @@ public class VendaController {
             }
         }
     }
-
+    
     public ArrayList<VendaPrazo> buscaDinamicaClientes(String busca) {
-        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
+        ConsultaClienteMySQL c = new ConsultaClienteMySQL();
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
         desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
@@ -122,19 +133,19 @@ public class VendaController {
         }
         return vendas;
     }
-
+    
     public VendaPrazo getVendaPrazo() {
         return venda;
     }
-
+    
     public void setVendaPrazo(VendaPrazo venda) {
         this.venda = venda;
     }
-
+    
     public ArrayList<VendaPrazo> getListaVenda() {
         return listaVenda;
     }
-
+    
     public void setListaVenda(ArrayList<VendaPrazo> listaVenda) {
         this.listaVenda = listaVenda;
     }

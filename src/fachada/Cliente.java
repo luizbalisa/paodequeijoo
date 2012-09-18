@@ -4,7 +4,7 @@
  */
 package fachada;
 
-import persistencia.ConsultasClienteMySQL;
+import persistencia.ConsultaClienteMySQL;
 
 /**
  *
@@ -58,7 +58,7 @@ public class Cliente {
     }
 
 //    public String editar(){
-//        ConsultasClienteMySQL c = new ConsultasClienteMySQL();
+//        ConsultaClienteMySQL c = new ConsultaClienteMySQL();
 //        return c.editarCliente(this);
 //    }
 
