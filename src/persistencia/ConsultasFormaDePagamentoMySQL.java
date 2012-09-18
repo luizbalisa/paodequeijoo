@@ -95,6 +95,7 @@ public class ConsultasFormaDePagamentoMySQL {
         }
         return "Erro";
     }
+
     public int buscarIdForma(String nome) {
         Connection con;
         PreparedStatement stmt;

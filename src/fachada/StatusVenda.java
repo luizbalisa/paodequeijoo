@@ -9,6 +9,7 @@ package fachada;
  * @author HIGOR
  */
 public class StatusVenda {
+
     private int idStatus;
     private String descricao;
 
@@ -30,7 +31,4 @@ public class StatusVenda {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-    
-    
 }

@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import fachada.ProdutoVendaGeral;
 import fachada.VendaGeral;
 import fachada.VendaPrazo;
 import java.sql.Connection;
@@ -22,6 +23,7 @@ public class ConsultaVendaGeralMySQL {
             + "VALUES (?,?,?,?,?,?,?)";
     private static final String SQL_BUSCAR_ID = "SELECT MAX(idVenda) FROM venda";
     private static final String SQL_BUSCAR = "SELECT * FROM venda";
+    private static final String SQL_BUSCA_STATUS = "SELECT descricao from status_venda WHERE idStatus=?";
 
     public void insertVenda(VendaGeral venda) {
         Connection con;
@@ -70,6 +72,7 @@ public class ConsultaVendaGeralMySQL {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 VendaGeral aux = new VendaGeral();
+                aux.setIdVenda(rs.getInt("idVenda"));
                 aux.setIdCliente(rs.getInt("idCliente"));
                 aux.setIdVendaPrazo(rs.getInt("idVendaPrazo"));
                 aux.setIdStatus(rs.getInt("idStatus"));
@@ -82,5 +85,21 @@ public class ConsultaVendaGeralMySQL {
         } catch (SQLException ex) {
         }
         return retorno;
+    }
+
+    public String buscaStatus(int idStatus) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_BUSCA_STATUS);
+            stmt.setInt(1, idStatus);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString("descricao");
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
     }
 }
