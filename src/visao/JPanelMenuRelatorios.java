@@ -362,7 +362,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                         .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(0, 232, Short.MAX_VALUE))
+                        .addGap(0, 243, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -386,11 +386,15 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBox5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel8.setText("Valor total");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Tipo: ");
 
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("Receita final: ");
 
         buttonGroup2.add(jRadioButton4);
@@ -531,8 +535,10 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Ver: ");
 
+        jComboBox7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Entrada", "Saída" }));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -546,6 +552,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             .addGap(0, 15, Short.MAX_VALUE)
         );
 
+        jButton3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton3.setText("Lançar saída");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -555,12 +562,16 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel15.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel15.setText("Descrição: ");
 
+        jLabel16.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel16.setText("Valor: ");
 
+        jButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton4.setText("Lançar");
 
+        jButton5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton5.setText("Cancelar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -631,7 +642,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 553, Short.MAX_VALUE)
+                        .addGap(0, 539, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
@@ -666,7 +677,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
@@ -845,6 +856,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             .addGap(0, 15, Short.MAX_VALUE)
         );
 
+        jButton7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/arrow_rotate_clockwise.png"))); // NOI18N
         jButton7.setText("Estornar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -852,9 +865,10 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             }
         });
 
+        jLabel23.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel23.setText("Receita final: ");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel24.setText("Valor total");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -875,6 +889,9 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTable2);
 
+        jComboBox11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel25.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel25.setText("Tipo: ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -901,7 +918,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                     .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
@@ -909,6 +926,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jButton8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/paste_plain.png"))); // NOI18N
         jButton8.setText("Detalhar");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

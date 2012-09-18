@@ -80,7 +80,7 @@ public class JDialogDetalharVendas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(154, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator1))
         );
@@ -94,6 +94,7 @@ public class JDialogDetalharVendas extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Cliente: ");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -136,7 +137,7 @@ public class JDialogDetalharVendas extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
