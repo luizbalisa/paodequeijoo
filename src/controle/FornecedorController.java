@@ -17,33 +17,34 @@ import persistencia.ConsultaFornecedorMySQL;
  */
 public class FornecedorController {
 
-    Fornecedor cliente = new Fornecedor();
+    Fornecedor fornecedor = new Fornecedor();
     ArrayList<Fornecedor> listaFornecedores = new ArrayList<Fornecedor>();
 
     public FornecedorController() {
     }
 
-//    public String cadastrar() {
-//        limparFormatacaoTelefone();
-//        limparFormatacaoCPF();
-//       // ConsultaClienteMySQL consultaMySQL = new ConsultaClienteMySQL();
-//       // return consultaMySQL.cadastrarCliente(cliente);
-//    }
-//
-//    public String editar() {
-//      //  ConsultaClienteMySQL consultaMySQL = new ConsultaClienteMySQL();
-//        return consultaMySQL.editarCliente(cliente);
-//    }
-    public void buscarClientes() {
+    public String cadastrar() {
+        limparFormatacaoTelefone();
+        ConsultaFornecedorMySQL consultaMySQL = new ConsultaFornecedorMySQL();
+        return consultaMySQL.cadastrarFornecedor(fornecedor);
+    }
+
+    public String editar() {
+        ConsultaFornecedorMySQL consultaMySQL = new ConsultaFornecedorMySQL();
+        return consultaMySQL.editarFornecedor(fornecedor);
+    }
+
+    public void buscarFornecedores() {
         ConsultaFornecedorMySQL c = new ConsultaFornecedorMySQL();
         listaFornecedores = c.buscarFornecedores();
     }
 
-//    public String excluirCliente() {
-//        ConsultaClienteMySQL consulta = new ConsultaClienteMySQL();
-//        return consulta.excluirCliente(cliente);
-//    }
-    public ArrayList<Fornecedor> buscaDinamicaClientes(String busca) {
+    public String excluirFornecedor() {
+        ConsultaFornecedorMySQL consulta = new ConsultaFornecedorMySQL();
+        return consulta.excluirFornecedor(fornecedor);
+    }
+
+    public ArrayList<Fornecedor> buscaDinamicaFornecedores(String busca) {
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
         desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
@@ -62,26 +63,26 @@ public class FornecedorController {
     }
 
     public void limparFormatacaoTelefone() {
-        String tel1 = cliente.getTelefone1().replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
-        cliente.setTelefone1(tel1);
-        String tel2 = cliente.getTelefone2().replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
-        cliente.setTelefone2(tel2);
+        String tel1 = fornecedor.getTelefone1().replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+        fornecedor.setTelefone1(tel1);
+        String tel2 = fornecedor.getTelefone2().replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+        fornecedor.setTelefone2(tel2);
     }
 
-    public void getCliente(int id) {
+    public void getFornecedor(int id) {
         for (int i = 0; i < this.listaFornecedores.size(); i++) {
             if (this.listaFornecedores.get(i).getIdFornecedor() == id) {
-                cliente = listaFornecedores.get(i);
+                fornecedor = listaFornecedores.get(i);
             }
         }
     }
 
-    public Fornecedor getCliente() {
-        return cliente;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setCliente(Fornecedor cliente) {
-        this.cliente = cliente;
+    public void setFornecedor(Fornecedor cliente) {
+        this.fornecedor = cliente;
     }
 
     public ArrayList<Fornecedor> getListaFornecedores() {
