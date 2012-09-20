@@ -34,13 +34,13 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
         jButton3.setVisible(false);
         jButton4.setVisible(false);
         if (tipo == 1) {
-            jLabel1.setText("Detalhar cliente");
+            jLabel1.setText("Detalhar fornecedor");
             cliente.getCliente(idCliente);
             jButton4.setVisible(true);
             jButton2.setVisible(false);//botao de cadastro
             this.preencherDados(cliente.getCliente());
         } else if (tipo == 2) {
-            jLabel1.setText("Editar cliente");
+            jLabel1.setText("Editar fornecedor");
             cliente.getCliente(idCliente);
             jButton2.setVisible(false);
             jButton3.setVisible(true);
@@ -86,7 +86,7 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
         jFormattedTextField2.setText("jFormattedTextField2");
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastrar Fornecedor");
+        jLabel1.setText("Cadastrar fornecedor");
 
         jButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/spellcheck.png"))); // NOI18N
@@ -104,7 +104,7 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 597, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 600, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
