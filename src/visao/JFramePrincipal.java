@@ -25,9 +25,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         dinamismo();
     }
 
-    public void menuGerenciar() {
+    public void menuGerenciar(int aba) {
         jPanel2.removeAll();
-        jPanel2.add(new JPanelMenuGerenciarDados(this));
+        jPanel2.add(new JPanelMenuGerenciarDados(this, aba));
         jPanel2.validate();
         repaint();
     }
@@ -42,6 +42,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
     public void gerenciarClientes(int tipo, int idCliente) {
         jPanel2.removeAll();
         jPanel2.add(new JPanelGerenciarCliente(this, tipo, idCliente));
+        jPanel2.validate();
+        repaint();
+    }
+
+    public void gerenciarFornecedores(int tipo, int idCliente) {
+        jPanel2.removeAll();
+        jPanel2.add(new JPanelGerenciarFornecedor(this, tipo, idCliente));
         jPanel2.validate();
         repaint();
     }
@@ -178,7 +185,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        menuGerenciar();    // TODO add your handling code here:
+        menuGerenciar(0);    // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

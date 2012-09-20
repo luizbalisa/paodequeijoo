@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Rafael
  */
-public class JPanelGerenciarCliente extends javax.swing.JPanel {
+public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
 
     JFramePrincipal principal;
     int tipoTela;
@@ -25,7 +25,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
     /**
      * Creates new form JPanelGerenciarCliente
      */
-    public JPanelGerenciarCliente(JFramePrincipal principal, int tipo, int idCliente) {
+    public JPanelGerenciarFornecedor(JFramePrincipal principal, int tipo, int idCliente) {
         initComponents();
         this.principal = principal;
         this.tipoTela = tipo;
@@ -68,7 +68,6 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -76,22 +75,18 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jTextField2 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
 
         jFormattedTextField2.setText("jFormattedTextField2");
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastrar Cliente");
+        jLabel1.setText("Cadastrar Fornecedor");
 
         jButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/spellcheck.png"))); // NOI18N
@@ -109,10 +104,10 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 597, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator1))
         );
@@ -129,13 +124,13 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         );
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel2.setText("Nome: ");
+        jLabel2.setText("Empresa: ");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Endereço:");
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel4.setText("CPF:");
+        jLabel4.setText("IE: ");
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Telefone 1:");
@@ -143,14 +138,11 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Telefone 2:");
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel7.setText("Telefone Comercial:");
-
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel8.setText("RG:");
+        jLabel8.setText("CNPJ:");
 
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel9.setText("Local de Trabalho:");
+        jLabel9.setText("Vendedor: ");
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("E-mail:");
@@ -162,26 +154,6 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jTextField7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jTextField9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Observações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 0, 14))); // NOI18N
-        jPanel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-        );
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/arrow_undo.png"))); // NOI18N
@@ -214,8 +186,6 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
 
         jTextField4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jTextField5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         jTextField8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jTextField6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -228,7 +198,6 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton3)
@@ -249,10 +218,6 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                         .addGap(42, 42, 42)
                         .addComponent(jTextField7))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField9))
@@ -267,9 +232,9 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField4)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel8))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
@@ -310,13 +275,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -326,7 +285,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        principal.menuGerenciar(0);
+        principal.menuGerenciar(1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -334,7 +293,7 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         if (jTextField1.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
         } else {
-            cliente.setCliente(new Cliente(jTextField1.getText(), jTextField2.getText(), jTextField8.getText(), jTextField6.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText(), jTextField9.getText(), jTextField7.getText(), jTextArea1.getText()));
+          //  cliente.setCliente(new Cliente(jTextField1.getText(), jTextField2.getText(), jTextField8.getText(), jTextField6.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText(), jTextField9.getText(), jTextField7.getText(), jTextArea1.getText()));
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             JOptionPane.showMessageDialog(rootPane, cliente.cadastrar());
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -371,20 +330,15 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
@@ -392,12 +346,10 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void limparDados() {
-        jTextArea1.setText("");
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");
         jTextField4.setText("");
-        jTextField5.setText("");
         jTextField6.setText("");
         jTextField7.setText("");
         jTextField8.setText("");
@@ -406,12 +358,10 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
 
     private void preencherDados(Cliente c) {
         if (tipoTela == 1) {
-            jTextArea1.setEnabled(false);
             jTextField1.setEnabled(false);
             jTextField2.setEnabled(false);
             jTextField3.setEnabled(false);
             jTextField4.setEnabled(false);
-            jTextField5.setEnabled(false);
             jTextField6.setEnabled(false);
             jTextField7.setEnabled(false);
             jTextField8.setEnabled(false);
@@ -421,12 +371,10 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         jTextField2.setText(c.getEndereco());
         jTextField3.setText(c.getTelefone1());
         jTextField4.setText(c.getTelefone2());
-        jTextField5.setText(c.getTelefoneComercial());
         jTextField6.setText(c.getRg());
         jTextField7.setText(c.getEmail());
         jTextField8.setText(c.getCpf());
         jTextField9.setText(c.getLocalDeTrabalho());
-        jTextArea1.setText(c.getObservacoes());
     }
 
     private void editarCliente() {
@@ -434,7 +382,6 @@ public class JPanelGerenciarCliente extends javax.swing.JPanel {
         cliente.getCliente().setEndereco(jTextField2.getText());
         cliente.getCliente().setTelefone1(jTextField3.getText());
         cliente.getCliente().setTelefone2(jTextField4.getText());
-        cliente.getCliente().setTelefoneComercial(jTextField5.getText());
         cliente.getCliente().setRg(jTextField6.getText());
         cliente.getCliente().setEmail(jTextField7.getText());
         cliente.getCliente().setCpf(jTextField8.getText());
