@@ -5,7 +5,7 @@
 package persistencia;
 
 import fachada.Cliente;
-import fachada.Fornecedor2;
+import fachada.Fornecedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,13 +21,13 @@ public class ConsultaFornecedorMySQL {
     public ConsultaFornecedorMySQL() {
     }
 
-    public ArrayList<Fornecedor2> buscarFornecedores () {
-        ArrayList<Fornecedor2> fornecedor = new ArrayList<Fornecedor2>();
+    public ArrayList<Fornecedor> buscarFornecedores () {
+        ArrayList<Fornecedor> fornecedor = new ArrayList<Fornecedor>();
         String query = SQL_BUSCA_FORNECEDOR;
         try {
             ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
             while (rs.next()) {
-                Fornecedor2 c = new Fornecedor2();
+                Fornecedor c = new Fornecedor();
                 c.setIdFornecedor(rs.getInt("idfornecedor"));
                 c.setEmpresa(rs.getString("empresa"));
                 c.setEndereco(rs.getString("endereco"));
