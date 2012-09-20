@@ -6,8 +6,6 @@ package persistencia;
 
 import fachada.Cliente;
 import fachada.Fornecedor;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,16 +16,12 @@ import java.util.ArrayList;
  */
 public class ConsultaFornecedorMySQL {
 
-    private static final String SQL_EXCLUIR_FORNECEDOR = " DELETE FROM fornecedor WHERE idfornecedor=?";
-    private static final String SQL_BUSCA_FORNECEDOR = "SELECT * FROM fornecedor ORDER BY empresa";
-    private static final String SQL_INCLUIR_FORNECEDOR = "INSERT INTO fornecedor (empresa, endereco, cnpj, ie, email, telefone1, telefone2, vendedor) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_EDITAR_FORNECEDOR = "UPDATE fornecedor SET empresa=?, endereco=?, cnpj=?, ie=?, email=?, telefone1=?, telefone2=?, vendedor=? WHERE idfornecedor=? ";
+    private static final String SQL_BUSCA_FORNECEDOR = "SELECT * FROM fornecedor ORDER BY nome";
 
     public ConsultaFornecedorMySQL() {
     }
 
-    public ArrayList<Fornecedor> buscarFornecedores() {
+    public ArrayList<Fornecedor> buscarFornecedores () {
         ArrayList<Fornecedor> fornecedor = new ArrayList<Fornecedor>();
         String query = SQL_BUSCA_FORNECEDOR;
         try {
@@ -46,71 +40,8 @@ public class ConsultaFornecedorMySQL {
                 fornecedor.add(c);
             }
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         return fornecedor;
-    }
-
-    public String cadastrarFornecedor(Fornecedor fornecedor) {
-        Connection con;
-        PreparedStatement stmt;
-
-        try {
-            con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_INCLUIR_FORNECEDOR);
-            stmt.setString(1, fornecedor.getEmpresa());
-            stmt.setString(2, fornecedor.getEndereco());
-            stmt.setString(3, fornecedor.getCnpj());
-            stmt.setString(4, fornecedor.getIe());
-            stmt.setString(5, fornecedor.getEmail());
-            stmt.setString(6, fornecedor.getTelefone1());
-            stmt.setString(7, fornecedor.getTelefone2());
-            stmt.setString(8, fornecedor.getVendedor());
-            stmt.executeUpdate();
-            con.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return "Cadastro do Fornecedor não foi efetuado";
-        }
-        return "Cadastro efetuado com sucesso!";
-    }
-
-    public String editarFornecedor(Fornecedor fornecedor) {
-        Connection con;
-        PreparedStatement stmt;
-        try {
-            con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_EDITAR_FORNECEDOR);
-            stmt.setString(1, fornecedor.getEmpresa());
-            stmt.setString(2, fornecedor.getEndereco());
-            stmt.setString(3, fornecedor.getCnpj());
-            stmt.setString(4, fornecedor.getIe());
-            stmt.setString(5, fornecedor.getEmail());
-            stmt.setString(6, fornecedor.getTelefone1());
-            stmt.setString(7, fornecedor.getTelefone2());
-            stmt.setString(8, fornecedor.getVendedor());
-            stmt.setInt(9, fornecedor.getIdFornecedor());
-            stmt.executeUpdate();
-            con.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return "Erro na alteração do Fornecedor";
-        }
-        return "Fornecedor alterado com sucesso!";
-    }
-
-    public String excluirFornecedor(Fornecedor fornecedor) {
-        Connection con;
-        PreparedStatement stmt;
-
-        try {
-            con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_EXCLUIR_FORNECEDOR);
-            stmt.setInt(1, fornecedor.getIdFornecedor());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return "Exclusão do Fornecedor não foi efetuada";
-        }
-        return "Exclusão do Fornecedor efetuada com sucesso!";
     }
 }
