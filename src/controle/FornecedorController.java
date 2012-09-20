@@ -5,7 +5,7 @@
 package controle;
 
 import fachada.Cliente;
-import fachada.Fornecedor;
+import fachada.Fornecedor2;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import persistencia.ConsultaClienteMySQL;
@@ -17,8 +17,8 @@ import persistencia.ConsultaFornecedorMySQL;
  */
 public class FornecedorController {
 
-    Fornecedor cliente = new Fornecedor();
-    ArrayList<Fornecedor> listaFornecedores = new ArrayList<Fornecedor>();
+    Fornecedor2 cliente = new Fornecedor2();
+    ArrayList<Fornecedor2> listaFornecedores = new ArrayList<Fornecedor2>();
 
     public FornecedorController() {
     }
@@ -43,12 +43,12 @@ public class FornecedorController {
 //        ConsultaClienteMySQL consulta = new ConsultaClienteMySQL();
 //        return consulta.excluirCliente(cliente);
 //    }
-    public ArrayList<Fornecedor> buscaDinamicaClientes(String busca) {
+    public ArrayList<Fornecedor2> buscaDinamicaClientes(String busca) {
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
         desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
         desc2 = desc2.toUpperCase();
-        ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+        ArrayList<Fornecedor2> fornecedores = new ArrayList<Fornecedor2>();
         for (int i = 0; i < listaFornecedores.size(); i++) {
             String comp = listaFornecedores.get(i).getEmpresa();
             comp = Normalizer.normalize(comp, Normalizer.Form.NFD);
@@ -76,19 +76,19 @@ public class FornecedorController {
         }
     }
 
-    public Fornecedor getCliente() {
+    public Fornecedor2 getCliente() {
         return cliente;
     }
 
-    public void setCliente(Fornecedor cliente) {
+    public void setCliente(Fornecedor2 cliente) {
         this.cliente = cliente;
     }
 
-    public ArrayList<Fornecedor> getListaFornecedores() {
+    public ArrayList<Fornecedor2> getListaFornecedores() {
         return listaFornecedores;
     }
 
-    public void setListaFornecedores(ArrayList<Fornecedor> listaFornecedores) {
+    public void setListaFornecedores(ArrayList<Fornecedor2> listaFornecedores) {
         this.listaFornecedores = listaFornecedores;
     }
 }

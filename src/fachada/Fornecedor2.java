@@ -8,12 +8,23 @@ package fachada;
  *
  * @author Rafael
  */
-public class Fornecedor {
+public class Fornecedor2 {
 
     private int idFornecedor;
     private String empresa, endereco, cnpj, ie, email, telefone1, telefone2, vendedor;
 
-    public Fornecedor() {
+    public Fornecedor2() {
+    }
+
+    public Fornecedor2(String empresa, String endereco, String cnpj, String ie, String email, String telefone1, String telefone2, String vendedor) {
+        this.empresa = empresa;
+        this.endereco = endereco;
+        this.cnpj = cnpj;
+        this.ie = ie;
+        this.email = email;
+        this.telefone1 = telefone1;
+        this.telefone2 = telefone2;
+        this.vendedor = vendedor;
     }
 
     public String getCnpj() {
