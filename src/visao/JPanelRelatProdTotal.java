@@ -328,7 +328,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
     public double getReceitaTotal(ArrayList<HistoricoSaidaProduto> listaProduto) {
         double soma = 0;
         for (int i = 0; i < listaProduto.size(); i++) {
-            soma += (listaProduto.get(i).getQuantidade() * Double.parseDouble(listaProduto.get(i).getPreco_venda()));
+            soma += (listaProduto.get(i).getQuantidade() * Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
         }
         return soma;
     }
