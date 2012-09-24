@@ -4,7 +4,10 @@
  */
 package visao;
 
+import controle.FormaPagamentoCompraController;
+import fachada.FormaPagamento;
 import fachada.Fornecedor;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +25,7 @@ public class JPanelCompra extends javax.swing.JPanel {
         initComponents();
         this.principal = principal;
         limparDados();
+        preencherFormaPagamento();
     }
 
     public Fornecedor getFornecedor() {
@@ -325,7 +329,6 @@ public class JPanelCompra extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -337,14 +340,14 @@ public class JPanelCompra extends javax.swing.JPanel {
                             .addComponent(jLabel20)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(17, 17, 17)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
                             .addComponent(jButton5)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 49, Short.MAX_VALUE)
+                        .addContainerGap(60, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -460,6 +463,16 @@ public class JPanelCompra extends javax.swing.JPanel {
         jLabel17.setText("");
         for (int i = 0; i < jPanel2.getComponentCount(); i++) {
             jPanel2.getComponent(i).setEnabled(false);
+        }
+    }
+
+    private void preencherFormaPagamento() {
+        FormaPagamentoCompraController formaPagamento = new FormaPagamentoCompraController();
+        formaPagamento.buscarFormaPagamento();
+        ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
+
+        for (int i = 0; i < listaFormaPagamento.size(); i++) {
+            jComboBox1.addItem(listaFormaPagamento.get(i).getDescricao());
         }
     }
 }

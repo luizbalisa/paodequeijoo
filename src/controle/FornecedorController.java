@@ -43,6 +43,7 @@ public class FornecedorController {
         ConsultaFornecedorMySQL c = new ConsultaFornecedorMySQL();
         return c.excluirFornecedor(fornecedor);
     }
+
     public ArrayList<Fornecedor> buscaDinamicaFornecedores(String busca) {
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);

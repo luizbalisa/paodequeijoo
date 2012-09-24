@@ -5,7 +5,6 @@
 package controle;
 
 import fachada.FormaPagamento;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import persistencia.ConsultaFormaDePagamentoMySQL;
 

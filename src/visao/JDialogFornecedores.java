@@ -4,9 +4,7 @@
  */
 package visao;
 
-import controle.ClienteController;
 import controle.FornecedorController;
-import fachada.Cliente;
 import fachada.Fornecedor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
