@@ -98,4 +98,14 @@ public class Fornecedor {
     public void setVendedor(String vendedor) {
         this.vendedor = vendedor;
     }
+
+    public String getTelefoneValido() {
+        if (telefone1 != null && !telefone1.equals("")) {
+            return telefone1;
+        } else if (telefone2 != null && !telefone2.equals("")) {
+            return telefone2;
+        } else {
+            return "";
+        }
+    }
 }

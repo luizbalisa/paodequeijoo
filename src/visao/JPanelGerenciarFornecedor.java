@@ -4,8 +4,8 @@
  */
 package visao;
 
-import controle.ClienteController;
-import fachada.Cliente;
+import controle.FornecedorController;
+import fachada.Fornecedor;
 import java.awt.Component;
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
@@ -18,8 +18,8 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
 
     JFramePrincipal principal;
     int tipoTela;
-    int idCliente;
-    ClienteController cliente = new ClienteController();
+    int idFornecedor;
+    FornecedorController fornecedor = new FornecedorController();
     private Component rootPane;
 
     /**
@@ -29,22 +29,22 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
         initComponents();
         this.principal = principal;
         this.tipoTela = tipo;
-        this.idCliente = idCliente;
-        this.cliente.buscarClientes();
+        this.idFornecedor = idCliente;
+        this.fornecedor.buscarFornecedores();
         jButton3.setVisible(false);
         jButton4.setVisible(false);
         if (tipo == 1) {
             jLabel1.setText("Detalhar fornecedor");
-            cliente.getCliente(idCliente);
+            fornecedor.getFornecedor(idCliente);
             jButton4.setVisible(true);
             jButton2.setVisible(false);//botao de cadastro
-            this.preencherDados(cliente.getCliente());
+            this.preencherDados(fornecedor.getFornecedor());
         } else if (tipo == 2) {
             jLabel1.setText("Editar fornecedor");
-            cliente.getCliente(idCliente);
+            fornecedor.getFornecedor(idCliente);
             jButton2.setVisible(false);
             jButton3.setVisible(true);
-            this.preencherDados(cliente.getCliente());
+            this.preencherDados(fornecedor.getFornecedor());
         }
     }
 
@@ -293,9 +293,9 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
         if (jTextField1.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
         } else {
-          //  cliente.setCliente(new Cliente(jTextField1.getText(), jTextField2.getText(), jTextField8.getText(), jTextField6.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText(), jTextField9.getText(), jTextField7.getText(), jTextArea1.getText()));
+            fornecedor.setFornecedor(new Fornecedor(jTextField1.getText(), jTextField2.getText(), jTextField6.getText(), jTextField8.getText(), jTextField7.getText(), jTextField3.getText(), jTextField4.getText(), jTextField9.getText()));
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            JOptionPane.showMessageDialog(rootPane, cliente.cadastrar());
+            JOptionPane.showMessageDialog(rootPane, fornecedor.cadastrar());
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             limparDados();
         }
@@ -307,16 +307,15 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo Nome");
         } else {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            editarCliente();
-            JOptionPane.showMessageDialog(rootPane, cliente.editar());
+            editarFornecedor();
+            JOptionPane.showMessageDialog(rootPane, fornecedor.editar());
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        principal.editarCliente(idCliente);
+        principal.gerenciarFornecedores(2, idFornecedor);
     }//GEN-LAST:event_jButton4ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -356,7 +355,7 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
         jTextField9.setText("");
     }
 
-    private void preencherDados(Cliente c) {
+    private void preencherDados(Fornecedor c) {
         if (tipoTela == 1) {
             jTextField1.setEnabled(false);
             jTextField2.setEnabled(false);
@@ -367,24 +366,24 @@ public class JPanelGerenciarFornecedor extends javax.swing.JPanel {
             jTextField8.setEnabled(false);
             jTextField9.setEnabled(false);
         }
-        jTextField1.setText(c.getNome());
+        jTextField1.setText(c.getEmpresa());
         jTextField2.setText(c.getEndereco());
         jTextField3.setText(c.getTelefone1());
         jTextField4.setText(c.getTelefone2());
-        jTextField6.setText(c.getRg());
+        jTextField6.setText(c.getCnpj());
         jTextField7.setText(c.getEmail());
-        jTextField8.setText(c.getCpf());
-        jTextField9.setText(c.getLocalDeTrabalho());
+        jTextField8.setText(c.getIe());
+        jTextField9.setText(c.getVendedor());
     }
 
-    private void editarCliente() {
-        cliente.getCliente().setNome(jTextField1.getText());
-        cliente.getCliente().setEndereco(jTextField2.getText());
-        cliente.getCliente().setTelefone1(jTextField3.getText());
-        cliente.getCliente().setTelefone2(jTextField4.getText());
-        cliente.getCliente().setRg(jTextField6.getText());
-        cliente.getCliente().setEmail(jTextField7.getText());
-        cliente.getCliente().setCpf(jTextField8.getText());
-        cliente.getCliente().setLocalDeTrabalho(jTextField9.getText());
+    private void editarFornecedor() {
+        fornecedor.getFornecedor().setEmpresa(jTextField1.getText());
+        fornecedor.getFornecedor().setEndereco(jTextField2.getText());
+        fornecedor.getFornecedor().setTelefone1(jTextField3.getText());
+        fornecedor.getFornecedor().setTelefone2(jTextField4.getText());
+        fornecedor.getFornecedor().setCnpj(jTextField6.getText());
+        fornecedor.getFornecedor().setEmail(jTextField7.getText());
+        fornecedor.getFornecedor().setIe(jTextField8.getText());
+        fornecedor.getFornecedor().setVendedor(jTextField9.getText());
     }
 }

@@ -4,6 +4,8 @@
  */
 package visao;
 
+import fachada.Fornecedor;
+
 /**
  *
  * @author Rafael
@@ -11,6 +13,7 @@ package visao;
 public class JPanelCompra extends javax.swing.JPanel {
 
     JFramePrincipal principal;
+    Fornecedor fornecedor;
 
     /**
      * Creates new form JPanelCompra
@@ -18,6 +21,16 @@ public class JPanelCompra extends javax.swing.JPanel {
     public JPanelCompra(JFramePrincipal principal) {
         initComponents();
         this.principal = principal;
+        limparDados();
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+        selecionarFornecedor();
     }
 
     /**
@@ -132,6 +145,11 @@ public class JPanelCompra extends javax.swing.JPanel {
         jLabel17.setText("tel2");
 
         jButton1.setText("Buscar Fornecedor");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -307,9 +325,9 @@ public class JPanelCompra extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18)
                             .addComponent(jButton2)
@@ -326,7 +344,7 @@ public class JPanelCompra extends javax.swing.JPanel {
                             .addComponent(jButton4)
                             .addComponent(jButton5)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(60, Short.MAX_VALUE)
+                        .addGap(0, 49, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -368,6 +386,10 @@ public class JPanelCompra extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JDialogFornecedores d = new JDialogFornecedores(principal, true, this);
+        d.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -412,4 +434,32 @@ public class JPanelCompra extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+    private void selecionarFornecedor() {
+        jLabel2.setText(fornecedor.getEmpresa());
+        jLabel5.setText(fornecedor.getEndereco());
+        jLabel7.setText(fornecedor.getCnpj());
+        jLabel9.setText(fornecedor.getIe());
+        jLabel11.setText(fornecedor.getVendedor());
+        jLabel13.setText(fornecedor.getEmail());
+        jLabel15.setText(fornecedor.getTelefone1());
+        jLabel17.setText(fornecedor.getTelefone2());
+        for (int i = 0; i < jPanel2.getComponentCount(); i++) {
+            jPanel2.getComponent(i).setEnabled(true);
+        }
+    }
+
+    private void limparDados() {
+        jLabel2.setText("");
+        jLabel5.setText("");
+        jLabel7.setText("");
+        jLabel9.setText("");
+        jLabel11.setText("");
+        jLabel13.setText("");
+        jLabel15.setText("");
+        jLabel17.setText("");
+        for (int i = 0; i < jPanel2.getComponentCount(); i++) {
+            jPanel2.getComponent(i).setEnabled(false);
+        }
+    }
 }

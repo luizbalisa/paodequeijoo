@@ -7,9 +7,11 @@ package visao;
 import controle.CategoriasController;
 import controle.ClienteController;
 import controle.FormaDePagamentoController;
+import controle.FornecedorController;
 import controle.ProdutoController;
 import fachada.Cliente;
 import fachada.FormaPagamento;
+import fachada.Fornecedor;
 import fachada.Produto;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -35,6 +37,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
 
     JFramePrincipal principal;
     private Component rootPane;
+    FornecedorController fornecedor = new FornecedorController();
     ClienteController cliente = new ClienteController();
     ProdutoController produto = new ProdutoController();
     DecimalFormat formatador = new DecimalFormat("###0.00");
@@ -48,6 +51,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         this.principal = principal;
         jTabbedPane1.setSelectedIndex(aba);
         preencherClientes();
+        preencherFornecedores();
         preencherProdutos();
         preencherFormaPagamento();
         buscaDinamica();
@@ -645,7 +649,20 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+     if (jTable3.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o fornecedor");
+        } else {
+            int linha = jTable3.getSelectedRow();
+            String id = jTable3.getModel().getValueAt(linha, 0).toString();
+            fornecedor.getFornecedor(Integer.parseInt(id));
+            int escolha = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o fornecedor " + fornecedor.getFornecedor().getEmpresa() + " ?");
+            if (escolha == 0) {
+                this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                JOptionPane.showMessageDialog(rootPane, fornecedor.excluirFornecedor());
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                preencherFornecedores();
+            }
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -653,11 +670,23 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
+        if (jTable3.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o fornecedor");
+        } else {
+            int linha = jTable3.getSelectedRow();
+            String id = jTable3.getModel().getValueAt(linha, 0).toString();
+            this.principal.gerenciarFornecedores(2, Integer.parseInt(id));
+        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
+        if (jTable3.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o fornecedor");
+        } else {
+            int linha = jTable3.getSelectedRow();
+            String id = String.valueOf(jTable3.getModel().getValueAt(linha, 0));
+            this.principal.gerenciarFornecedores(1, Integer.parseInt(id));
+        }
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -740,6 +769,42 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        repaint();
+    }
+
+    private void preencherFornecedores() {
+        fornecedor.buscarFornecedores();
+        ArrayList<Fornecedor> fornecedores = fornecedor.getListaFornecedores();
+        DefaultTableModel dt;
+        dt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Id", "Empresa", "Telefone", "Vendedor"
+                }) {
+
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        Object[] linha = new Object[4];
+        for (int i = 0; i < fornecedores.size(); i++) {
+            linha[0] = fornecedores.get(i).getIdFornecedor();
+            linha[1] = fornecedores.get(i).getEmpresa();
+            linha[2] = fornecedores.get(i).getTelefoneValido();
+            linha[3] = fornecedores.get(i).getVendedor();
+            dt.addRow(linha);
+        }
+
+        jTable3 = new JTable(dt);
+        jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable3.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable3.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable3.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jScrollPane3.setViewportView(jTable3);
+        jTable3.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setBorder(null);
+        jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         repaint();
     }
 
@@ -1031,6 +1096,55 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                     } else {
                         preencherClientes();
                     }
+                }
+            }
+        });
+        jTextField3.addKeyListener(new KeyListener() {
+
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+
+                if (!jTextField3.getText().equals("")) {
+                    fornecedor.buscarFornecedores();
+                    ArrayList<Fornecedor> fornecedores = fornecedor.buscaDinamicaFornecedores(jTextField3.getText());
+                    DefaultTableModel dt;
+                    dt = new DefaultTableModel(
+                            new Object[][]{},
+                            new String[]{
+                                "Id", "Empresa", "Telefone", "Vendedor"
+                            }) {
+
+                        @Override
+                        public boolean isCellEditable(int row, int col) {
+                            return false;
+                        }
+                    };
+                    Object[] linha = new Object[4];
+                    for (int i = 0; i < fornecedores.size(); i++) {
+                        linha[0] = fornecedores.get(i).getIdFornecedor();
+                        linha[1] = fornecedores.get(i).getEmpresa();
+                        linha[2] = fornecedores.get(i).getTelefoneValido();
+                        linha[3] = fornecedores.get(i).getVendedor();
+                        dt.addRow(linha);
+                    }
+
+                    jTable3 = new JTable(dt);
+                    jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
+                    jTable3.getColumnModel().getColumn(0).setMinWidth(0);
+                    jTable3.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                    jTable3.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+                    jScrollPane3.setViewportView(jTable3);
+                    jTable3.getTableHeader().setReorderingAllowed(false);
+                    jScrollPane3.setBorder(null);
+                    jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                    repaint();
+                } else {
+                    preencherFornecedores();
                 }
             }
         });
