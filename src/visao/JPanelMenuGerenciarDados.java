@@ -453,7 +453,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Produtos de Venda", jPanel3);
+        jTabbedPane1.addTab("Produtos", jPanel3);
 
         jButton8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/money_add.png"))); // NOI18N

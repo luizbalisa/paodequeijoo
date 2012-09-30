@@ -5,6 +5,7 @@
 package visao;
 
 import controle.FormaDePagamentoController;
+import controle.FormaPagamentoCompraController;
 import controle.MovimentoDeCaixaController;
 import controle.VendaGeralController;
 import fachada.FormaPagamento;
@@ -49,6 +50,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         initComponents();
         this.principal = principal;
         preencherFormaPagamento();
+        preencherFormaPagamentoMovimento(0);
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel10.setVisible(false);
@@ -57,6 +59,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jPanel14.setVisible(false);
         jPanel15.setVisible(false);
         jButton7.setEnabled(false);
+        jLabel7.setVisible(false);
+        jComboBox5.setVisible(false);
         dinamismo();
         preencherAnos();
     }
@@ -540,6 +544,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
         jComboBox7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Entrada", "Saída" }));
+        jComboBox7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -698,7 +707,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton3)))
@@ -918,7 +927,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                     .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
@@ -1164,6 +1173,21 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+        if (jComboBox7.getSelectedIndex() == 0) {
+            jLabel7.setVisible(false);
+            jComboBox5.setVisible(false);
+        } else if (jComboBox7.getSelectedIndex() == 1) {
+            preencherFormaPagamentoMovimento(0);
+            jLabel7.setVisible(true);
+            jComboBox5.setVisible(true);
+        } else {
+            preencherFormaPagamentoMovimento(1);
+            jLabel7.setVisible(true);
+            jComboBox5.setVisible(true);
+        }
+    }//GEN-LAST:event_jComboBox7ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1286,17 +1310,38 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         FormaDePagamentoController formaPagamento = new FormaDePagamentoController();
         formaPagamento.buscarFormaPagamento();
         ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
-        jComboBox5.addItem("Todos");
         jComboBox11.addItem("Todos");
         for (int i = 0; i < listaFormaPagamento.size(); i++) {
-            if (!listaFormaPagamento.get(i).getDescricao().equals("Fiado")) {
-                jComboBox5.addItem(listaFormaPagamento.get(i).getDescricao());
-            }
             jComboBox11.addItem(listaFormaPagamento.get(i).getDescricao());
         }
     }
 
+    private void preencherFormaPagamentoMovimento(int tipo) {
+        jComboBox5.removeAllItems();
+        jComboBox5.addItem("Todos");
+        if (tipo == 0) {
+            FormaDePagamentoController formaPagamento = new FormaDePagamentoController();
+            formaPagamento.buscarFormaPagamento();
+            ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
+            for (int i = 0; i < listaFormaPagamento.size(); i++) {
+                if (!listaFormaPagamento.get(i).getDescricao().equals("Fiado")) {
+                    jComboBox5.addItem(listaFormaPagamento.get(i).getDescricao());
+                }
+            }
+        } else {
+            FormaPagamentoCompraController formaPagamento = new FormaPagamentoCompraController();
+            formaPagamento.buscarFormaPagamento();
+            ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
+            for (int i = 0; i < listaFormaPagamento.size(); i++) {
+                if (!listaFormaPagamento.get(i).getDescricao().equals("Fiado")) {
+                    jComboBox5.addItem(listaFormaPagamento.get(i).getDescricao());
+                }
+            }
+        }
+    }
+
     public int buscarIdForma() {
+        //Verificar combo set 1 ou 2 mudar de pagamento para pagamento compra
         if (!jComboBox5.getSelectedItem().toString().equals("Todos")) {
             ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
             return c.buscarIdForma(jComboBox5.getSelectedItem().toString());
@@ -1390,19 +1435,21 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                MovimentoDeCaixaController m = new MovimentoDeCaixaController();
-                m.buscarMovimento();
-                SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
-                if (jRadioButton4.isSelected()) {//Mes
-                    preencherMovimento(m.lista("00/" + dataMes(), "32/" + dataMes(), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
-                }
+                if (jComboBox5.getItemCount() != 0) {
+                    MovimentoDeCaixaController m = new MovimentoDeCaixaController();
+                    m.buscarMovimento();
+                    SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
+                    if (jRadioButton4.isSelected()) {//Mes
+                        preencherMovimento(m.lista("00/" + dataMes(), "32/" + dataMes(), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
+                    }
 
-                if (jRadioButton5.isSelected()) {//data
-                    preencherMovimento(m.lista(d.format(jDateChooser6.getDate()), d.format(jDateChooser6.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
-                }
+                    if (jRadioButton5.isSelected()) {//data
+                        preencherMovimento(m.lista(d.format(jDateChooser6.getDate()), d.format(jDateChooser6.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
+                    }
 
-                if (jRadioButton6.isSelected()) {//perido
-                    preencherMovimento(m.lista(d.format(jDateChooser4.getDate()), d.format(jDateChooser5.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
+                    if (jRadioButton6.isSelected()) {//perido
+                        preencherMovimento(m.lista(d.format(jDateChooser4.getDate()), d.format(jDateChooser5.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
+                    }
                 }
             }
         });
