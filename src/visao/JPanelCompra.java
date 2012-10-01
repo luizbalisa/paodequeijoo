@@ -614,7 +614,13 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
             c.setFormaPagamento(listaFormaPagamento.get(jComboBox1.getSelectedIndex()).getIdformaPAgamento());
             c.setValorFinal(jTextField4.getText());
-            c.finalizarCompra(listaFormaPagamento.get(jComboBox1.getSelectedIndex()).getTipoDePagamento(), fornecedor);
+            JOptionPane.showMessageDialog(rootPane, c.finalizarCompra(listaFormaPagamento.get(jComboBox1.getSelectedIndex()).getTipoDePagamento(), fornecedor));
+            jLabel23.setVisible(false);
+            jDateChooser1.setVisible(false);
+            jButton7.setVisible(false);
+            limparDados();
+            preencherFormaPagamento();
+            preencherPedido();
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 

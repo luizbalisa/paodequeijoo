@@ -4,6 +4,7 @@
  */
 package controle;
 
+import fachada.ContasPagar;
 import fachada.Fornecedor;
 import fachada.MovimentoCaixa;
 import fachada.Produto;
@@ -28,18 +29,27 @@ public class CompraController {
     public String finalizarCompra(int tipo, Fornecedor f) {
         ConsultaProdutoMySQL cp = new ConsultaProdutoMySQL();
         ConsultaMovimentoCaixaMySQL cm = new ConsultaMovimentoCaixaMySQL();
+        ContasPagar contas = new ContasPagar();
+        contas.setDescricao("Pagamento p/ " + f.getEmpresa());
+        contas.setData(data);
+        contas.setTipo(formaPagamento);
+        contas.setValor(valorFinal);
         if (tipo == 0) {
+            contas.setStatus(0);
         } else {
+            contas.setStatus(1);
             MovimentoCaixa m = new MovimentoCaixa();
             m.setData(data);
-            m.setDescricao("Pagamento p/ "+f.getEmpresa());
+            m.setDescricao("Pagamento p/ " + f.getEmpresa());
             m.setFormaPagamento(formaPagamento);
-            m.setValor("-"+valorFinal);
+            m.setValor("-" + valorFinal);
             cm.cadastrarItemCaixa(m);
         }
+        contas.cadastrar();
         for (int i = 0; i < pedido.size(); i++) {
             cp.updateCompra(pedido.get(i));
         }
+        pedido = new ArrayList<Produto>();
         return "Compra finalizada com sucesso";
     }
 

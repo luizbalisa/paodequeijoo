@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import persistencia.ConsultaFormaDePagamentoMySQL;
+import persistencia.ConsultaFormaPagamentoCompraMySQL;
 import persistencia.ConsultaVendaGeralMySQL;
 
 /**
@@ -1343,8 +1344,15 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     public int buscarIdForma() {
         //Verificar combo set 1 ou 2 mudar de pagamento para pagamento compra
         if (!jComboBox5.getSelectedItem().toString().equals("Todos")) {
-            ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
-            return c.buscarIdForma(jComboBox5.getSelectedItem().toString());
+            if (jComboBox7.getSelectedIndex() == 1) {
+                ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
+                return c.buscarIdForma(jComboBox5.getSelectedItem().toString());
+            } else if (jComboBox7.getSelectedIndex() == 2) {
+                ConsultaFormaPagamentoCompraMySQL c = new ConsultaFormaPagamentoCompraMySQL();
+                return c.buscarIdForma(jComboBox5.getSelectedItem().toString());
+            } else {
+                return 0;
+            }
         } else {
             return 0;
         }
@@ -1362,6 +1370,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     public void preencherMovimento(ArrayList<MovimentoCaixa> movimento) {
         DefaultTableModel dt;
         ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
+        ConsultaFormaPagamentoCompraMySQL c2 = new ConsultaFormaPagamentoCompraMySQL();
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -1378,11 +1387,12 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         for (int i = 0; i < movimento.size(); i++) {
             linha[0] = movimento.get(i).getData();
             linha[1] = movimento.get(i).getDescricao();
-            linha[2] = c.buscarNomeForma(movimento.get(i).getFormaPagamento());
             String valor = "<html>";
             if (Double.parseDouble(movimento.get(i).getValor().replace(",", ".")) > 0) {
+                linha[2] = c.buscarNomeForma(movimento.get(i).getFormaPagamento());
                 valor += "<font color=\"blue\">" + formatador.format(Double.parseDouble(movimento.get(i).getValor().replace(",", "."))) + "</font></html>";
             } else {
+                linha[2] = c2.buscarNomeForma(movimento.get(i).getFormaPagamento());
                 valor += "<font color=\"red\">" + formatador.format(Double.parseDouble(movimento.get(i).getValor().replace(",", "."))) + "</font></html>";
             }
             total += Double.parseDouble(movimento.get(i).getValor().replace(",", "."));
@@ -1402,11 +1412,18 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(90);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(90);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(90);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(90);
 
         TableCellRenderer centerRenderer = new CenterRenderer();
+        TableColumn column1 = jTable1.getColumnModel().getColumn(0);
         TableColumn column2 = jTable1.getColumnModel().getColumn(3);
 
+        column1.setCellRenderer(centerRenderer);
         column2.setCellRenderer(centerRenderer);
 
         repaint();
