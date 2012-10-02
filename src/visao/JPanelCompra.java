@@ -38,6 +38,7 @@ public class JPanelCompra extends javax.swing.JPanel {
     String anterior = "";
     String anterior2 = "";
     String anterior3 = "";
+    String anterior4 = "";
     ProdutoController p = new ProdutoController();
     CompraController c = new CompraController();
     private Component rootPane;
@@ -349,6 +350,16 @@ public class JPanelCompra extends javax.swing.JPanel {
         jLabel21.setText("Valor total: ");
 
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField4FocusLost(evt);
+            }
+        });
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField4KeyReleased(evt);
+            }
+        });
 
         jButton6.setText("Finalizar compra");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -618,6 +629,9 @@ public class JPanelCompra extends javax.swing.JPanel {
             jLabel23.setVisible(false);
             jDateChooser1.setVisible(false);
             jButton7.setVisible(false);
+            jTextField4.setText("");
+            jComboBox1.setSelectedIndex(0);
+            jDateChooser1.setDate(null);
             limparDados();
             preencherFormaPagamento();
             preencherPedido();
@@ -667,6 +681,26 @@ public class JPanelCompra extends javax.swing.JPanel {
             calcTotal();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
+        if (!jTextField4.getText().equals("")) {
+            if (!validar.checarReal2(jTextField4.getText().replace(",", "."))) {
+                jTextField4.setText(anterior4);
+            } else {
+                anterior4 = jTextField4.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField4KeyReleased
+
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+        if (!jTextField4.getText().equals("")) {
+            if (!validar.checarReal(jTextField4.getText().replace(",", "."))) {
+                jTextField4.setText("");
+            } else {
+                anterior4 = jTextField4.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField4FocusLost
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

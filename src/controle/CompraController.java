@@ -26,11 +26,13 @@ public class CompraController {
     public CompraController() {
     }
 
+    
+    
     public String finalizarCompra(int tipo, Fornecedor f) {
         ConsultaProdutoMySQL cp = new ConsultaProdutoMySQL();
         ConsultaMovimentoCaixaMySQL cm = new ConsultaMovimentoCaixaMySQL();
         ContasPagar contas = new ContasPagar();
-        contas.setDescricao("Pagamento p/ " + f.getEmpresa());
+        contas.setDescricao(f.getEmpresa());
         contas.setData(data);
         contas.setTipo(formaPagamento);
         contas.setValor(valorFinal);

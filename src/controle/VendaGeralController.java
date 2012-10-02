@@ -4,6 +4,7 @@
  */
 package controle;
 
+import fachada.ContasPagar;
 import fachada.ProdutoVenda;
 import fachada.ProdutoVendaGeral;
 import fachada.VendaGeral;
@@ -141,7 +142,7 @@ public class VendaGeralController {
                 retorno.add(listaVenda.get(i));
             }
         }
-        return retorno;
+        return ordenar(retorno);
     }
 
     public void list() {
@@ -182,5 +183,27 @@ public class VendaGeralController {
         }
         String date = aux[2] + m + d;
         return Integer.parseInt(date);
+    }
+    public ArrayList<VendaGeral> ordenar(ArrayList<VendaGeral> lista) {
+        ArrayList<Integer> datas = new ArrayList<Integer>();
+        for (int i = 0; i < lista.size(); i++) {
+            datas.add(dataToInt(lista.get(i).getData()));
+        }
+        boolean houveTroca = true;
+        while (houveTroca) {
+            houveTroca = false;
+            for (int i = 0; i < datas.size() - 1; i++) {
+                if (datas.get(i) < datas.get(i + 1)) {
+                    int variavelAuxiliar = datas.get(i + 1);
+                    datas.set(i + 1, datas.get(i));
+                    datas.set(i, variavelAuxiliar);
+                    VendaGeral c = lista.get(i + 1);
+                    lista.set(i + 1, lista.get(i));
+                    lista.set(i, c);
+                    houveTroca = true;
+                }
+            }
+        }
+        return lista;
     }
 }

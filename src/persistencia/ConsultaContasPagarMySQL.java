@@ -21,7 +21,8 @@ import java.util.logging.Logger;
 public class ConsultaContasPagarMySQL {
 
     private static final String SQL_INCLUIR = "INSERT INTO contas_pagar(data, descricao, tipo, valor, status) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_BUSCAR = "SELECT * FROM movimento_caixa";
+    private static final String SQL_BUSCAR = "SELECT * FROM contas_pagar ORDER BY idcontas_pagar";
+    private static final String SQL_DAR_BAIXA = "UPDATE contas_pagar SET status=1 WHERE idcontas_pagar=?";
     private static final String SQL_EXCLUIR = "DELETE FROM movimento_caixa WHERE idmovimento_caixa=?";
 
     public ConsultaContasPagarMySQL() {
@@ -44,34 +45,36 @@ public class ConsultaContasPagarMySQL {
         }
     }
 
-//    public void excluirMovimento(int id) {
-//        Connection con;
-//        PreparedStatement stmt;
-//        try {
-//            con = (Connection) ConexaoMySQL.conectar();
-//            stmt = (PreparedStatement) con.prepareStatement(SQL_EXCLUIR);
-//            stmt.setInt(1, id);
-//            stmt.executeUpdate();
-//        } catch (SQLException ex) {
-//        }
-//    }
-//
-//    public ArrayList<MovimentoCaixa> buscarTodos() {
-//        ArrayList<MovimentoCaixa> retorno = new ArrayList<MovimentoCaixa>();
-//        try {
-//            ResultSet rs = ConexaoMySQL.getInstance().executeQuery(SQL_BUSCAR);
-//            while (rs.next()) {
-//                MovimentoCaixa aux = new MovimentoCaixa();
-//                aux.setIdMovimentoCaixa(rs.getInt("idmovimento_caixa"));
-//                aux.setData(rs.getString("data"));
-//                aux.setFormaPagamento(rs.getInt("forma_pagamento"));
-//                aux.setValor(rs.getString("valor"));
-//                aux.setDescricao(rs.getString("descricao"));
-//                retorno.add(aux);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ConsultaContasPagarMySQL.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return retorno;
-//    }
+    public void darBaixa(int id) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = (Connection) ConexaoMySQL.conectar();
+            stmt = (PreparedStatement) con.prepareStatement(SQL_DAR_BAIXA);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            con.close();
+        } catch (SQLException ex) {
+        }
+    }
+
+    public ArrayList<ContasPagar> buscar() {
+        ArrayList<ContasPagar> retorno = new ArrayList<ContasPagar>();
+        try {
+            ResultSet rs = ConexaoMySQL.getInstance().executeQuery(SQL_BUSCAR);
+            while (rs.next()) {
+                ContasPagar aux = new ContasPagar();
+                aux.setIdcontas(rs.getInt("idcontas_pagar"));
+                aux.setData(rs.getString("data"));
+                aux.setTipo(rs.getInt("tipo"));
+                aux.setStatus(rs.getInt("status"));
+                aux.setValor(rs.getString("valor"));
+                aux.setDescricao(rs.getString("descricao"));
+                retorno.add(aux);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaContasPagarMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
 }

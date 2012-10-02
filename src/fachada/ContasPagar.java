@@ -29,8 +29,13 @@ public class ContasPagar {
         this.valor = valor;
         this.status = status;
     }
-    
-    public void cadastrar(){
+
+    public void darBaixa(int id) {
+        ConsultaContasPagarMySQL c = new ConsultaContasPagarMySQL();
+        c.darBaixa(id);
+    }
+
+    public void cadastrar() {
         ConsultaContasPagarMySQL c = new ConsultaContasPagarMySQL();
         c.cadastrar(this);
     }
