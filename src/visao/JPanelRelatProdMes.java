@@ -65,9 +65,17 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
 
             },
             new String [] {
-
+                "Título 1", "Título 2", "Título 3", "Título 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -163,10 +171,8 @@ public class JPanelRelatProdMes extends javax.swing.JPanel {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         TableCellRenderer centerRenderer = new CenterRenderer();
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(250);
         jTable1.getColumnModel().getColumn(0).setMinWidth(250);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMaxWidth(100);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMinWidth(100);

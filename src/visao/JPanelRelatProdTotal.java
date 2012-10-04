@@ -191,7 +191,10 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        jTable2.getColumnModel().getColumn(1).setMaxWidth(80);
+        jTable2.getColumnModel().getColumn(1).setMinWidth(80);
+        jTable2.getColumnModel().getColumn(2).setMaxWidth(100);
+        jTable2.getColumnModel().getColumn(2).setMinWidth(100);
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column0 = jTable2.getColumnModel().getColumn(1);
         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -239,7 +242,14 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        jTable2.getColumnModel().getColumn(1).setMaxWidth(80);
+        jTable2.getColumnModel().getColumn(1).setMinWidth(80);
+        jTable2.getColumnModel().getColumn(2).setMaxWidth(100);
+        jTable2.getColumnModel().getColumn(2).setMinWidth(100);
+        jTable2.getColumnModel().getColumn(3).setMaxWidth(100);
+        jTable2.getColumnModel().getColumn(3).setMinWidth(100);
+        jTable2.getColumnModel().getColumn(4).setMaxWidth(100);
+        jTable2.getColumnModel().getColumn(4).setMinWidth(100);
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column0 = jTable2.getColumnModel().getColumn(1);
         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
