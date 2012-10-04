@@ -132,7 +132,7 @@ public class JPanelCompra extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator3))
         );
@@ -148,38 +148,56 @@ public class JPanelCompra extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do fornecedor"));
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Empresa: ");
 
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("emp");
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Endereço: ");
 
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("end");
 
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Cnpj: ");
 
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("cnpj");
 
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("IE: ");
 
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("ie");
 
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("Vendedor: ");
 
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel11.setText("vend");
 
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel12.setText("E-mail: ");
 
+        jLabel13.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel13.setText("email");
 
+        jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel14.setText("Telefone 1: ");
 
+        jLabel15.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel15.setText("tel1");
 
+        jLabel16.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel16.setText("Telefone 2: ");
 
+        jLabel17.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel17.setText("tel2");
 
+        jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/magnifier.png"))); // NOI18N
         jButton1.setText("Buscar Fornecedor");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,6 +288,8 @@ public class JPanelCompra extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido"));
 
+        jButton2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/magnifier.png"))); // NOI18N
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,6 +297,7 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel18.setText("Código do produto: ");
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -285,6 +306,7 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jLabel19.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel19.setText("Valor: ");
 
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -298,6 +320,7 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jLabel20.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel20.setText("Quantidade: ");
 
         jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -306,6 +329,8 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/add.png"))); // NOI18N
         jButton3.setText("Adicionar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -331,6 +356,8 @@ public class JPanelCompra extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jButton4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/delete.png"))); // NOI18N
         jButton4.setText("Excluir");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -338,6 +365,8 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jButton5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/pencil.png"))); // NOI18N
         jButton5.setText("Editar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,6 +376,7 @@ public class JPanelCompra extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jLabel21.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel21.setText("Valor total: ");
 
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -361,6 +391,8 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jButton6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/accept.png"))); // NOI18N
         jButton6.setText("Finalizar compra");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,6 +400,7 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jLabel22.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel22.setText("Forma de Pagamento: ");
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -376,8 +409,11 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         });
 
+        jLabel23.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel23.setText("Vencimento: ");
 
+        jButton7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/cancel.png"))); // NOI18N
         jButton7.setText("Cancelar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,7 +452,7 @@ public class JPanelCompra extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton7)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -457,7 +493,7 @@ public class JPanelCompra extends javax.swing.JPanel {
                             .addComponent(jButton4)
                             .addComponent(jButton5)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(43, Short.MAX_VALUE)
+                        .addContainerGap(41, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -471,7 +507,7 @@ public class JPanelCompra extends javax.swing.JPanel {
                             .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton6)
-                        .addGap(0, 25, Short.MAX_VALUE)))
+                        .addGap(0, 24, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 

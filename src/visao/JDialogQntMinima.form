@@ -98,6 +98,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="14" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ATEN&#xc7;&#xc3;O: Os seguintes produtos est&#xe3;o abaixo do estoque minimo."/>
           </Properties>
         </Component>

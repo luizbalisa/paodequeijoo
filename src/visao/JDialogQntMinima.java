@@ -76,6 +76,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("ATENÇÃO: Os seguintes produtos estão abaixo do estoque minimo.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
