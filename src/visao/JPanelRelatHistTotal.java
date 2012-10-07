@@ -4,8 +4,10 @@
  */
 package visao;
 
+import controle.HistSaidaProdutoMPController;
 import controle.HistoricoSaidaProdutoController;
 import controle.ProdutoController;
+import fachada.HistSaidaProdutoMP;
 import fachada.HistoricoSaidaProduto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +28,7 @@ import javax.swing.table.TableColumn;
  */
 public class JPanelRelatHistTotal extends javax.swing.JPanel {
 
-    private HistoricoSaidaProdutoController historico = new HistoricoSaidaProdutoController();
+    private HistSaidaProdutoMPController historico = new HistSaidaProdutoMPController();
     private String dataI;
     private String dataF;
     private int tipo;
@@ -43,13 +45,13 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
         if (tipo == 0) {//data
             this.dataI = dataInicio;
             historico.buscarHistoricoSomadoDia(dataI);
-            historico.getHistoricoDia(this.dataI, jComboBox1.getSelectedIndex() - 1);
+            historico.getHistoricoDia(this.dataI, jComboBox1.getSelectedIndex());
             this.preencherTabela(historico.getListaDatas());
         } else {//periodo
             this.dataI = dataInicio;
             this.dataF = dataFim;
             historico.buscarHistoricoSomadoPeriodo(dataI, dataFim);
-            historico.getHistoricoData(this.dataI, this.dataF, jComboBox1.getSelectedIndex() - 1);
+            historico.getHistoricoData(this.dataI, this.dataF, jComboBox1.getSelectedIndex());
             this.preencherTabela(historico.getListaDatas());
         }
     }
@@ -100,13 +102,13 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
         jLabel2.setText("Ver: ");
 
         jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Produzido", "Atacado" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Cozinha de salgados", "Cozinha de refeições", "Balcão" }));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel3.setText("jLabel5");
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel4.setText("Receita total:");
+        jLabel4.setText("Custo total: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -160,12 +162,12 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void preencherTabela(ArrayList<HistoricoSaidaProduto> listaProduto) {
+    private void preencherTabela(ArrayList<HistSaidaProdutoMP> listaProduto) {
         DefaultTableModel dt;
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Nome Produto", "Quantidade", "Receita"
+                    "Nome Produto", "Destino", "Quantidade", "Custo"
                 }) {
 
             @Override
@@ -173,17 +175,22 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
                 return false;
             }
         };
-        Object[] linha = new Object[3];
+        Object[] linha = new Object[4];
         ProdutoController p = new ProdutoController();
-        p.buscarProdutosHist();
+        p.buscarProdutosSaida();
         for (int i = 0; i < listaProduto.size(); i++) {
-            p.getProduto(listaProduto.get(i).getIdProduto());
-            if (p.getProduto().getCategoria() != 2) {
-                linha[0] = p.getProduto().getNome();
-                linha[1] = listaProduto.get(i).getQuantidade();
-                linha[2] = formatador.format(Double.parseDouble(valorTotal(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda().replaceAll(",", "."))));
-                dt.addRow(linha);
+            p.getProduto(listaProduto.get(i).getIdProd());
+            linha[0] = p.getProduto().getNome();
+            if (listaProduto.get(i).getIdDest() == 1) {
+                linha[1] = "Cozinha de salgados";
+            } else if (listaProduto.get(i).getIdDest() == 2) {
+                linha[1] = "Cozinha de refeições";
+            } else {
+                linha[1] = "Balcão";
             }
+            linha[2] = listaProduto.get(i).getQnt();
+            linha[3] = formatador.format(Double.parseDouble(valorTotal(listaProduto.get(i).getQnt(), listaProduto.get(i).getPreco().replaceAll(",", "."))));
+            dt.addRow(linha);
         }
 
         jTable2 = new JTable(dt);
@@ -191,78 +198,24 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jTable2.getColumnModel().getColumn(1).setMaxWidth(80);
-        jTable2.getColumnModel().getColumn(1).setMinWidth(80);
-        jTable2.getColumnModel().getColumn(2).setMaxWidth(100);
-        jTable2.getColumnModel().getColumn(2).setMinWidth(100);
-        TableCellRenderer centerRenderer = new CenterRenderer();
-        TableColumn column0 = jTable2.getColumnModel().getColumn(1);
-        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
-        column0.setCellRenderer(centerRenderer);
-        column1.setCellRenderer(centerRenderer);
-
-
-        jLabel3.setText(String.valueOf(formatador.format(getReceitaTotal(listaProduto))));
-
-
-        repaint();
-
-    }
-
-    private void preencherTabelaAtacado(ArrayList<HistoricoSaidaProduto> listaProduto) {
-        DefaultTableModel dt;
-        dt = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "Nome Produto", "Quantidade", "Custo Total", "Receita Total", "% de Lucro"
-                }) {
-
-            @Override
-            public boolean isCellEditable(int row, int col) {
-                return false;
-            }
-        };
-        Object[] linha = new Object[5];
-        ProdutoController p = new ProdutoController();
-        p.buscarProdutosHist();
-        for (int i = 0; i < listaProduto.size(); i++) {
-            p.getProduto(listaProduto.get(i).getIdProduto());
-            if (p.getProduto().getCategoria() != 2) {
-                linha[0] = p.getProduto().getNome();
-                linha[1] = listaProduto.get(i).getQuantidade();
-                linha[2] = formatador.format(Double.parseDouble(custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_custo().replace(",", "."))));
-                linha[3] = formatador.format(Double.parseDouble(custoTotalReceita(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda().replace(",", "."))));
-                linha[4] = formatador.format(Double.parseDouble(porcentoLucro(listaProduto.get(i).getPreco_custo().replace(",", "."), listaProduto.get(i).getPreco_venda(), listaProduto.get(i).getQuantidade()).replace(",", ".")));
-                dt.addRow(linha);
-            }
-        }
-
-        jTable2 = new JTable(dt);
-        jScrollPane2.setViewportView(jTable2);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setBorder(null);
-        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jTable2.getColumnModel().getColumn(1).setMaxWidth(80);
-        jTable2.getColumnModel().getColumn(1).setMinWidth(80);
-        jTable2.getColumnModel().getColumn(2).setMaxWidth(100);
-        jTable2.getColumnModel().getColumn(2).setMinWidth(100);
+        jTable2.getColumnModel().getColumn(1).setMaxWidth(200);
+        jTable2.getColumnModel().getColumn(1).setMinWidth(200);
+        jTable2.getColumnModel().getColumn(2).setMaxWidth(80);
+        jTable2.getColumnModel().getColumn(2).setMinWidth(80);
         jTable2.getColumnModel().getColumn(3).setMaxWidth(100);
         jTable2.getColumnModel().getColumn(3).setMinWidth(100);
-        jTable2.getColumnModel().getColumn(4).setMaxWidth(100);
-        jTable2.getColumnModel().getColumn(4).setMinWidth(100);
         TableCellRenderer centerRenderer = new CenterRenderer();
-        TableColumn column0 = jTable2.getColumnModel().getColumn(1);
-        TableColumn column1 = jTable2.getColumnModel().getColumn(2);
-        TableColumn column2 = jTable2.getColumnModel().getColumn(3);
-        TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+        TableColumn column0 = jTable2.getColumnModel().getColumn(2);
+        TableColumn column1 = jTable2.getColumnModel().getColumn(3);
         column0.setCellRenderer(centerRenderer);
         column1.setCellRenderer(centerRenderer);
-        column2.setCellRenderer(centerRenderer);
-        column3.setCellRenderer(centerRenderer);
+
 
         jLabel3.setText(String.valueOf(formatador.format(getReceitaTotal(listaProduto))));
 
+
         repaint();
+
     }
 
     private void dinamismo() {
@@ -272,19 +225,11 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 jTextField1.setText("");
                 if (tipo == 0) {//dia
-                    historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex() - 1);
-                    if (jComboBox1.getSelectedIndex() == 2) {
-                        preencherTabelaAtacado(historico.getListaDatas());
-                    } else {
-                        preencherTabela(historico.getListaDatas());
-                    }
+                    historico.getHistoricoDia(dataI, jComboBox1.getSelectedIndex());
+                    preencherTabela(historico.getListaDatas());
                 } else {//periodo
-                    historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex() - 1);
-                    if (jComboBox1.getSelectedIndex() == 2) {
-                        preencherTabelaAtacado(historico.getListaDatas());
-                    } else {
-                        preencherTabela(historico.getListaDatas());
-                    }
+                    historico.getHistoricoData(dataI, dataF, jComboBox1.getSelectedIndex());
+                    preencherTabela(historico.getListaDatas());
                 }
             }
         });
@@ -301,18 +246,10 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
             @Override
             public void keyReleased(KeyEvent e) {
 
-                if (jComboBox1.getSelectedIndex() == 2) {
-                    if (!jTextField1.getText().equals("")) {
-                        preencherTabelaAtacado(historico.buscaDimamicaData(jTextField1.getText()));
-                    } else {
-                        preencherTabelaAtacado(historico.getListaDatas());
-                    }
+                if (!jTextField1.getText().equals("")) {
+                    preencherTabela(historico.buscaDimamicaData(jTextField1.getText()));
                 } else {
-                    if (!jTextField1.getText().equals("")) {
-                        preencherTabela(historico.buscaDimamicaData(jTextField1.getText()));
-                    } else {
-                        preencherTabela(historico.getListaDatas());
-                    }
+                    preencherTabela(historico.getListaDatas());
                 }
 
             }
@@ -323,22 +260,10 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
         return String.valueOf(qnt * Double.parseDouble(valor));
     }
 
-    private String custoTotalReceita(int qnt, String valor) {
-        return String.valueOf(qnt * Double.parseDouble(valor));
-    }
-
-    private String porcentoLucro(String valor1, String valor2, int qnt) {
-        double custoQnt = Double.parseDouble(valor1.replace(",", ".")) * qnt;
-        double vendQnt = Double.parseDouble(valor2.replace(",", ".")) * qnt;
-        double lucroReal = (vendQnt / custoQnt);
-
-        return String.valueOf((lucroReal - 1) * 100);
-    }
-
-    public double getReceitaTotal(ArrayList<HistoricoSaidaProduto> listaProduto) {
+    public double getReceitaTotal(ArrayList<HistSaidaProdutoMP> listaProduto) {
         double soma = 0;
         for (int i = 0; i < listaProduto.size(); i++) {
-            soma += (listaProduto.get(i).getQuantidade() * Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
+            soma += (listaProduto.get(i).getQnt() * Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
         }
         return soma;
     }

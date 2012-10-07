@@ -384,7 +384,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                         .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(0, 243, Short.MAX_VALUE))
+                        .addGap(0, 194, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -398,6 +398,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 jRadioButton10StateChanged(evt);
             }
         });
+        jRadioButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton10ActionPerformed(evt);
+            }
+        });
 
         buttonGroup4.add(jRadioButton11);
         jRadioButton11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -405,6 +410,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jRadioButton11.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jRadioButton11StateChanged(evt);
+            }
+        });
+        jRadioButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton11ActionPerformed(evt);
             }
         });
 
@@ -415,6 +425,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jRadioButton12.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jRadioButton12StateChanged(evt);
+            }
+        });
+        jRadioButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton12ActionPerformed(evt);
             }
         });
 
@@ -588,7 +603,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                         .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
-                        .addGap(0, 243, Short.MAX_VALUE))
+                        .addGap(0, 194, Short.MAX_VALUE))
                     .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -596,19 +611,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1109, Short.MAX_VALUE)
-            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel12Layout.createSequentialGroup()
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Hisórico de saída de estoque", jPanel12);
@@ -858,7 +865,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
@@ -1096,7 +1103,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                     .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
@@ -1349,21 +1356,53 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox7ActionPerformed
 
     private void jRadioButton10StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton10StateChanged
-        // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton10StateChanged
 
     private void jRadioButton11StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton11StateChanged
-        // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton11StateChanged
 
     private void jRadioButton12StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton12StateChanged
-        // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton12StateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        if (jRadioButton12.isSelected()) {//Mes
+            jPanel23.removeAll();
+            jPanel23.add(new JPanelRelatHistMes(jComboBox10.getSelectedIndex() + 1, Integer.parseInt(jComboBox12.getSelectedItem().toString())));
+            jPanel23.validate();
+            repaint();
+        }
+
+        if (jRadioButton10.isSelected()) {//data
+            jPanel23.removeAll();
+            jPanel23.add(new JPanelRelatHistTotal(format.format(jDateChooser10.getDate()), "", 0));
+            jPanel23.validate();
+        }
+
+        if (jRadioButton11.isSelected()) {//perido
+            jPanel23.removeAll();
+            jPanel23.add(new JPanelRelatHistTotal(format.format(jDateChooser11.getDate()), format.format(jDateChooser12.getDate()), 1));
+            jPanel23.validate();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jRadioButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton12ActionPerformed
+        jPanel18.setVisible(false);
+        jPanel21.setVisible(false);
+        jPanel22.setVisible(true);
+    }//GEN-LAST:event_jRadioButton12ActionPerformed
+
+    private void jRadioButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton11ActionPerformed
+        jPanel18.setVisible(false);
+        jPanel21.setVisible(true);
+        jPanel22.setVisible(false);
+    }//GEN-LAST:event_jRadioButton11ActionPerformed
+
+    private void jRadioButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton10ActionPerformed
+        jPanel18.setVisible(true);
+        jPanel21.setVisible(false);
+        jPanel22.setVisible(false);
+    }//GEN-LAST:event_jRadioButton10ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1483,6 +1522,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jComboBox4.addItem(i);
             jComboBox6.addItem(i);
             jComboBox9.addItem(i);
+            jComboBox12.addItem(i);
         }
         format = new SimpleDateFormat("MM");
         String mes = format.format(d);
@@ -1490,11 +1530,14 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jComboBox2.setSelectedIndex(m - 1);
         jComboBox3.setSelectedIndex(m - 1);
         jComboBox8.setSelectedIndex(m - 1);
+        jComboBox10.setSelectedIndex(m - 1);
         jComboBox4.setSelectedItem(ano);
         jComboBox6.setSelectedItem(ano);
         jComboBox9.setSelectedItem(ano);
+        jComboBox12.setSelectedItem(ano);
         jButton1.doClick();
         jButton2.doClick();
+        jButton3.doClick();
         jButton6.doClick();
     }
 

@@ -4,7 +4,7 @@
  */
 package visao;
 
-import controle.HistoricoSaidaProdutoController;
+import controle.HistSaidaProdutoMPController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -24,7 +24,7 @@ import javax.swing.table.TableColumn;
  */
 public class JPanelRelatHistMes extends javax.swing.JPanel {
 
-    HistoricoSaidaProdutoController controle = new HistoricoSaidaProdutoController();
+    HistSaidaProdutoMPController controle = new HistSaidaProdutoMPController();
     int m, a;
     DecimalFormat formatador = new DecimalFormat("###0.00");
 
@@ -35,8 +35,7 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
         initComponents();
         m = mes;
         a = ano;
-        controle.buscarHistorico();
-        controle.colunasHistoricoMes(mes, ano, -1);
+        controle.colunasHistoricoMes(mes, ano, 0, 0);
         preencherHistorico(controle.getListaMes());
         buscaDinamica();
         jTextField1.setText("");
@@ -59,6 +58,8 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,16 +86,22 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
         jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Produzido", "Atacado" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Cozinha de salgados", "Cozinha de refeições", "Balcão" }));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel2.setText("Ver: ");
+        jLabel2.setText("Destino: ");
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel4.setText("Receita total:");
+        jLabel4.setText("Custo total: ");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel3.setText("jLabel5");
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel5.setText("Ver: ");
+
+        jComboBox2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Atacado", "Matéria prima" }));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -102,7 +109,7 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jScrollPane1)
             .add(layout.createSequentialGroup()
-                .addContainerGap(725, Short.MAX_VALUE)
+                .addContainerGap(734, Short.MAX_VALUE)
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel3)
@@ -111,10 +118,14 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jTextField1)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel5)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -124,7 +135,10 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
                     .add(jLabel1)
                     .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel5)
+                        .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(18, 18, 18)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -136,10 +150,12 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
@@ -216,7 +232,16 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jTextField1.setText("");
-                controle.colunasHistoricoMes(m, a, jComboBox1.getSelectedIndex() - 1);
+                controle.colunasHistoricoMes(m, a, jComboBox1.getSelectedIndex(), jComboBox2.getSelectedIndex());
+                preencherHistorico(controle.getListaMes());
+            }
+        });
+        jComboBox2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTextField1.setText("");
+                controle.colunasHistoricoMes(m, a, jComboBox1.getSelectedIndex(), jComboBox2.getSelectedIndex());
                 preencherHistorico(controle.getListaMes());
             }
         });

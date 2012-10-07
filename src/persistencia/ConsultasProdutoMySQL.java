@@ -22,6 +22,7 @@ public class ConsultasProdutoMySQL {
     private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1  ORDER BY nome";
     private static final String SQL_BUSCA_PRODUTO_COMPRA = "SELECT * FROM produtos WHERE visivel=1 AND idCategoria<>0 ORDER BY nome";
     private static final String SQL_BUSCA_PRODUTO_HIST = "SELECT * FROM produtos WHERE idCategoria<>2 ORDER BY idCategoria, nome";
+    private static final String SQL_BUSCA_PRODUTO_SAIDA = "SELECT * FROM produtos WHERE idCategoria<>0 ORDER BY idCategoria, nome";
     private static final String SQL_INCLUIR_PRODUTO = "INSERT INTO produtos (nome, preco_venda, preco_custo, quantidade, idCategoria,estoque_minimo) "
             + "VALUES (?, ?, ?, ?, ?,?)";
     private static final String SQL_EDITAR_PRODUTO = "UPDATE produtos SET nome=?, preco_venda=?, preco_custo=?, quantidade=? , estoque_minimo=? WHERE codigo_produto=? ";
@@ -33,6 +34,30 @@ public class ConsultasProdutoMySQL {
     public ArrayList<Produto> buscarProdutoHist() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         String query = SQL_BUSCA_PRODUTO_HIST;
+
+        try {
+            ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
+            while (rs.next()) {
+                Produto prod = new Produto();
+                prod.setIdProduto(rs.getInt("codigo_produto"));
+                prod.setNome(rs.getString("nome"));
+                prod.setPreco(rs.getString("preco_venda"));
+                prod.setCategoria(rs.getInt("idCategoria"));
+                prod.setQnt(rs.getInt("quantidade"));
+                prod.setPrecoCusto(rs.getString("preco_custo"));
+                prod.setVisivel(rs.getInt("visivel") == 1);
+                prod.setQntMinima(rs.getInt("estoque_minimo"));
+                produtos.add(prod);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return produtos;
+    }
+
+    public ArrayList<Produto> buscarProdutoSaida() {
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        String query = SQL_BUSCA_PRODUTO_SAIDA;
 
         try {
             ResultSet rs = ConexaoMySQL.getInstance().executeQuery(query);
