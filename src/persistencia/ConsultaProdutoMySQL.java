@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import fachada.ControleProducao;
 import fachada.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +23,7 @@ public class ConsultaProdutoMySQL {
     private static final String SQL_UPDATE = "UPDATE produtos SET quantidade=? WHERE codigo_produto=?";
     private static final String SQL_UPDATE_ESTORNO = "UPDATE produtos SET quantidade=quantidade+? WHERE codigo_produto=?";
     private static final String SQL_UPDATE_COMPRA = "UPDATE produtos SET quantidade=quantidade+?, preco_custo=? WHERE codigo_produto=?";
+    private static final String SQL_UPDATE_ENTRADA = "UPDATE produtos SET quantidade=quantidade+? WHERE codigo_produto=?";
 
     public ConsultaProdutoMySQL() {
     }
@@ -108,6 +110,18 @@ public class ConsultaProdutoMySQL {
             stmt.setInt(1, p.getQnt());
             stmt.setString(2, p.getPrecoCusto());
             stmt.setInt(3, p.getIdProduto());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+    public void updateEntrada(ControleProducao p) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = ConexaoMySQL.conectar();
+            stmt = con.prepareStatement(SQL_UPDATE_ENTRADA);
+            stmt.setInt(1, p.getQnt());
+            stmt.setInt(2, p.getIdProd());
             stmt.executeUpdate();
         } catch (SQLException e) {
         }

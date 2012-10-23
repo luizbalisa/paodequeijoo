@@ -6,7 +6,6 @@
 package persistencia;
 
 import fachada.ControleProducao;
-import fachada.HistSaidaProdutoMP;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,11 +21,11 @@ public class ConsultaControleProducaoMySQL {
     private static final String SQL_BUSCA = "SELECT * FROM historico_producao WHERE idProduto=? AND data=? AND idOrigem=?";
     private static final String SQL_BUSCA_TODOS = "SELECT * FROM historico_producao ORDER BY idOrigem";
     private static final String SQL_BUSCA_DESTINO = "SELECT * FROM historico_producao WHERE idOrigem=?";
-    private static final String SQL_UPDATE = "UPDATE historico_producao SET quantidade=? WHERE idProduto=? AND data=? AND idOrigem=?";
-    private static final String SQL_INCLUIR = "INSERT INTO historico_producao(idProduto,data,quantidade,idOrigem)"
-            + "VALUES (?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE historico_producao SET quantidade=quantidade+?, valor=? WHERE idProduto=? AND data=? AND idOrigem=?";
+    private static final String SQL_INCLUIR = "INSERT INTO historico_producao(idProduto,data,quantidade,idOrigem,valor)"
+            + "VALUES (?,?,?,?,?)";
 
-    public int buscaHistoricoSaidaProdutosIguais(ControleProducao historicoProduto) {
+    public String buscaHistoricoSaidaProdutosIguais(ControleProducao historicoProduto) {
         Connection con;
         PreparedStatement stmt;
 
@@ -40,12 +39,12 @@ public class ConsultaControleProducaoMySQL {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                return rs.getInt("quantidade");
+                return rs.getString("valor");
             }
         } catch (SQLException ex) {
         }
 
-        return 0;
+        return "n";
     }
 
     public ArrayList<ControleProducao> buscaHistoricoestino(int destino) {
@@ -60,8 +59,8 @@ public class ConsultaControleProducaoMySQL {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                ControleProducao aux = new ControleProducao(rs.getInt("idProduto"), rs.getInt("destino"), rs.getInt("quantidade"), rs.getString("data"));
-                aux.setId(rs.getInt("idhistorico_saida_mp"));
+                ControleProducao aux = new ControleProducao(rs.getInt("idProduto"), rs.getInt("idOrigem"), rs.getInt("quantidade"), rs.getString("data"), rs.getString("valor"));
+                aux.setId(rs.getInt("idhistorico_producao"));
                 retorno.add(aux);
             }
         } catch (SQLException ex) {
@@ -80,8 +79,8 @@ public class ConsultaControleProducaoMySQL {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                ControleProducao aux = new ControleProducao(rs.getInt("idProduto"), rs.getInt("destino"), rs.getInt("quantidade"), rs.getString("data"));
-                aux.setId(rs.getInt("idhistorico_saida_mp"));
+                ControleProducao aux = new ControleProducao(rs.getInt("idProduto"), rs.getInt("idOrigem"), rs.getInt("quantidade"), rs.getString("data"), rs.getString("valor"));
+                aux.setId(rs.getInt("idhistorico_producao"));
                 retorno.add(aux);
             }
         } catch (SQLException ex) {
@@ -90,23 +89,24 @@ public class ConsultaControleProducaoMySQL {
         return retorno;
     }
 
-    public void updateHistoricoSaidaProdutosIguais(ControleProducao historicoProduto) {
+    public void updateHistoricoProducao(ControleProducao historicoProduto) {
         Connection con;
         PreparedStatement stmt;
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_UPDATE);
             stmt.setInt(1, historicoProduto.getQnt());
-            stmt.setInt(2, historicoProduto.getIdProd());
-            stmt.setString(3, historicoProduto.getData());
-            stmt.setInt(4, historicoProduto.getIdDest());
+            stmt.setString(2, historicoProduto.getValor());
+            stmt.setInt(3, historicoProduto.getIdProd());
+            stmt.setString(4, historicoProduto.getData());
+            stmt.setInt(5, historicoProduto.getIdDest());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public void insertHistoricoSaidaProdutos(ControleProducao historicoProduto) {
+    public void insertHistoricoProducao(ControleProducao historicoProduto) {
         Connection con;
         PreparedStatement stmt;
 
@@ -117,6 +117,7 @@ public class ConsultaControleProducaoMySQL {
             stmt.setString(2, historicoProduto.getData());
             stmt.setInt(3, historicoProduto.getQnt());
             stmt.setInt(4, historicoProduto.getIdDest());
+            stmt.setString(5, historicoProduto.getValor());
             stmt.executeUpdate();
         } catch (SQLException ex) {
         }

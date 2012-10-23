@@ -4,12 +4,10 @@
  */
 package controle;
 
-import fachada.ContasPagar;
-import fachada.ControleProducao;
-import fachada.Fornecedor;
-import fachada.MovimentoCaixa;
+import fachada.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import persistencia.ConsultaMovimentoCaixaMySQL;
+import persistencia.ConsultaControleProducaoMySQL;
 import persistencia.ConsultaProdutoMySQL;
 
 /**
@@ -20,31 +18,39 @@ public class ProducaoController {
 
     private ArrayList<ControleProducao> producao = new ArrayList<ControleProducao>();
     private String data;
+    DecimalFormat formatador = new DecimalFormat("###0.00");
 
     public ProducaoController() {
     }
 
-    public String finalizarCompra(int tipo, Fornecedor f) {
+    public String finalizarEntrada() {
         ConsultaProdutoMySQL cp = new ConsultaProdutoMySQL();
-        ConsultaMovimentoCaixaMySQL cm = new ConsultaMovimentoCaixaMySQL();
-        ContasPagar contas = new ContasPagar();
-        contas.setDescricao(f.getEmpresa());
-        contas.setData(data);
-        if (tipo == 0) {
-            contas.setStatus(0);
-        } else {
-            contas.setStatus(1);
-            MovimentoCaixa m = new MovimentoCaixa();
-            m.setData(data);
-            m.setDescricao("Pagamento p/ " + f.getEmpresa());
-            cm.cadastrarItemCaixa(m);
+        ConsultaControleProducaoMySQL con = new ConsultaControleProducaoMySQL();
+        for (int i = 0; i < producao.size() - 1; i++) {
+            for (int j = i + 1; j < producao.size(); j++) {
+                if (producao.get(i).getIdProd() == producao.get(j).getIdProd()
+                        && producao.get(i).getIdDest() == producao.get(j).getIdDest()) {
+                    producao.get(j).setQnt(producao.get(i).getQnt() + producao.get(j).getQnt());
+                    Double preco = Double.parseDouble(producao.get(j).getValor().replace(",", ".")) + Double.parseDouble(producao.get(i).getValor().replace(",", "."));
+                    producao.get(j).setValor(formatador.format(preco));
+                    producao.remove(i);
+                    j--;
+                }
+            }
         }
-        contas.cadastrar();
         for (int i = 0; i < producao.size(); i++) {
-//            cp.updateCompra(producao.get(i));
+            cp.updateEntrada(producao.get(i));
+            String valor = con.buscaHistoricoSaidaProdutosIguais(producao.get(i));
+            if (valor.equals("n")) {
+                con.insertHistoricoProducao(producao.get(i));
+            } else {
+                Double preco = Double.parseDouble(producao.get(i).getValor().replace(",", ".")) + Double.parseDouble(valor);
+                producao.get(i).setValor(formatador.format(preco));
+                con.updateHistoricoProducao(producao.get(i));
+            }
         }
         producao = new ArrayList<ControleProducao>();
-        return "Compra finalizada com sucesso";
+        return "Lançamento realizado com sucesso.";
     }
 
     public void editar(ControleProducao p, ControleProducao novo) {
