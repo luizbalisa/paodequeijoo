@@ -11,16 +11,25 @@ package fachada;
 public class ControleProducao {
 
     private int id, idProd, idOrigem, qnt;
-    private String data;
+    private String data, valor;
 
     public ControleProducao() {
     }
 
-    public ControleProducao(int idProd, int idOrigem, int qnt, String data) {
+    public ControleProducao(int idProd, int idOrigem, int qnt, String data, String valor) {
         this.idProd = idProd;
         this.idOrigem = idOrigem;
         this.qnt = qnt;
         this.data = data;
+        this.valor = valor;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
     public String getData() {

@@ -342,7 +342,7 @@ public class JPanelProducao extends javax.swing.JPanel {
                 p.getProduto(Integer.parseInt(jTextField1.getText()));
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = new Date();
-                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data));
+                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data), p.getProduto().getPreco());
                 c.getProducao().add(con);
                 preencherEntrada();
                 iniciarTela();
@@ -352,7 +352,7 @@ public class JPanelProducao extends javax.swing.JPanel {
                 p.getProduto(Integer.parseInt(jTextField1.getText()));
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = new Date();
-                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data));
+                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data), p.getProduto().getPreco());
                 c.editar(antigo, con);
                 preencherEntrada();
                 iniciarTela();
@@ -368,19 +368,15 @@ public class JPanelProducao extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-//        FormaPagamentoCompraController formaPagamento = new FormaPagamentoCompraController();
-//        formaPagamento.buscarFormaPagamento();
-//        ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
-//        if (c.getEntrada().isEmpty()) {
-//            JOptionPane.showMessageDialog(rootPane, "O pedido esta em branco.");
-//        } else {
-//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//            jButton7.setVisible(false);
-//
-//            limparDados();
-//            preencherFormaPagamento();
-//            preencherEntrada();
-//        }
+        if (c.getProducao().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "A entrada está em branco.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, c.finalizarEntrada());
+            jButton7.setVisible(false);
+            jComboBox2.setSelectedIndex(0);
+            limparDados();
+            preencherEntrada();
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
