@@ -38,6 +38,7 @@ public class ConsultaListaProdutoVendaMySQL {
             stmt.setString(4, produto.getValor());
             stmt.setString(5, produto.getData());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
         }
     }
@@ -57,6 +58,7 @@ public class ConsultaListaProdutoVendaMySQL {
                 a[0] = rs.getInt("quantidade");
                 a[2] = rs.getInt("idlista_produto_venda");
             }
+            con.close();
         } catch (SQLException ex) {
         }
 

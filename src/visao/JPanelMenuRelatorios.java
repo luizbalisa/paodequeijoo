@@ -280,6 +280,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Mês: ");
 
+        jComboBox2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -384,7 +385,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                         .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(0, 194, Short.MAX_VALUE))
+                        .addGap(0, 193, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -499,6 +500,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jLabel26.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel26.setText("Mês: ");
 
+        jComboBox10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jComboBox10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         jLabel27.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -603,7 +605,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                         .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
-                        .addGap(0, 194, Short.MAX_VALUE))
+                        .addGap(0, 193, Short.MAX_VALUE))
                     .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -643,7 +645,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel8.setText("Valor total");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Tipo: ");
 
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -675,6 +677,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("Mês: ");
 
+        jComboBox3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -787,7 +790,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Ver: ");
 
         jComboBox7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -830,7 +833,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 539, Short.MAX_VALUE)
+                        .addGap(0, 545, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
@@ -988,6 +991,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jLabel20.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel20.setText("Mês: ");
 
+        jComboBox8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         jLabel21.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -1050,10 +1054,10 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel23.setText("Receita final: ");
 
-        jLabel24.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel24.setText("Valor total");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -1103,7 +1107,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
                     .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)

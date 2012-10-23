@@ -36,6 +36,7 @@ public class ConsultaFormaPagamentoCompraMySQL {
             while (rs.next()) {
                 return rs.getString("descricao");
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return "Erro";
@@ -53,6 +54,7 @@ public class ConsultaFormaPagamentoCompraMySQL {
             while (rs.next()) {
                 return rs.getInt("idforma_pagamento_compra");
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return 0;

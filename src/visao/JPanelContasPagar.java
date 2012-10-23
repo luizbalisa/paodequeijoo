@@ -264,10 +264,10 @@ public class JPanelContasPagar extends javax.swing.JPanel {
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel23.setText("Total contas: ");
 
-        jLabel24.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel24.setText("Valor total");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -296,7 +296,7 @@ public class JPanelContasPagar extends javax.swing.JPanel {
 
         jComboBox5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Tipo: ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -331,7 +331,7 @@ public class JPanelContasPagar extends javax.swing.JPanel {
                         .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel25)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
@@ -388,6 +388,7 @@ public class JPanelContasPagar extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Valor: ");
 
+        jTextField2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField2FocusLost(evt);
@@ -506,7 +507,7 @@ public class JPanelContasPagar extends javax.swing.JPanel {
                         .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton8)

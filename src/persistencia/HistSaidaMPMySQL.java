@@ -41,6 +41,7 @@ public class HistSaidaMPMySQL {
             while (rs.next()) {
                 return rs.getInt("quantidade");
             }
+            con.close();
         } catch (SQLException ex) {
         }
 
@@ -63,6 +64,7 @@ public class HistSaidaMPMySQL {
                 aux.setId(rs.getInt("idhistorico_saida_mp"));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
 
@@ -83,6 +85,7 @@ public class HistSaidaMPMySQL {
                 aux.setId(rs.getInt("idhistorico_saida_mp"));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
 
@@ -100,6 +103,7 @@ public class HistSaidaMPMySQL {
             stmt.setString(3, historicoProduto.getData());
             stmt.setInt(4, historicoProduto.getIdDest());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -118,6 +122,7 @@ public class HistSaidaMPMySQL {
             stmt.setInt(4, historicoProduto.getIdDest());
             stmt.setString(5, historicoProduto.getPreco());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
         }
     }

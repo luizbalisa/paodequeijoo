@@ -89,6 +89,7 @@ public class ConsultasProdutoMySQL {
             stmt = con.prepareStatement(SQL_EXCLUIR_PRODUTO);
             stmt.setInt(1, prod.getIdProduto());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Exclusão do Produto não foi efetuada";
@@ -110,6 +111,7 @@ public class ConsultasProdutoMySQL {
             stmt.setInt(5, prod.getCategoria());
             stmt.setInt(6, prod.getQntMinima());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Cadastro do Produto não foi efetuada";
@@ -131,6 +133,7 @@ public class ConsultasProdutoMySQL {
             stmt.setInt(5, prod.getQntMinima());
             stmt.setInt(6, prod.getIdProduto());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Erro na alteração do Produto";
@@ -183,6 +186,7 @@ public class ConsultasProdutoMySQL {
                 prod.setQntMinima(rs.getInt("estoque_minimo"));
                 produtos.add(prod);
             }
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -257,6 +261,7 @@ public class ConsultasProdutoMySQL {
                 prod.setQntMinima(rs.getInt("estoque_minimo"));
                 produtos.add(prod);
             }
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

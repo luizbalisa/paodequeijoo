@@ -36,6 +36,7 @@ public class ConsultaHistoricoMySQL {
             stmt.setInt(2, prod);
             stmt.setString(3, data);
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

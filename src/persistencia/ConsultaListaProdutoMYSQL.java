@@ -54,6 +54,7 @@ public class ConsultaListaProdutoMYSQL {
                 aux.setQnt(rs.getInt("quantidade"));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return retorno;

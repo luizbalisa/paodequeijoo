@@ -37,11 +37,13 @@ public class ConsultasFormaDePagamentoMySQL {
             stmt = con.prepareStatement(SQL_EXCLUIR_FORMA_PAGAMENTO);
             stmt.setInt(1, formaPagamento.getIdformaPAgamento());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Exclusão de forma de pagamento não foi efetuada";
         }
         return "Exclusão de forma de pagamento efetuada com sucesso!";
+        
     }
 
     public String cadastrarFormaPAgamento(FormaPagamento formaPagamento) {
@@ -54,6 +56,7 @@ public class ConsultasFormaDePagamentoMySQL {
             stmt.setString(1, formaPagamento.getDescricao());
             stmt.setInt(2, formaPagamento.getTipoDePagamento());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Cadastro de Forma de pagamento não foi efetuada";
@@ -72,6 +75,7 @@ public class ConsultasFormaDePagamentoMySQL {
             stmt.setInt(2, formaPagamento.getTipoDePagamento());
             stmt.setInt(3, formaPagamento.getIdformaPAgamento());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Erro na alteração da forma de pagamento";
@@ -91,6 +95,7 @@ public class ConsultasFormaDePagamentoMySQL {
             while (rs.next()) {
                 return rs.getString("descricao");
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return "Erro";
@@ -108,6 +113,7 @@ public class ConsultasFormaDePagamentoMySQL {
             while (rs.next()) {
                 return rs.getInt("idforma_pagamento");
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return 0;

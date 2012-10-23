@@ -51,6 +51,7 @@ public class ConsultaClienteMySQL {
                 c.setObservacoes(rs.getString("observacoes"));
                 return c;
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return null;
@@ -65,6 +66,7 @@ public class ConsultaClienteMySQL {
             stmt = con.prepareStatement(SQL_EXCLUIR_CLIENTE);
             stmt.setInt(1, cliente.getId());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Exclusão do Cliente não foi efetuada";
@@ -90,6 +92,7 @@ public class ConsultaClienteMySQL {
             stmt.setString(9, cliente.getTelefoneComercial());
             stmt.setString(10, cliente.getObservacoes());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Cadastro do Cliente não foi efetuada";
@@ -115,6 +118,7 @@ public class ConsultaClienteMySQL {
             stmt.setString(10, cliente.getObservacoes());
             stmt.setInt(11, cliente.getId());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return "Erro na alteração do Cliente";

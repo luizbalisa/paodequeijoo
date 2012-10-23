@@ -36,6 +36,7 @@ public class ConsultaPagamentoMySQL {
             stmt.setString(2, p.getValor());
             stmt.setString(3, p.getData());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaPagamentoMySQL.class.getName()).log(Level.SEVERE, null, ex);
             return "Pagamento não registrado";
@@ -60,6 +61,7 @@ public class ConsultaPagamentoMySQL {
                 aux.setValor(rs.getString("valor"));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
              Logger.getLogger(ConsultaPagamentoMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }

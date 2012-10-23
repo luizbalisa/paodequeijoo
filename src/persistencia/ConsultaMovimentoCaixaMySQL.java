@@ -38,6 +38,7 @@ public class ConsultaMovimentoCaixaMySQL {
             stmt.setString(3, mCaixa.getValor());
             stmt.setString(4, mCaixa.getDescricao());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -51,6 +52,7 @@ public class ConsultaMovimentoCaixaMySQL {
             stmt = (PreparedStatement) con.prepareStatement(SQL_EXCLUIR);
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
         }
     }

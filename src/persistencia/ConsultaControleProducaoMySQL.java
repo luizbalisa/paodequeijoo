@@ -42,6 +42,7 @@ public class ConsultaControleProducaoMySQL {
             while (rs.next()) {
                 return rs.getInt("quantidade");
             }
+            con.close();
         } catch (SQLException ex) {
         }
 
@@ -64,6 +65,7 @@ public class ConsultaControleProducaoMySQL {
                 aux.setId(rs.getInt("idhistorico_saida_mp"));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
 
@@ -84,6 +86,7 @@ public class ConsultaControleProducaoMySQL {
                 aux.setId(rs.getInt("idhistorico_saida_mp"));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
 
@@ -101,6 +104,7 @@ public class ConsultaControleProducaoMySQL {
             stmt.setString(3, historicoProduto.getData());
             stmt.setInt(4, historicoProduto.getIdDest());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -118,6 +122,7 @@ public class ConsultaControleProducaoMySQL {
             stmt.setInt(3, historicoProduto.getQnt());
             stmt.setInt(4, historicoProduto.getIdDest());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
         }
     }

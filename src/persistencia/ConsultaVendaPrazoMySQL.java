@@ -37,6 +37,7 @@ public class ConsultaVendaPrazoMySQL {
             stmt.setString(2, vendaPrazo.getValor());
             stmt.setInt(3, vendaPrazo.getIdFormaPagamento());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -51,6 +52,7 @@ public class ConsultaVendaPrazoMySQL {
             stmt = con.prepareStatement(SQL_EXCLUIR);
             stmt.setInt(1, vendaPrazo);
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -66,6 +68,7 @@ public class ConsultaVendaPrazoMySQL {
             stmt.setString(1, vendaPrazo.getValor());
             stmt.setInt(2, vendaPrazo.getIdCliente());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -80,6 +83,7 @@ public class ConsultaVendaPrazoMySQL {
             stmt.setString(1, valor);
             stmt.setInt(2, idVenda);
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -97,6 +101,7 @@ public class ConsultaVendaPrazoMySQL {
             while (rs.next()) {
                 return rs.getString("valor") + " " + rs.getInt("idvenda_prazo");
             }
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -114,6 +119,7 @@ public class ConsultaVendaPrazoMySQL {
             while (rs.next()) {
                 return rs.getInt(1);
             }
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -138,6 +144,7 @@ public class ConsultaVendaPrazoMySQL {
                 aux.setListVenda(prods.buscaListaProdutoVenda(aux.getIdVenda()));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return retorno;

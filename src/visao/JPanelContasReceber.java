@@ -150,7 +150,7 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/magnifier.png"))); // NOI18N
         jLabel4.setText("Buscar: ");
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Nome: ");

@@ -36,6 +36,7 @@ public class ConsultaVendaGeralMySQL {
             stmt.setInt(1, venda.getIdStatus());
             stmt.setInt(2, venda.getIdVenda());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
         }
     }
@@ -55,6 +56,7 @@ public class ConsultaVendaGeralMySQL {
                 aux[1] = rs.getInt("quantidade");
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return retorno;
@@ -80,6 +82,7 @@ public class ConsultaVendaGeralMySQL {
                 aux.setValor(rs.getString("valor"));
                 return aux;
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return null;
@@ -100,6 +103,7 @@ public class ConsultaVendaGeralMySQL {
             stmt.setString(6, venda.getHora());
             stmt.setString(7, venda.getValor());
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -116,6 +120,7 @@ public class ConsultaVendaGeralMySQL {
             while (rs.next()) {
                 return rs.getInt(1);
             }
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -142,6 +147,7 @@ public class ConsultaVendaGeralMySQL {
                 aux.setValor(rs.getString("valor"));
                 retorno.add(aux);
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return retorno;
@@ -158,6 +164,7 @@ public class ConsultaVendaGeralMySQL {
             while (rs.next()) {
                 return rs.getString("descricao");
             }
+            con.close();
         } catch (SQLException ex) {
         }
         return null;

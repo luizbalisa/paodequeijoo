@@ -107,7 +107,7 @@ public class JPanelProducao extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator3))
         );
@@ -130,6 +130,7 @@ public class JPanelProducao extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Origem: ");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -150,6 +151,7 @@ public class JPanelProducao extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jComboBox2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -186,6 +188,7 @@ public class JPanelProducao extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel18.setText("Código do produto: ");
 
+        jTextField3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField3KeyReleased(evt);
@@ -213,6 +216,7 @@ public class JPanelProducao extends javax.swing.JPanel {
             }
         });
 
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -260,7 +264,7 @@ public class JPanelProducao extends javax.swing.JPanel {
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton7)
-                        .addGap(0, 156, Short.MAX_VALUE)))
+                        .addGap(0, 148, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

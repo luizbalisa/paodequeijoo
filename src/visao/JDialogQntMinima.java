@@ -68,6 +68,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/arrow_undo.png"))); // NOI18N
         jButton1.setText("Voltar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
