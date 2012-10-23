@@ -34,6 +34,7 @@ public class ConsultaListaProdutoMYSQL {
             stmt.setInt(2, id);
             stmt.setInt(3, qnt);
             stmt.executeUpdate();
+            con.close();
         } catch (SQLException ex) {
         }
     }

@@ -201,6 +201,9 @@ public class HistSaidaProdutoMPController {
             ProdutoController prod = new ProdutoController();
             prod.buscarProdutosSaida();
             for (int i = 0; i < prod.getListProdutos().size(); i++) {
+                if(i==15){
+                    System.out.println("");
+                }
                 if (categoria == 0 || categoria == prod.getListProdutos().get(i).getCategoria()) {
                     String[] linha;
                     linha = new String[colunasMes.length];
@@ -213,7 +216,6 @@ public class HistSaidaProdutoMPController {
                             if (lista.get(k).getData().contains(colunasMes[j]) && lista.get(k).getIdProd() == prod.getListProdutos().get(i).getIdProduto()) {
                                 qnt += lista.get(k).getQnt();
                                 valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * qnt;
-                                break;
                             }
                         }
                         total += qnt;

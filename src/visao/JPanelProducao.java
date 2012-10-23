@@ -6,8 +6,10 @@ package visao;
 
 import controle.CompraController;
 import controle.FormaPagamentoCompraController;
+import controle.ProducaoController;
 import controle.ProdutoController;
 import controle.ValidadorCampos;
+import fachada.ControleProducao;
 import fachada.FormaPagamento;
 import fachada.Fornecedor;
 import fachada.Produto;
@@ -15,6 +17,7 @@ import java.awt.Component;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -35,13 +38,12 @@ public class JPanelProducao extends javax.swing.JPanel {
     Fornecedor fornecedor;
     DecimalFormat formatador = new DecimalFormat("###0.00");
     ValidadorCampos validar = new ValidadorCampos();
-    Produto antigo;
+    ControleProducao antigo;
     String anterior = "";
     String anterior2 = "";
-    String anterior3 = "";
-    String anterior4 = "";
     ProdutoController p = new ProdutoController();
-    CompraController c = new CompraController();
+    ProducaoController c = new ProducaoController();
+    HashMap<Integer, String> origens;
     private Component rootPane;
 
     /**
@@ -52,10 +54,10 @@ public class JPanelProducao extends javax.swing.JPanel {
         this.principal = principal;
         jTextField1.setHorizontalAlignment(JTextField.CENTER);
         jButton7.setVisible(false);
+        iniciarTela();
         limparDados();
         preencherDestinos();
-        preencherFormaPagamento();
-        preencherPedido();
+        preencherEntrada();
     }
 
     public Fornecedor getFornecedor() {
@@ -64,7 +66,6 @@ public class JPanelProducao extends javax.swing.JPanel {
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
-        selecionarFornecedor();
     }
 
     /**
@@ -149,6 +150,12 @@ public class JPanelProducao extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
         jButton7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/cancel.png"))); // NOI18N
         jButton7.setText("Cancelar");
@@ -206,6 +213,11 @@ public class JPanelProducao extends javax.swing.JPanel {
             }
         });
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
@@ -281,37 +293,39 @@ public class JPanelProducao extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //JDialogProdutos p = new JDialogProdutos(principal, true, this);
-        //p.setVisible(true);
+        JDialogProdutosProducao p = new JDialogProdutosProducao(principal, true, this);
+        p.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         if (!jTextField1.getText().equals("")) {
             if (validar.checarInteiro(jTextField1.getText())) {
                 anterior = jTextField1.getText();
-                p.buscarProdutosCompra();
+                p.buscarProdutosProducao();
                 p.getProduto(Integer.parseInt(jTextField1.getText()));
                 if (p.getProduto() != null) {
                     jTextField3.setHorizontalAlignment(JTextField.CENTER);
                     jTextField3.setText("1");
-                    jButton3.setEnabled(true);
+                    jComboBox2.setEnabled(true);
                 } else {
                     iniciarTela();
+                    jComboBox2.setSelectedIndex(0);
                 }
             } else {
                 jTextField1.setText(anterior);
             }
         } else {
             iniciarTela();
+            jComboBox2.setSelectedIndex(0);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
         if (!jTextField3.getText().equals("")) {
             if (!validar.checarInteiro(jTextField3.getText())) {
-                jTextField3.setText(anterior3);
+                jTextField3.setText(anterior2);
             } else {
-                anterior3 = jTextField3.getText();
+                anterior2 = jTextField3.getText();
             }
         }
     }//GEN-LAST:event_jTextField3KeyReleased
@@ -321,18 +335,24 @@ public class JPanelProducao extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(rootPane, "Preencha a quantidade.");
         } else {
             if (!jButton3.getText().equals("Editar")) {
-//                Produto prod = new Produto(p.getProduto().getNome(), p.getProduto().getPreco(), true, Integer.parseInt(jTextField3.getText()), p.getProduto().getCategoria(), jTextField2.getText(), p.getProduto().getQntMinima());
-                //              prod.setIdProduto(p.getProduto().getIdProduto());
-                //            c.getPedido().add(prod);
-                preencherPedido();
+                p.getProduto(Integer.parseInt(jTextField1.getText()));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date data = new Date();
+                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data));
+                c.getProducao().add(con);
+                preencherEntrada();
                 iniciarTela();
+                jComboBox2.setSelectedIndex(0);
                 jTextField1.setText("");
             } else {
-//                Produto prod = new Produto(antigo.getNome(), antigo.getPreco(), true, Integer.parseInt(jTextField3.getText()), antigo.getCategoria(), jTextField2.getText(), antigo.getQntMinima());
-//                prod.setIdProduto(antigo.getIdProduto());
-                //        c.editar(antigo, prod);
-                preencherPedido();
+                p.getProduto(Integer.parseInt(jTextField1.getText()));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date data = new Date();
+                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data));
+                c.editar(antigo, con);
+                preencherEntrada();
                 iniciarTela();
+                jComboBox2.setSelectedIndex(0);
                 jTextField1.setText("");
                 jTextField1.setEditable(true);
                 jButton2.setEnabled(true);
@@ -344,19 +364,19 @@ public class JPanelProducao extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        FormaPagamentoCompraController formaPagamento = new FormaPagamentoCompraController();
-        formaPagamento.buscarFormaPagamento();
-        ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
-        if (c.getPedido().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "O pedido esta em branco.");
-        } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            jButton7.setVisible(false);
-
-            limparDados();
-            preencherFormaPagamento();
-            preencherPedido();
-        }
+//        FormaPagamentoCompraController formaPagamento = new FormaPagamentoCompraController();
+//        formaPagamento.buscarFormaPagamento();
+//        ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
+//        if (c.getEntrada().isEmpty()) {
+//            JOptionPane.showMessageDialog(rootPane, "O pedido esta em branco.");
+//        } else {
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//            jButton7.setVisible(false);
+//
+//            limparDados();
+//            preencherFormaPagamento();
+//            preencherEntrada();
+//        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -368,19 +388,29 @@ public class JPanelProducao extends javax.swing.JPanel {
             jButton3.setEnabled(true);
             jButton3.setText("Editar");
             jButton7.setVisible(true);
+            jComboBox2.setEnabled(true);
             int linha = jTable1.getSelectedRow();
-            String id = jTable1.getModel().getValueAt(linha, 4).toString();
-            String vl = jTable1.getModel().getValueAt(linha, 1).toString();
-            String qnt = jTable1.getModel().getValueAt(linha, 2).toString();
-            antigo = new Produto();
-            antigo = c.getProduto(Integer.parseInt(id), Integer.parseInt(qnt), vl);
-            jTextField1.setText(String.valueOf(antigo.getIdProduto()));
+            String id = jTable1.getModel().getValueAt(linha, 3).toString();
+            String qnt = jTable1.getModel().getValueAt(linha, 1).toString();
+            String o = jTable1.getModel().getValueAt(linha, 2).toString();
+            int origem = 0;
+            for (int i = 1; i <= origens.size(); i++) {
+                if (origens.get(i).equals(o)) {
+                    origem = i;
+                    break;
+                }
+            }
+            antigo = new ControleProducao();
+            antigo = c.getProduto(Integer.parseInt(id), Integer.parseInt(qnt), origem);
+            jTextField1.setText(String.valueOf(antigo.getIdProd()));
             jTextField3.setText(String.valueOf(antigo.getQnt()));
+            jComboBox2.setSelectedIndex(origem);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         iniciarTela();
+        jComboBox2.setSelectedIndex(0);
         jTextField1.setText("");
         jTextField1.setEditable(true);
         jButton2.setEnabled(true);
@@ -393,13 +423,32 @@ public class JPanelProducao extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(rootPane, "Selecione o produto");
         } else {
             int linha = jTable1.getSelectedRow();
-            String id = jTable1.getModel().getValueAt(linha, 4).toString();
-            String vl = jTable1.getModel().getValueAt(linha, 1).toString();
-            String qnt = jTable1.getModel().getValueAt(linha, 2).toString();
-            c.excluir(Integer.parseInt(id), Integer.parseInt(qnt), vl);
-            preencherPedido();
+            String id = jTable1.getModel().getValueAt(linha, 3).toString();
+            String qnt = jTable1.getModel().getValueAt(linha, 1).toString();
+            String o = jTable1.getModel().getValueAt(linha, 2).toString();
+            int origem = 0;
+            for (int i = 1; i <= origens.size(); i++) {
+                if (origens.get(i).equals(o)) {
+                    origem = i;
+                    break;
+                }
+            }
+            c.excluir(Integer.parseInt(id), Integer.parseInt(qnt), origem);
+            preencherEntrada();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        if (jComboBox2.getSelectedIndex() == 0) {
+            jButton3.setEnabled(false);
+        } else {
+            jButton3.setEnabled(true);
+        }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -424,68 +473,55 @@ public class JPanelProducao extends javax.swing.JPanel {
     public void iniciarTela() {
         jTextField3.setHorizontalAlignment(JTextField.CENTER);
         jTextField3.setText("");
+        jComboBox2.setEnabled(false);
         jButton3.setEnabled(false);
     }
 
     public void setIdProduto(String id) {
-
         jTextField1.setText(id);
-        p.buscarProdutosCompra();
+        p.buscarProdutosProducao();
         p.getProduto(Integer.parseInt(id));
         if (p.getProduto() != null) {
             anterior = id;
-            anterior2 = formatador.format(Double.parseDouble(p.getProduto().getPrecoCusto().replace(",", ".")));
-            anterior3 = "1";
+            anterior2 = "1";
             jTextField3.setHorizontalAlignment(JTextField.CENTER);
             jTextField3.setText("1");
-            jButton3.setEnabled(true);
+            jComboBox2.setEnabled(true);
         }
     }
 
     private void preencherDestinos() {
         ConsultaDestinosMySQL consulta = new ConsultaDestinosMySQL();
-        HashMap<Integer, String> dest = consulta.buscarDestinos();
-        jComboBox2.addItem("Selecione o destino");
-        for (int i = 1; i <= dest.size(); i++) {
-            jComboBox2.addItem(dest.get(i));
+        origens = consulta.buscarDestinos();
+        jComboBox2.addItem("Selecione a origem");
+        for (int i = 1; i <= origens.size() && !origens.get(i).equals("Balcão"); i++) {
+            jComboBox2.addItem(origens.get(i));
         }
-    }
-
-    private void selecionarFornecedor() {
-
-        jButton3.setEnabled(false);
     }
 
     private void limparDados() {
+        jComboBox2.setEnabled(false);
+        jButton3.setEnabled(false);
     }
 
-    private void preencherFormaPagamento() {
-        FormaPagamentoCompraController formaPagamento = new FormaPagamentoCompraController();
-        formaPagamento.buscarFormaPagamento();
-        ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
-
-        for (int i = 0; i < listaFormaPagamento.size(); i++) {
-        }
-    }
-
-    private void preencherPedido() {
-        ArrayList<Produto> listaProduto = c.getPedido();
+    private void preencherEntrada() {
+        ArrayList<ControleProducao> listaProduto = c.getProducao();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{},
-                new String[]{"Produto", "Valor", "Quantidade", "Valor Total", "Id"}) {
+                new String[]{"Produto", "Quantidade", "Origem", "Id"}) {
 
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
-        Object[] linha = new Object[5];
+        Object[] linha = new Object[4];
         for (int i = 0; i < listaProduto.size(); i++) {
-            linha[0] = listaProduto.get(i).getNome();
-            linha[1] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
-            linha[2] = listaProduto.get(i).getQnt();
-            linha[3] = formatador.format(listaProduto.get(i).getQnt() * Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
-            linha[4] = listaProduto.get(i).getIdProduto();
+            p.getProduto(listaProduto.get(i).getIdProd());
+            linha[0] = p.getProduto().getNome();
+            linha[1] = listaProduto.get(i).getQnt();
+            linha[2] = origens.get(listaProduto.get(i).getIdDest());
+            linha[3] = listaProduto.get(i).getIdProd();
             tb.addRow(linha);
         }
         jTable1 = new JTable(tb);
@@ -493,18 +529,14 @@ public class JPanelProducao extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(1).setMinWidth(90);
         jTable1.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(90);
         jTable1.getTableHeader().getColumnModel().getColumn(1).setMinWidth(90);
-        jTable1.getColumnModel().getColumn(2).setMaxWidth(80);
-        jTable1.getColumnModel().getColumn(2).setMinWidth(80);
-        jTable1.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(80);
-        jTable1.getTableHeader().getColumnModel().getColumn(2).setMinWidth(80);
-        jTable1.getColumnModel().getColumn(3).setMaxWidth(90);
-        jTable1.getColumnModel().getColumn(3).setMinWidth(90);
-        jTable1.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(90);
-        jTable1.getTableHeader().getColumnModel().getColumn(3).setMinWidth(90);
-        jTable1.getColumnModel().getColumn(4).setMaxWidth(0);
-        jTable1.getColumnModel().getColumn(4).setMinWidth(0);
-        jTable1.getTableHeader().getColumnModel().getColumn(4).setMaxWidth(0);
-        jTable1.getTableHeader().getColumnModel().getColumn(4).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(200);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(200);
+        jTable1.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(200);
+        jTable1.getTableHeader().getColumnModel().getColumn(2).setMinWidth(200);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(0);
+        jTable1.getTableHeader().getColumnModel().getColumn(3).setMinWidth(0);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
