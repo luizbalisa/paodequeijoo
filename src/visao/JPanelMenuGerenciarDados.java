@@ -649,7 +649,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-     if (jTable3.getSelectedRow() == -1) {
+        if (jTable3.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o fornecedor");
         } else {
             int linha = jTable3.getSelectedRow();
@@ -879,7 +879,11 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
             linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
-            linha[3] = listaProduto.get(i).getQnt();
+            if (listaProduto.get(i).getQnt() < listaProduto.get(i).getQntMinima()) {
+                linha[3] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
+            } else {
+                linha[3] = listaProduto.get(i).getQnt();
+            }
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -920,7 +924,11 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             linha[1] = listaProduto.get(i).getNome();
             linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
             linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
-            linha[4] = listaProduto.get(i).getQnt();
+            if (listaProduto.get(i).getQnt() < listaProduto.get(i).getQntMinima()) {
+                linha[3] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
+            } else {
+                linha[3] = listaProduto.get(i).getQnt();
+            }
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -1029,6 +1037,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     }
 
     public void ativarBotoes(int tipo) {
+        jComboBox1.setSelectedIndex(0);
         if (tipo == 0) {
             jButton7.setEnabled(true);
             jButton5.setEnabled(true);

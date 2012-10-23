@@ -4,26 +4,26 @@
  */
 package controle;
 
-import fachada.HistSaidaProdutoMP;
+import fachada.ControleProducao;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import persistencia.HistSaidaMPMySQL;
+import persistencia.ConsultaControleProducaoMySQL;
 
 /**
  *
  * @author Rafael
  */
-public class HistSaidaProdutoMPController {
+public class ControleProducaoController {
 
     private String[] colunasMes;
     private ArrayList<String[]> listaMes;
-    private ArrayList<HistSaidaProdutoMP> listaDatas;
-    private HistSaidaProdutoMP hist = new HistSaidaProdutoMP();
-    private ArrayList<HistSaidaProdutoMP> lista = new ArrayList<HistSaidaProdutoMP>();
+    private ArrayList<ControleProducao> listaDatas;
+    private ControleProducao hist = new ControleProducao();
+    private ArrayList<ControleProducao> lista = new ArrayList<ControleProducao>();
 
     public void buscar(int destino) {
-        lista = new ArrayList<HistSaidaProdutoMP>();
-        HistSaidaMPMySQL c = new HistSaidaMPMySQL();
+        lista = new ArrayList<ControleProducao>();
+        ConsultaControleProducaoMySQL c = new ConsultaControleProducaoMySQL();
         if (destino == 0) {
             lista = c.buscaHistorico();
         } else {
@@ -32,7 +32,7 @@ public class HistSaidaProdutoMPController {
     }
 
     public void buscarHistoricoSomadoDia(String data) {
-        HistSaidaMPMySQL c = new HistSaidaMPMySQL();
+        ConsultaControleProducaoMySQL c = new ConsultaControleProducaoMySQL();
         lista = c.buscaHistorico();
         for (int i = 0; i < lista.size(); i++) {
             for (int j = i + 1; j < lista.size(); j++) {
@@ -50,7 +50,7 @@ public class HistSaidaProdutoMPController {
     }
 
     public void getHistoricoDia(String dia, int categoria) {
-        listaDatas = new ArrayList<HistSaidaProdutoMP>();
+        listaDatas = new ArrayList<ControleProducao>();
         if (categoria == 0) {//TODOS
             for (int i = 0; i < this.lista.size(); i++) {
                 if (dataToInt(this.lista.get(i).getData()) == dataToInt(dia)) {
@@ -88,7 +88,7 @@ public class HistSaidaProdutoMPController {
     }
 
     public void buscarHistoricoSomadoPeriodo(String dataDe, String dataAte) {
-        HistSaidaMPMySQL c = new HistSaidaMPMySQL();
+        ConsultaControleProducaoMySQL c = new ConsultaControleProducaoMySQL();
         lista = c.buscaHistorico();
         for (int i = 0; i < lista.size(); i++) {
             for (int j = i + 1; j < lista.size(); j++) {
@@ -106,7 +106,7 @@ public class HistSaidaProdutoMPController {
     }
 
     public void getHistoricoData(String dataDE, String dataATE, int categoria) {
-        listaDatas = new ArrayList<HistSaidaProdutoMP>();
+        listaDatas = new ArrayList<ControleProducao>();
         if (categoria == 0) {//TODOS
             for (int i = 0; i < this.lista.size(); i++) {
                 String d = this.lista.get(i).getData();
@@ -147,14 +147,14 @@ public class HistSaidaProdutoMPController {
         }
     }
 
-    public ArrayList<HistSaidaProdutoMP> buscaDimamicaData(String busca) {
+    public ArrayList<ControleProducao> buscaDimamicaData(String busca) {
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
         desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
         desc2 = desc2.toUpperCase();
         ProdutoController p = new ProdutoController();
         p.buscarProdutosTotal();
-        ArrayList<HistSaidaProdutoMP> retorno = new ArrayList<HistSaidaProdutoMP>();
+        ArrayList<ControleProducao> retorno = new ArrayList<ControleProducao>();
         for (int i = 0; i < listaDatas.size(); i++) {
             p.getProduto(listaDatas.get(i).getIdProd());
             String comp = p.getProduto().getNome();
@@ -206,13 +206,11 @@ public class HistSaidaProdutoMPController {
                     linha = new String[colunasMes.length];
                     linha[0] = prod.getListProdutos().get(i).getNome();
                     int total = 0;
-                    double valor = 0;
                     for (int j = 1; j < colunasMes.length; j++) {
                         qnt = 0;
                         for (int k = 0; k < lista.size(); k++) {
                             if (lista.get(k).getData().contains(colunasMes[j]) && lista.get(k).getIdProd() == prod.getListProdutos().get(i).getIdProduto()) {
                                 qnt += lista.get(k).getQnt();
-                                valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * qnt;
                                 break;
                             }
                         }
@@ -220,7 +218,6 @@ public class HistSaidaProdutoMPController {
                         linha[j] = String.valueOf(qnt);
                     }
                     linha[colunasMes.length - 2] = String.valueOf(total);
-                    linha[colunasMes.length - 1] = String.valueOf(valor);
                     if (total > 0) {
                         listaMes.add(linha);
                     }
@@ -265,23 +262,23 @@ public class HistSaidaProdutoMPController {
         lista.remove(i);
     }
 
-    public void editar(HistSaidaProdutoMP h, int row) {
+    public void editar(ControleProducao h, int row) {
         lista.set(row, h);
     }
 
-    public HistSaidaProdutoMP getHist() {
+    public ControleProducao getHist() {
         return hist;
     }
 
-    public void setHist(HistSaidaProdutoMP hist) {
+    public void setHist(ControleProducao hist) {
         this.hist = hist;
     }
 
-    public ArrayList<HistSaidaProdutoMP> getLista() {
+    public ArrayList<ControleProducao> getLista() {
         return lista;
     }
 
-    public void setLista(ArrayList<HistSaidaProdutoMP> lista) {
+    public void setLista(ArrayList<ControleProducao> lista) {
         this.lista = lista;
     }
 
@@ -301,11 +298,11 @@ public class HistSaidaProdutoMPController {
         this.listaMes = listaMes;
     }
 
-    public ArrayList<HistSaidaProdutoMP> getListaDatas() {
+    public ArrayList<ControleProducao> getListaDatas() {
         return listaDatas;
     }
 
-    public void setListaDatas(ArrayList<HistSaidaProdutoMP> listaDatas) {
+    public void setListaDatas(ArrayList<ControleProducao> listaDatas) {
         this.listaDatas = listaDatas;
     }
 }

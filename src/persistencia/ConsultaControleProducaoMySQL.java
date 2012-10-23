@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import fachada.ControleProducao;
 import fachada.HistSaidaProdutoMP;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,16 +17,16 @@ import java.util.ArrayList;
  *
  * @author Rafael
  */
-public class HistSaidaMPMySQL {
+public class ConsultaControleProducaoMySQL {
 
-    private static final String SQL_BUSCA = "SELECT * FROM historico_saida_mp WHERE idProduto=? AND data=? AND destino=?";
-    private static final String SQL_BUSCA_TODOS = "SELECT * FROM historico_saida_mp ORDER BY destino";
-    private static final String SQL_BUSCA_DESTINO = "SELECT * FROM historico_saida_mp WHERE destino=?";
-    private static final String SQL_UPDATE = "UPDATE historico_saida_mp SET quantidade=? WHERE idProduto=? AND data=? AND destino=?";
-    private static final String SQL_INCLUIR = "INSERT INTO historico_saida_mp(idProduto,data,quantidade,destino,preco_custo)"
-            + "VALUES (?,?,?,?,?)";
+    private static final String SQL_BUSCA = "SELECT * FROM historico_producao WHERE idProduto=? AND data=? AND idOrigem=?";
+    private static final String SQL_BUSCA_TODOS = "SELECT * FROM historico_producao ORDER BY idOrigem";
+    private static final String SQL_BUSCA_DESTINO = "SELECT * FROM historico_producao WHERE idOrigem=?";
+    private static final String SQL_UPDATE = "UPDATE historico_producao SET quantidade=? WHERE idProduto=? AND data=? AND idOrigem=?";
+    private static final String SQL_INCLUIR = "INSERT INTO historico_producao(idProduto,data,quantidade,idOrigem)"
+            + "VALUES (?,?,?,?)";
 
-    public int buscaHistoricoSaidaProdutosIguais(HistSaidaProdutoMP historicoProduto) {
+    public int buscaHistoricoSaidaProdutosIguais(ControleProducao historicoProduto) {
         Connection con;
         PreparedStatement stmt;
 
@@ -47,10 +48,10 @@ public class HistSaidaMPMySQL {
         return 0;
     }
 
-    public ArrayList<HistSaidaProdutoMP> buscaHistoricoestino(int destino) {
+    public ArrayList<ControleProducao> buscaHistoricoestino(int destino) {
         Connection con;
         PreparedStatement stmt;
-        ArrayList<HistSaidaProdutoMP> retorno = new ArrayList<HistSaidaProdutoMP>();
+        ArrayList<ControleProducao> retorno = new ArrayList<ControleProducao>();
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_BUSCA_DESTINO);
@@ -59,7 +60,7 @@ public class HistSaidaMPMySQL {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                HistSaidaProdutoMP aux = new HistSaidaProdutoMP(rs.getInt("idProduto"), rs.getInt("destino"), rs.getInt("quantidade"), rs.getString("data"), rs.getString("preco_custo"));
+                ControleProducao aux = new ControleProducao(rs.getInt("idProduto"), rs.getInt("destino"), rs.getInt("quantidade"), rs.getString("data"));
                 aux.setId(rs.getInt("idhistorico_saida_mp"));
                 retorno.add(aux);
             }
@@ -69,17 +70,17 @@ public class HistSaidaMPMySQL {
         return retorno;
     }
 
-    public ArrayList<HistSaidaProdutoMP> buscaHistorico() {
+    public ArrayList<ControleProducao> buscaHistorico() {
         Connection con;
         PreparedStatement stmt;
-        ArrayList<HistSaidaProdutoMP> retorno = new ArrayList<HistSaidaProdutoMP>();
+        ArrayList<ControleProducao> retorno = new ArrayList<ControleProducao>();
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_BUSCA_TODOS);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                HistSaidaProdutoMP aux = new HistSaidaProdutoMP(rs.getInt("idProduto"), rs.getInt("destino"), rs.getInt("quantidade"), rs.getString("data"), rs.getString("preco_custo"));
+                ControleProducao aux = new ControleProducao(rs.getInt("idProduto"), rs.getInt("destino"), rs.getInt("quantidade"), rs.getString("data"));
                 aux.setId(rs.getInt("idhistorico_saida_mp"));
                 retorno.add(aux);
             }
@@ -89,7 +90,7 @@ public class HistSaidaMPMySQL {
         return retorno;
     }
 
-    public void updateHistoricoSaidaProdutosIguais(HistSaidaProdutoMP historicoProduto) {
+    public void updateHistoricoSaidaProdutosIguais(ControleProducao historicoProduto) {
         Connection con;
         PreparedStatement stmt;
         try {
@@ -105,7 +106,7 @@ public class HistSaidaMPMySQL {
         }
     }
 
-    public void insertHistoricoSaidaProdutos(HistSaidaProdutoMP historicoProduto) {
+    public void insertHistoricoSaidaProdutos(ControleProducao historicoProduto) {
         Connection con;
         PreparedStatement stmt;
 
@@ -116,7 +117,6 @@ public class HistSaidaMPMySQL {
             stmt.setString(2, historicoProduto.getData());
             stmt.setInt(3, historicoProduto.getQnt());
             stmt.setInt(4, historicoProduto.getIdDest());
-            stmt.setString(5, historicoProduto.getPreco());
             stmt.executeUpdate();
         } catch (SQLException ex) {
         }
