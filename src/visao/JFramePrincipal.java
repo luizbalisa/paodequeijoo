@@ -21,8 +21,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
      */
     public JFramePrincipal() {
         initComponents();
-//        jToolBar1.setFloatable(false);
         this.setExtendedState(MAXIMIZED_BOTH);
+        JDialogLogin l = new JDialogLogin(this, rootPaneCheckingEnabled);
+        l.setVisible(true);
         dinamismo();
     }
 
@@ -154,7 +155,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/payment-icon.png"))); // NOI18N
-        jButton4.setText("<html><p></p><font color = white>Contas a receber</font></html>");
+        jButton4.setText("<html><font color = white>Contas a receber</font></html>");
         jButton4.setBorder(null);
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
@@ -227,7 +228,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -236,17 +237,14 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton8)
-                        .addComponent(jButton7)
-                        .addComponent(jButton6)
-                        .addComponent(jButton3)
-                        .addComponent(jButton2)))
+                    .addComponent(jButton8)
+                    .addComponent(jButton7)
+                    .addComponent(jButton6)
+                    .addComponent(jButton3)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jButton4.getAccessibleContext().setAccessibleName("<html><p></p><font color = white>Contas a receber</font></html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,7 +258,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
         );
 
         pack();
@@ -386,14 +384,92 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                jButton4.setIcon(new ImageIcon(getClass().getResource("/imagem/Cash-register-icon2.png")));
+                jButton4.setIcon(new ImageIcon(getClass().getResource("/imagem/payment-icon-1.png")));
                 jButton4.setText("<html><font color = blue>Contas a receber</font></html>");
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                jButton4.setIcon(new ImageIcon(getClass().getResource("/imagem/Cash-register-icon.png")));
+                jButton4.setIcon(new ImageIcon(getClass().getResource("/imagem/payment-icon.png")));
                 jButton4.setText("<html><font color = white>Contas a receber</font></html>");
+            }
+        });
+        jButton6.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jButton6.setIcon(new ImageIcon(getClass().getResource("/imagem/Cash-register-icon2.png")));
+                jButton6.setText("<html><font color = blue>Contas a pagar</font></html>");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jButton6.setIcon(new ImageIcon(getClass().getResource("/imagem/Cash-register-icon.png")));
+                jButton6.setText("<html><font color = white>Contas a pagar</font></html>");
+            }
+        });
+        jButton7.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jButton7.setIcon(new ImageIcon(getClass().getResource("/imagem/wallet-icon-1.png")));
+                jButton7.setText("<html><font color = blue>Comprar</font></html>");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jButton7.setIcon(new ImageIcon(getClass().getResource("/imagem/wallet-icon.png")));
+                jButton7.setText("<html><font color = white>Comprar</font></html>");
+            }
+        });
+        jButton8.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jButton8.setIcon(new ImageIcon(getClass().getResource("/imagem/options-icon-1.png")));
+                jButton8.setText("<html><font color = blue>Lançar Produção</font></html>");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jButton8.setIcon(new ImageIcon(getClass().getResource("/imagem/options-icon.png")));
+                jButton8.setText("<html><font color = white>Lançar Produção</font></html>");
             }
         });
     }

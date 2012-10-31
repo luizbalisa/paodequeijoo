@@ -4,15 +4,11 @@
  */
 package visao;
 
-import controle.CompraController;
-import controle.FormaPagamentoCompraController;
 import controle.ProducaoController;
 import controle.ProdutoController;
 import controle.ValidadorCampos;
 import fachada.ControleProducao;
-import fachada.FormaPagamento;
 import fachada.Fornecedor;
-import fachada.Produto;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -494,7 +490,7 @@ public class JPanelProducao extends javax.swing.JPanel {
         ConsultaDestinosMySQL consulta = new ConsultaDestinosMySQL();
         origens = consulta.buscarDestinos();
         jComboBox2.addItem("Selecione a origem");
-        for (int i = 1; i <= origens.size() && !origens.get(i).equals("Balcão"); i++) {
+        for (int i = 1; i <= origens.size(); i++) {
             jComboBox2.addItem(origens.get(i));
         }
     }

@@ -911,23 +911,24 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         this.produto.buscarProdutosCategoria(1);
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
-        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda","% de Lucro", "Quantidade"}) {
 
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
-        Object[] linha = new Object[5];
+        Object[] linha = new Object[6];
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
             linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
             linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+            linha[4] = formatador.format(((Double.parseDouble(listaProduto.get(i).getPreco().replace(",", "."))-Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")))*100)/Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
             if (listaProduto.get(i).getQnt() < listaProduto.get(i).getQntMinima()) {
-                linha[3] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
+                linha[5] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
             } else {
-                linha[3] = listaProduto.get(i).getQnt();
+                linha[5] = listaProduto.get(i).getQnt();
             }
             tb.addRow(linha);
         }
@@ -946,10 +947,12 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
         TableColumn column2 = jTable2.getColumnModel().getColumn(3);
         TableColumn column3 = jTable2.getColumnModel().getColumn(4);
+        TableColumn column4 = jTable2.getColumnModel().getColumn(5);
         column0.setCellRenderer(centerRenderer);
         column1.setCellRenderer(centerRenderer);
         column2.setCellRenderer(centerRenderer);
         column3.setCellRenderer(centerRenderer);
+        column4.setCellRenderer(centerRenderer);
 
         repaint();
     }
