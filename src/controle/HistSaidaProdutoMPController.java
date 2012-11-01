@@ -39,9 +39,8 @@ public class HistSaidaProdutoMPController {
                 if (dataToInt(lista.get(i).getData()) == dataToInt(data) && dataToInt(lista.get(j).getData()) == dataToInt(data)) {
                     if (lista.get(i).getIdProd() == lista.get(j).getIdProd() && lista.get(i).getIdDest() == lista.get(j).getIdDest()) {
                         lista.get(i).setQnt(lista.get(i).getQnt() + lista.get(j).getQnt());
-                        lista.add(lista.get(i));
                         lista.remove(j);
-                        lista.remove(i);
+                        j--;
                     }
                 }
 
@@ -95,9 +94,8 @@ public class HistSaidaProdutoMPController {
                 if ((dataToInt(lista.get(i).getData()) >= dataToInt(dataDe)) && (dataToInt(lista.get(i).getData())) <= dataToInt(dataAte) && (dataToInt(lista.get(j).getData()) >= dataToInt(dataDe)) && (dataToInt(lista.get(j).getData())) <= dataToInt(dataAte)) {
                     if (lista.get(i).getIdProd() == lista.get(j).getIdProd() && lista.get(i).getIdDest() == lista.get(j).getIdDest()) {
                         lista.get(i).setQnt(lista.get(i).getQnt() + lista.get(j).getQnt());
-                        lista.add(lista.get(i));
                         lista.remove(j);
-                        lista.remove(i);
+                        j--;
                     }
                 }
 
@@ -168,7 +166,7 @@ public class HistSaidaProdutoMPController {
         return retorno;
     }
 
-    public void colunasHistoricoMes(int mes, int ano, int destino, int categoria) {
+    public void colunasHistoricoMes(int mes, int ano, int destino) {
         buscar(destino);
         int qnt = 0;
         ArrayList<String> r = new ArrayList<String>();
@@ -201,31 +199,29 @@ public class HistSaidaProdutoMPController {
             ProdutoController prod = new ProdutoController();
             prod.buscarProdutosSaida();
             for (int i = 0; i < prod.getListProdutos().size(); i++) {
-                if(i==15){
+                if (i == 15) {
                     System.out.println("");
                 }
-                if (categoria == 0 || categoria == prod.getListProdutos().get(i).getCategoria()) {
-                    String[] linha;
-                    linha = new String[colunasMes.length];
-                    linha[0] = prod.getListProdutos().get(i).getNome();
-                    int total = 0;
-                    double valor = 0;
-                    for (int j = 1; j < colunasMes.length; j++) {
-                        qnt = 0;
-                        for (int k = 0; k < lista.size(); k++) {
-                            if (lista.get(k).getData().contains(colunasMes[j]) && lista.get(k).getIdProd() == prod.getListProdutos().get(i).getIdProduto()) {
-                                qnt += lista.get(k).getQnt();
-                                valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * qnt;
-                            }
+                String[] linha;
+                linha = new String[colunasMes.length];
+                linha[0] = prod.getListProdutos().get(i).getNome();
+                int total = 0;
+                double valor = 0;
+                for (int j = 1; j < colunasMes.length; j++) {
+                    qnt = 0;
+                    for (int k = 0; k < lista.size(); k++) {
+                        if (lista.get(k).getData().contains(colunasMes[j]) && lista.get(k).getIdProd() == prod.getListProdutos().get(i).getIdProduto()) {
+                            qnt += lista.get(k).getQnt();
+                            valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * qnt;
                         }
-                        total += qnt;
-                        linha[j] = String.valueOf(qnt);
                     }
-                    linha[colunasMes.length - 2] = String.valueOf(total);
-                    linha[colunasMes.length - 1] = String.valueOf(valor);
-                    if (total > 0) {
-                        listaMes.add(linha);
-                    }
+                    total += qnt;
+                    linha[j] = String.valueOf(qnt);
+                }
+                linha[colunasMes.length - 2] = String.valueOf(total);
+                linha[colunasMes.length - 1] = String.valueOf(valor);
+                if (total > 0) {
+                    listaMes.add(linha);
                 }
             }
         }
