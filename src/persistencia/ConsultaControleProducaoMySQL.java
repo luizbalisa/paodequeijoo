@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ConsultaControleProducaoMySQL {
 
     private static final String SQL_BUSCA = "SELECT * FROM historico_producao WHERE idProduto=? AND data=? AND idOrigem=?";
-    private static final String SQL_BUSCA_TODOS = "SELECT * FROM historico_producao ORDER BY idOrigem";
+    private static final String SQL_BUSCA_TODOS = "SELECT * FROM historico_producao";
     private static final String SQL_BUSCA_DESTINO = "SELECT * FROM historico_producao WHERE idOrigem=?";
     private static final String SQL_UPDATE = "UPDATE historico_producao SET quantidade=quantidade+?, valor=? WHERE idProduto=? AND data=? AND idOrigem=?";
     private static final String SQL_INCLUIR = "INSERT INTO historico_producao(idProduto,data,quantidade,idOrigem,valor)"

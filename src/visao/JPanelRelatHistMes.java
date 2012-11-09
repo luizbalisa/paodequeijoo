@@ -77,6 +77,7 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -150,7 +151,7 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
         RelatoriosController r = new RelatoriosController();
         String data = m + " " + a;
         r.criarDocumento(1);
-        r.relatorioSaidaEstoqueMes(controle.getColunasMes(), jTable1, jComboBox1.getSelectedItem().toString(), data,jLabel3.getText());
+        r.relatorioSaidaEstoqueMes(controle.getColunasMes(), jTable1, jComboBox1.getSelectedItem().toString(), data, jLabel3.getText());
         r.fecharDocumento();
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -188,12 +189,13 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
 
         jTable1 = new JTable(dt);
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         TableCellRenderer centerRenderer = new CenterRenderer();
-        jTable1.getColumnModel().getColumn(0).setMinWidth(250);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMaxWidth(100);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMinWidth(100);
 

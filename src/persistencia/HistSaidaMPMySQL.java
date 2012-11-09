@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class HistSaidaMPMySQL {
 
     private static final String SQL_BUSCA = "SELECT * FROM historico_saida_mp WHERE idProduto=? AND data=? AND destino=?";
-    private static final String SQL_BUSCA_TODOS = "SELECT * FROM historico_saida_mp ORDER BY destino";
+    private static final String SQL_BUSCA_TODOS = "SELECT * FROM historico_saida_mp ";
     private static final String SQL_BUSCA_DESTINO = "SELECT * FROM historico_saida_mp WHERE destino=?";
     private static final String SQL_UPDATE = "UPDATE historico_saida_mp SET quantidade=? WHERE idProduto=? AND data=? AND destino=?";
     private static final String SQL_INCLUIR = "INSERT INTO historico_saida_mp(idProduto,data,quantidade,destino,preco_custo)"

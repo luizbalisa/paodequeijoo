@@ -212,7 +212,7 @@ public class HistSaidaProdutoMPController {
                     for (int k = 0; k < lista.size(); k++) {
                         if (lista.get(k).getData().contains(colunasMes[j]) && lista.get(k).getIdProd() == prod.getListProdutos().get(i).getIdProduto()) {
                             qnt += lista.get(k).getQnt();
-                            valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * qnt;
+                            valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * lista.get(k).getQnt();
                         }
                     }
                     total += qnt;

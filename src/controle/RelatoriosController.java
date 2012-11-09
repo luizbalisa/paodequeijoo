@@ -49,40 +49,135 @@ public class RelatoriosController {
             title1.add(new Paragraph("Referente a " + mes(Integer.parseInt(aux[0])) + "/" + aux[1] + "\nDestino: " + destino, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
             documento.add(title1);
             ArrayList<String[]> dados = jtableParaArray(tabela);
-            int headerwidths3[] = tamanhoColunas(colunas);
-            t = new Table(colunas.length);
-            t.setWidths(headerwidths3);
-            t.setWidth(100);
-            t.setPadding(3);
-            t.setBorderWidth((float) 0.5);
-            for (int i = 0; i < colunas.length; i++) {
-                title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
-                c1 = new Cell(title1);
-                c1.setVerticalAlignment(Element.ALIGN_CENTER);
-                if (i != 0) {
-                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                }
-                c1.setHeader(true);
-                t.addCell(c1);
-            }
-
-            t.endHeaders();
-            for (int i = 0; i < dados.size(); i++) {
-                for (int j = 0; j < dados.get(i).length; j++) {
-                    title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            int[][] col = tamanhoColunas(colunas);
+            if (col.length > 1) {
+                int impar = colunas.length % 2;
+                int headerwidths3[] = col[0];
+                t = new Table(((colunas.length) / 2) + impar);
+                t.setWidths(headerwidths3);
+                t.setWidth(100);
+                t.setPadding(3);
+                t.setBorderWidth((float) 0.5);
+                for (int i = 0; i < ((colunas.length) / 2) + impar; i++) {
+                    title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
                     c1 = new Cell(title1);
-                    if (j != 0) {
+                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    if (i != 0) {
                         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                     }
-                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    c1.setHeader(true);
                     t.addCell(c1);
                 }
+
+                t.endHeaders();
+                for (int i = 0; i < dados.size(); i++) {
+                    for (int j = 0; j < ((colunas.length) / 2) + impar; j++) {
+                        title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+                        c1 = new Cell(title1);
+                        if (j != 0) {
+                            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        }
+                        c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                        t.addCell(c1);
+                    }
+                }
+                documento.add(t);
+                documento.newPage();
+                t = new Table(1, 1);
+                t.setPadding(3);
+                t.setBorderColor(Color.white);
+                t.setWidths(headerwidths2);
+                t.setWidth(100);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("RELATÓRIO DE SAÍDA DE ESTOQUE\n", FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD)));
+                c1 = new Cell(title1);
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                c1.setBorderColor(Color.white);
+                t.addCell(c1);
+                documento.add(t);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("Referente a " + mes(Integer.parseInt(aux[0])) + "/" + aux[1] + "\nDestino: " + destino, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
+                documento.add(title1);
+                t = new Table(((colunas.length) / 2) );
+                int auxCol[];
+                if (impar == 1) {
+                    auxCol = new int[col[1].length-1];
+                    for (int i = 0; i < auxCol.length; i++) {
+                        auxCol[i] = col[1][i];
+                    }
+                } else {
+                    auxCol = col[1];
+                }
+                int headerwidths4[] = auxCol;
+                t.setWidths(headerwidths4);
+                t.setWidth(100);
+                t.setPadding(3);
+                t.setBorderWidth((float) 0.5);
+                for (int i = ((colunas.length) / 2) + impar; i < 2 * ((colunas.length) / 2) + impar; i++) {
+                    title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
+                    c1 = new Cell(title1);
+                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    if (i != 0) {
+                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    }
+                    c1.setHeader(true);
+                    t.addCell(c1);
+                }
+
+                t.endHeaders();
+                for (int i = 0; i < dados.size(); i++) {
+                    for (int j = ((colunas.length) / 2) + impar; j < 2 * ((colunas.length) / 2) + impar; j++) {
+                        title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+                        c1 = new Cell(title1);
+                        if (j != 0) {
+                            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        }
+                        c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                        t.addCell(c1);
+                    }
+                }
+                documento.add(t);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("Custo total: " + total, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
+                title1.setAlignment(Element.ALIGN_RIGHT);
+                documento.add(title1);
+            } else {
+                int headerwidths3[] = col[0];
+                t = new Table(colunas.length);
+                t.setWidths(headerwidths3);
+                t.setWidth(100);
+                t.setPadding(3);
+                t.setBorderWidth((float) 0.5);
+                for (int i = 0; i < colunas.length; i++) {
+                    title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
+                    c1 = new Cell(title1);
+                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    if (i != 0) {
+                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    }
+                    c1.setHeader(true);
+                    t.addCell(c1);
+                }
+
+                t.endHeaders();
+                for (int i = 0; i < dados.size(); i++) {
+                    for (int j = 0; j < dados.get(i).length; j++) {
+                        title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+                        c1 = new Cell(title1);
+                        if (j != 0) {
+                            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        }
+                        c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                        t.addCell(c1);
+                    }
+                }
+                documento.add(t);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("Custo total: " + total, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
+                title1.setAlignment(Element.ALIGN_RIGHT);
+                documento.add(title1);
             }
-            documento.add(t);
-            title1 = new Paragraph();
-            title1.add(new Paragraph("Custo total: " + total, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
-            title1.setAlignment(Element.ALIGN_RIGHT);
-            documento.add(title1);
         } catch (BadElementException ex) {
             Logger.getLogger(RelatoriosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
@@ -109,43 +204,138 @@ public class RelatoriosController {
             documento.add(t);
             title1 = new Paragraph();
             String aux[] = data.split(" ");
-            title1.add(new Paragraph("Referente a " + mes(Integer.parseInt(aux[0])) + "/" + aux[1] + "\nDestino: " + destino, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
+            title1.add(new Paragraph("Referente a " + mes(Integer.parseInt(aux[0])) + "/" + aux[1] + "\nOrigem: " + destino, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
             documento.add(title1);
             ArrayList<String[]> dados = jtableParaArray(tabela);
-            int headerwidths3[] = tamanhoColunas(colunas);
-            t = new Table(colunas.length);
-            t.setWidths(headerwidths3);
-            t.setWidth(100);
-            t.setPadding(3);
-            t.setBorderWidth((float) 0.5);
-            for (int i = 0; i < colunas.length; i++) {
-                title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
-                c1 = new Cell(title1);
-                c1.setVerticalAlignment(Element.ALIGN_CENTER);
-                if (i != 0) {
-                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                }
-                c1.setHeader(true);
-                t.addCell(c1);
-            }
-
-            t.endHeaders();
-            for (int i = 0; i < dados.size(); i++) {
-                for (int j = 0; j < dados.get(i).length; j++) {
-                    title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            int[][] col = tamanhoColunas(colunas);
+            if (col.length > 1) {
+                int impar = colunas.length % 2;
+                int headerwidths3[] = col[0];
+                t = new Table(((colunas.length) / 2) + impar);
+                t.setWidths(headerwidths3);
+                t.setWidth(100);
+                t.setPadding(3);
+                t.setBorderWidth((float) 0.5);
+                for (int i = 0; i < ((colunas.length) / 2) + impar; i++) {
+                    title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
                     c1 = new Cell(title1);
-                    if (j != 0) {
+                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    if (i != 0) {
                         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
                     }
-                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    c1.setHeader(true);
                     t.addCell(c1);
                 }
+
+                t.endHeaders();
+                for (int i = 0; i < dados.size(); i++) {
+                    for (int j = 0; j < ((colunas.length) / 2) + impar; j++) {
+                        title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+                        c1 = new Cell(title1);
+                        if (j != 0) {
+                            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        }
+                        c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                        t.addCell(c1);
+                    }
+                }
+                documento.add(t);
+                documento.newPage();
+                t = new Table(1, 1);
+                t.setPadding(3);
+                t.setBorderColor(Color.white);
+                t.setWidths(headerwidths2);
+                t.setWidth(100);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("RELATÓRIO DE PRODUÇÃO\n", FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD)));
+                c1 = new Cell(title1);
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                c1.setBorderColor(Color.white);
+                t.addCell(c1);
+                documento.add(t);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("Referente a " + mes(Integer.parseInt(aux[0])) + "/" + aux[1] + "\nOrigem: " + destino, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
+                documento.add(title1);
+                t = new Table(((colunas.length) / 2) );
+                int auxCol[];
+                if (impar == 1) {
+                    auxCol = new int[col[1].length-1];
+                    for (int i = 0; i < auxCol.length; i++) {
+                        auxCol[i] = col[1][i];
+                    }
+                } else {
+                    auxCol = col[1];
+                }
+                int headerwidths4[] = auxCol;
+                t.setWidths(headerwidths4);
+                t.setWidth(100);
+                t.setPadding(3);
+                t.setBorderWidth((float) 0.5);
+                for (int i = ((colunas.length) / 2) + impar; i < 2 * ((colunas.length) / 2) + impar; i++) {
+                    title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
+                    c1 = new Cell(title1);
+                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    if (i != 0) {
+                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    }
+                    c1.setHeader(true);
+                    t.addCell(c1);
+                }
+
+                t.endHeaders();
+                for (int i = 0; i < dados.size(); i++) {
+                    for (int j = ((colunas.length) / 2) + impar; j < 2 * ((colunas.length) / 2) + impar; j++) {
+                        title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+                        c1 = new Cell(title1);
+                        if (j != 0) {
+                            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        }
+                        c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                        t.addCell(c1);
+                    }
+                }
+                documento.add(t);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("Receita total: " + total, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
+                title1.setAlignment(Element.ALIGN_RIGHT);
+                documento.add(title1);
+            } else {
+                int headerwidths3[] = col[0];
+                t = new Table(colunas.length);
+                t.setWidths(headerwidths3);
+                t.setWidth(100);
+                t.setPadding(3);
+                t.setBorderWidth((float) 0.5);
+                for (int i = 0; i < colunas.length; i++) {
+                    title1 = new Paragraph(colunas[i], FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD));
+                    c1 = new Cell(title1);
+                    c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                    if (i != 0) {
+                        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    }
+                    c1.setHeader(true);
+                    t.addCell(c1);
+                }
+
+                t.endHeaders();
+                for (int i = 0; i < dados.size(); i++) {
+                    for (int j = 0; j < dados.get(i).length; j++) {
+                        title1 = new Paragraph(dados.get(i)[j], FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+                        c1 = new Cell(title1);
+                        if (j != 0) {
+                            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        }
+                        c1.setVerticalAlignment(Element.ALIGN_CENTER);
+                        t.addCell(c1);
+                    }
+                }
+                documento.add(t);
+                title1 = new Paragraph();
+                title1.add(new Paragraph("Receita total: " + total, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
+                title1.setAlignment(Element.ALIGN_RIGHT);
+                documento.add(title1);
             }
-            documento.add(t);
-            title1 = new Paragraph();
-            title1.add(new Paragraph("Receita total: " + total, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
-            title1.setAlignment(Element.ALIGN_RIGHT);
-            documento.add(title1);
         } catch (BadElementException ex) {
             Logger.getLogger(RelatoriosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
@@ -337,14 +527,30 @@ public class RelatoriosController {
         }
     }
 
-    public int[] tamanhoColunas(String[] colunas) {
-        int[] col = new int[colunas.length];
-        int tam = 60 / colunas.length - 1;
-        col[0] = 35;
-        for (int i = 1; i < col.length; i++) {
-            col[i] = tam;
+    public int[][] tamanhoColunas(String[] colunas) {
+        int qnt = colunas.length;
+        if (qnt > 15) {
+            int impar = qnt % 2;
+            int[][] col = new int[2][((qnt) / 2) + impar];
+            int tam = 80 / ((qnt) / 2);
+            col[0][0] = 20;
+            for (int i = 1; i < ((qnt) / 2) + impar; i++) {
+                col[0][i] = tam;
+            }
+            tam = 100 / ((qnt) / 2);
+            for (int i = 0; i < qnt - ((qnt) / 2) - impar; i++) {
+                col[1][i] = tam;
+            }
+            return col;
+        } else {
+            int[][] col = new int[1][colunas.length];
+            int tam = 80 / colunas.length - 1;
+            col[0][0] = 20;
+            for (int i = 1; i < colunas.length; i++) {
+                col[0][i] = tam;
+            }
+            return col;
         }
-        return col;
     }
 
     public ArrayList<String[]> jtableParaArray(JTable j) {

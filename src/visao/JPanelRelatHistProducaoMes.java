@@ -192,10 +192,11 @@ public class JPanelRelatHistProducaoMes extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setBorder(null);
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         TableCellRenderer centerRenderer = new CenterRenderer();
-        jTable1.getColumnModel().getColumn(0).setMinWidth(250);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMaxWidth(100);
         jTable1.getColumnModel().getColumn(linha.length - 1).setMinWidth(100);
 

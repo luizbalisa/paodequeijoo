@@ -207,7 +207,7 @@ public class JPanelRelatHistProducaoTotal extends javax.swing.JPanel {
                 linha[1] = "Cozinha de refeições";
             }
             linha[2] = listaProduto.get(i).getQnt();
-            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
+            linha[3] = formatador.format(listaProduto.get(i).getQnt()*Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
             dt.addRow(linha);
         }
 
@@ -277,7 +277,7 @@ public class JPanelRelatHistProducaoTotal extends javax.swing.JPanel {
     public double getReceitaTotal(ArrayList<ControleProducao> listaProduto) {
         double soma = 0;
         for (int i = 0; i < listaProduto.size(); i++) {
-            soma += (Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
+            soma += listaProduto.get(i).getQnt()*(Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
         }
         return soma;
     }
