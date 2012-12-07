@@ -156,7 +156,7 @@ public class JDialogDetalharVendas extends javax.swing.JDialog {
 
     private void preencherProdutos() {
         ConsultaProdutoMySQL p = new ConsultaProdutoMySQL();
-        ArrayList<int[]> listaProduto = v.buscaProdutos();
+        ArrayList<String[]> listaProduto = v.buscaProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Nome", "Qtd"}) {
             
@@ -167,7 +167,7 @@ public class JDialogDetalharVendas extends javax.swing.JDialog {
         };
         Object[] linha = new Object[2];
         for (int i = 0; i < listaProduto.size(); i++) {
-            linha[0] = p.buscarProduto(listaProduto.get(i)[0]).getNome();
+            linha[0] = p.buscarProduto(Integer.parseInt(listaProduto.get(i)[0])).getNome();
             linha[1] = listaProduto.get(i)[1];
             tb.addRow(linha);
         }

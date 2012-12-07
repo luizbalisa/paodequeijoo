@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import fachada.ProdutoVenda;
 import fachada.VendaPrazo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -140,8 +141,7 @@ public class ConsultaVendaPrazoMySQL {
                 aux.setIdVenda(rs.getInt("idvenda_prazo"));
                 aux.setIdFormaPagamento(rs.getInt("forma_pagamento"));
                 aux.setValor(rs.getString("valor"));
-                ConsultaListaProdutoVendaMySQL prods = new ConsultaListaProdutoVendaMySQL();
-                aux.setListVenda(prods.buscaListaProdutoVenda(aux.getIdVenda()));
+                aux.setListVenda(new ArrayList<ProdutoVenda>());
                 retorno.add(aux);
             }
             con.close();

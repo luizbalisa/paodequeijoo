@@ -19,20 +19,21 @@ import java.util.ArrayList;
 public class ConsultaHistoricoMySQL {
 
     private static final String BUSCA_PRODUTO = "SELECT * FROM historico_saida_produto";
-    private static final String UPDATE_ESTORNO = "UPDATE historico_saida_produto SET quantidade=quantidade-? WHERE idProduto=? and data=?";
-    
+    private static final String UPDATE_ESTORNO = "UPDATE historico_saida_produto SET quantidade=? WHERE idProduto=? and data=?";
+    private static final String BUSCA_QUANTIDADE = "SELECT quantidade FROM historico_saida_produto WHERE idProduto=? and data=?";
 
     public ConsultaHistoricoMySQL() {
     }
 
-    
-    public void estornar(int quantidade, int prod, String data) {
+    public void estornar(String quantidade, int prod, String data) {
         Connection con;
         PreparedStatement stmt;
         try {
             con = (Connection) ConexaoMySQL.conectar();
+            String qtd = buscarQuantidade(prod, data);
+            double qnt = Double.parseDouble(qtd.replace(",", ".")) - Double.parseDouble(quantidade.replace(",", "."));
             stmt = (PreparedStatement) con.prepareStatement(UPDATE_ESTORNO);
-            stmt.setInt(1, quantidade);
+            stmt.setString(1, String.valueOf(qnt));
             stmt.setInt(2, prod);
             stmt.setString(3, data);
             stmt.executeUpdate();
@@ -41,7 +42,24 @@ public class ConsultaHistoricoMySQL {
             System.out.println(ex.getMessage());
         }
     }
-    
+
+    public String buscarQuantidade(int prod, String data) {
+        Connection con;
+        PreparedStatement stmt;
+        try {
+            con = (Connection) ConexaoMySQL.conectar();
+            stmt = (PreparedStatement) con.prepareStatement(BUSCA_QUANTIDADE);
+            stmt.setInt(1, prod);
+            stmt.setString(2, data);
+            ResultSet rs = stmt.executeQuery();
+            String qtd = rs.getString("quantidade");
+            con.close();
+            return qtd;
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
     public ArrayList<HistoricoSaidaProduto> buscarHistoricos() {
         ArrayList<HistoricoSaidaProduto> hist = new ArrayList<HistoricoSaidaProduto>();
         String query = BUSCA_PRODUTO;

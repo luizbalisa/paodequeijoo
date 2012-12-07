@@ -181,7 +181,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
             if (p.getProduto().getCategoria() != 2) {
                 linha[0] = p.getProduto().getNome();
                 linha[1] = listaProduto.get(i).getQuantidade();
-                linha[2] = formatador.format(Double.parseDouble(valorTotal(listaProduto.get(i).getQuantidade(), listaProduto.get(i).getPreco_venda().replaceAll(",", "."))));
+                linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco_venda().replaceAll(",", ".")));
                 dt.addRow(linha);
             }
         }
@@ -338,7 +338,7 @@ public class JPanelRelatProdTotal extends javax.swing.JPanel {
     public double getReceitaTotal(ArrayList<HistoricoSaidaProduto> listaProduto) {
         double soma = 0;
         for (int i = 0; i < listaProduto.size(); i++) {
-            soma += (listaProduto.get(i).getQuantidade() * Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
+            soma += (Double.parseDouble(listaProduto.get(i).getPreco_venda().replace(",", ".")));
         }
         return soma;
     }

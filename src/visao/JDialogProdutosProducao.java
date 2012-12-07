@@ -215,7 +215,7 @@ public class JDialogProdutosProducao extends javax.swing.JDialog {
         for (int i = 0; i < listaProduto.size(); i++) {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
-            linha[2] = listaProduto.get(i).getQnt();
+            linha[2] = (int) Double.parseDouble(listaProduto.get(i).getQnt().replace(",", "."));
             tb.addRow(linha);
         }
         jTable1 = new JTable(tb);

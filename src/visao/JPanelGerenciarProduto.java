@@ -200,6 +200,11 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
                 jTextField4ActionPerformed(evt);
             }
         });
+        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField4FocusLost(evt);
+            }
+        });
         jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField4KeyReleased(evt);
@@ -326,7 +331,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             } else if (s == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Escolha a categoria");
             } else {
-                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), true, Integer.parseInt(jTextField4.getText()), s - 1, jTextField2.getText(),Integer.parseInt(jTextField5.getText())));
+                produto.setProduto(new Produto(jTextField1.getText(), jTextField3.getText(), true, jTextField4.getText(), s - 1, jTextField2.getText(), Integer.parseInt(jTextField5.getText())));
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 jTextField1.setText("");
                 jTextField2.setText("");
@@ -427,7 +432,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
 
     private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
         if (!jTextField4.getText().equals("")) {
-            if (!validar.checarInteiro(jTextField4.getText())) {
+            if (!validar.checarReal2(jTextField4.getText().replace(",", "."))) {
                 jTextField4.setText(anterior3);
             } else {
                 anterior3 = jTextField4.getText();
@@ -436,7 +441,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField4KeyReleased
 
     private void jTextField5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyReleased
-       if (!jTextField5.getText().equals("")) {
+        if (!jTextField5.getText().equals("")) {
             if (!validar.checarInteiro(jTextField5.getText())) {
                 jTextField5.setText(anterior4);
             } else {
@@ -445,6 +450,15 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTextField5KeyReleased
 
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+        if (!jTextField4.getText().equals("")) {
+            if (!validar.checarReal(jTextField4.getText().replace(",", "."))) {
+                jTextField4.setText(anterior3);
+            } else {
+                anterior3 = jTextField4.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField4FocusLost
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
@@ -485,7 +499,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
         produto.getProduto().setNome(jTextField1.getText());
         produto.getProduto().setPreco(jTextField3.getText());
         produto.getProduto().setPrecoCusto(jTextField2.getText());
-        produto.getProduto().setQnt(Integer.parseInt(jTextField4.getText()));
+        produto.getProduto().setQnt(jTextField4.getText());
         produto.getProduto().setQntMinima(Integer.parseInt(jTextField5.getText()));
     }
 
@@ -497,6 +511,7 @@ public class JPanelGerenciarProduto extends javax.swing.JPanel {
             jComboBox1.addItem(c.getListaCategorias().get(i).getDescricao());
         }
         jComboBox1.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jComboBox1.getSelectedIndex() == 0) {

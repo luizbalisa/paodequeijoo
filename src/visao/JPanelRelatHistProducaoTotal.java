@@ -5,11 +5,9 @@
 package visao;
 
 import controle.HistProducaoController;
-import controle.HistSaidaProdutoMPController;
 import controle.ProdutoController;
 import controle.RelatoriosController;
 import fachada.ControleProducao;
-import fachada.HistSaidaProdutoMP;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -165,10 +163,10 @@ public class JPanelRelatHistProducaoTotal extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         RelatoriosController r = new RelatoriosController();
-        r.criarDocumento(0);
+        r.criarDocumento(0, 0);
         String[] colunas = new String[]{"Nome Produto", "Origem", "Quantidade", "Receita"};
         r.relatorioProducaoDataPeriodo(colunas, jTable2, jComboBox1.getSelectedItem().toString(), dataI, dataF, jLabel3.getText());
-        r.fecharDocumento();
+        r.fecharDocumento(0);
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -206,8 +204,8 @@ public class JPanelRelatHistProducaoTotal extends javax.swing.JPanel {
             } else if (listaProduto.get(i).getIdDest() == 2) {
                 linha[1] = "Cozinha de refeições";
             }
-            linha[2] = listaProduto.get(i).getQnt();
-            linha[3] = formatador.format(listaProduto.get(i).getQnt()*Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
+            linha[2] = (int) Double.parseDouble(listaProduto.get(i).getQnt());
+            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
             dt.addRow(linha);
         }
 
@@ -277,7 +275,7 @@ public class JPanelRelatHistProducaoTotal extends javax.swing.JPanel {
     public double getReceitaTotal(ArrayList<ControleProducao> listaProduto) {
         double soma = 0;
         for (int i = 0; i < listaProduto.size(); i++) {
-            soma += listaProduto.get(i).getQnt()*(Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
+            soma += (Double.parseDouble(listaProduto.get(i).getValor().replace(",", ".")));
         }
         return soma;
     }

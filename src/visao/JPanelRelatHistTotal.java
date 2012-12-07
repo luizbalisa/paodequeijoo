@@ -34,6 +34,7 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
     private String dataF;
     private int tipo;
     DecimalFormat formatador = new DecimalFormat("###0.00");
+    DecimalFormat formatadorQtd = new DecimalFormat("###0.000");
 
     /**
      * Creates new form JPanelRelatProdTotal
@@ -164,10 +165,10 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         RelatoriosController r = new RelatoriosController();
-        r.criarDocumento(0);
+        r.criarDocumento(0, 1);
         String[] colunas = new String[]{"Nome Produto", "Destino", "Quantidade", "Custo"};
         r.relatorioSaidaEstoqueDataPeriodo(colunas, jTable2, jComboBox1.getSelectedItem().toString(), dataI, dataF, jLabel3.getText());
-        r.fecharDocumento();
+        r.fecharDocumento(1);
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -207,8 +208,8 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
             } else {
                 linha[1] = "Balcão";
             }
-            linha[2] = listaProduto.get(i).getQnt();
-            linha[3] = formatador.format(Double.parseDouble(valorTotal(listaProduto.get(i).getQnt(), listaProduto.get(i).getPreco().replaceAll(",", "."))));
+            linha[2] = formatadorQtd.format(Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")));
+            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
             dt.addRow(linha);
         }
 
@@ -275,14 +276,14 @@ public class JPanelRelatHistTotal extends javax.swing.JPanel {
         });
     }
 
-    private String valorTotal(int qnt, String valor) {
+    private String valorTotal(double qnt, String valor) {
         return String.valueOf(qnt * Double.parseDouble(valor));
     }
 
     public double getReceitaTotal(ArrayList<HistSaidaProdutoMP> listaProduto) {
         double soma = 0;
         for (int i = 0; i < listaProduto.size(); i++) {
-            soma += (listaProduto.get(i).getQnt() * Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
+            soma += (Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")) * Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
         }
         return soma;
     }

@@ -35,16 +35,19 @@ public class HistSaidaProdutoMPController {
         HistSaidaMPMySQL c = new HistSaidaMPMySQL();
         lista = c.buscaHistorico();
         for (int i = 0; i < lista.size(); i++) {
+            double total = 0;
+            total = Double.parseDouble(lista.get(i).getQnt().replace(",", ".")) * Double.parseDouble(lista.get(i).getPreco().replace(",", "."));
             for (int j = i + 1; j < lista.size(); j++) {
                 if (dataToInt(lista.get(i).getData()) == dataToInt(data) && dataToInt(lista.get(j).getData()) == dataToInt(data)) {
                     if (lista.get(i).getIdProd() == lista.get(j).getIdProd() && lista.get(i).getIdDest() == lista.get(j).getIdDest()) {
-                        lista.get(i).setQnt(lista.get(i).getQnt() + lista.get(j).getQnt());
+                        lista.get(i).setQnt(String.valueOf(Double.parseDouble(lista.get(i).getQnt().replace(",", ".")) + Double.parseDouble(lista.get(j).getQnt().replace(",", "."))));
+                        total += Double.parseDouble(lista.get(j).getQnt().replace(",", ".")) * Double.parseDouble(lista.get(j).getPreco().replace(",", "."));
                         lista.remove(j);
                         j--;
                     }
                 }
-
             }
+            lista.get(i).setPreco(String.valueOf(total));
         }
     }
 
@@ -90,16 +93,19 @@ public class HistSaidaProdutoMPController {
         HistSaidaMPMySQL c = new HistSaidaMPMySQL();
         lista = c.buscaHistorico();
         for (int i = 0; i < lista.size(); i++) {
+            double total = 0;
+            total = Double.parseDouble(lista.get(i).getQnt().replace(",", ".")) * Double.parseDouble(lista.get(i).getPreco().replace(",", "."));
             for (int j = i + 1; j < lista.size(); j++) {
                 if ((dataToInt(lista.get(i).getData()) >= dataToInt(dataDe)) && (dataToInt(lista.get(i).getData())) <= dataToInt(dataAte) && (dataToInt(lista.get(j).getData()) >= dataToInt(dataDe)) && (dataToInt(lista.get(j).getData())) <= dataToInt(dataAte)) {
                     if (lista.get(i).getIdProd() == lista.get(j).getIdProd() && lista.get(i).getIdDest() == lista.get(j).getIdDest()) {
-                        lista.get(i).setQnt(lista.get(i).getQnt() + lista.get(j).getQnt());
+                        lista.get(i).setQnt(String.valueOf(Double.parseDouble(lista.get(i).getQnt().replace(",", ".")) + Double.parseDouble(lista.get(j).getQnt().replace(",", "."))));
+                        total += Double.parseDouble(lista.get(j).getQnt().replace(",", ".")) * Double.parseDouble(lista.get(j).getPreco().replace(",", "."));
                         lista.remove(j);
                         j--;
                     }
                 }
-
             }
+            lista.get(i).setPreco(String.valueOf(total));
         }
     }
 
@@ -168,7 +174,7 @@ public class HistSaidaProdutoMPController {
 
     public void colunasHistoricoMes(int mes, int ano, int destino) {
         buscar(destino);
-        int qnt = 0;
+        double qnt = 0;
         ArrayList<String> r = new ArrayList<String>();
         String m = String.valueOf(mes);
         if (m.length() < 2) {
@@ -205,14 +211,14 @@ public class HistSaidaProdutoMPController {
                 String[] linha;
                 linha = new String[colunasMes.length];
                 linha[0] = prod.getListProdutos().get(i).getNome();
-                int total = 0;
+                double total = 0;
                 double valor = 0;
                 for (int j = 1; j < colunasMes.length; j++) {
                     qnt = 0;
                     for (int k = 0; k < lista.size(); k++) {
                         if (lista.get(k).getData().contains(colunasMes[j]) && lista.get(k).getIdProd() == prod.getListProdutos().get(i).getIdProduto()) {
-                            qnt += lista.get(k).getQnt();
-                            valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * lista.get(k).getQnt();
+                            qnt += Double.parseDouble(lista.get(k).getQnt().replace(",", "."));
+                            valor += Double.parseDouble(lista.get(k).getPreco().replace(",", ".")) * Double.parseDouble(lista.get(k).getQnt().replace(",", "."));
                         }
                     }
                     total += qnt;

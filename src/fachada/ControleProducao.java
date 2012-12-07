@@ -10,13 +10,13 @@ package fachada;
  */
 public class ControleProducao {
 
-    private int id, idProd, idOrigem, qnt;
-    private String data, valor;
+    private int id, idProd, idOrigem;
+    private String data, valor, qnt;
 
     public ControleProducao() {
     }
 
-    public ControleProducao(int idProd, int idOrigem, int qnt, String data, String valor) {
+    public ControleProducao(int idProd, int idOrigem, String qnt, String data, String valor) {
         this.idProd = idProd;
         this.idOrigem = idOrigem;
         this.qnt = qnt;
@@ -64,11 +64,11 @@ public class ControleProducao {
         this.idProd = idProd;
     }
 
-    public int getQnt() {
+    public String getQnt() {
         return qnt;
     }
 
-    public void setQnt(int qnt) {
+    public void setQnt(String qnt) {
         this.qnt = qnt;
     }
 }

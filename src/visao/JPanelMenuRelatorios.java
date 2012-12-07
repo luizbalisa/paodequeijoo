@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -43,6 +44,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     JFramePrincipal principal;
     DecimalFormat formatador = new DecimalFormat("###0.00");
     private Component rootPane;
+    HashMap<Integer, String> fp;
+    HashMap<Integer, String> statusH;
 
     /**
      * Creates new form JPanelMenuRelatorios
@@ -65,6 +68,10 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jButton7.setEnabled(false);
         jLabel7.setVisible(false);
         jComboBox5.setVisible(false);
+        ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
+        fp = c.buscarNomeForma();
+        ConsultaVendaGeralMySQL cS = new ConsultaVendaGeralMySQL();
+        statusH = cS.buscaStatus();
         dinamismo();
         preencherAnos();
     }
@@ -1454,6 +1461,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton5StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         MovimentoDeCaixaController m = new MovimentoDeCaixaController();
         m.buscarMovimento();
         SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
@@ -1470,6 +1478,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         if (jRadioButton6.isSelected()) {//perido
             preencherMovimento(m.lista(d.format(jDateChooser4.getDate()), d.format(jDateChooser5.getDate()), buscarIdForma(), jComboBox7.getSelectedIndex() - 1));
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jRadioButton4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton4StateChanged
@@ -1481,6 +1490,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton4StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         if (jRadioButton3.isSelected()) {//Mes
             jPanel6.removeAll();
@@ -1500,6 +1510,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel6.add(new JPanelRelatProdTotal(format.format(jDateChooser2.getDate()), format.format(jDateChooser3.getDate()), 1));
             jPanel6.validate();
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton3StateChanged
@@ -1551,6 +1562,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton9StateChanged
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         VendaGeralController m = new VendaGeralController();
         m.buscarVendas();
         SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
@@ -1566,6 +1578,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         if (jRadioButton8.isSelected()) {//perido
             preencherVendas(m.lista(d.format(jDateChooser8.getDate()), d.format(jDateChooser9.getDate()), buscarIdForma2()));
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -1613,6 +1626,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton12StateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         if (jRadioButton12.isSelected()) {//Mes
             jPanel23.removeAll();
@@ -1632,6 +1646,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel23.add(new JPanelRelatHistTotal(format.format(jDateChooser11.getDate()), format.format(jDateChooser12.getDate()), 1));
             jPanel23.validate();
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jRadioButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton12ActionPerformed
@@ -1683,6 +1698,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton15ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         if (jRadioButton15.isSelected()) {//Mes
             jPanel29.removeAll();
@@ -1702,6 +1718,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             jPanel29.add(new JPanelRelatHistProducaoTotal(format.format(jDateChooser14.getDate()), format.format(jDateChooser15.getDate()), 1));
             jPanel29.validate();
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jButton4ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1861,11 +1878,11 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         jComboBox9.setSelectedItem(ano);
         jComboBox12.setSelectedItem(ano);
         jComboBox15.setSelectedItem(ano);
-        jButton1.doClick();
-        jButton2.doClick();
-        jButton3.doClick();
-        jButton6.doClick();
-        jButton4.doClick();
+//        jButton1.doClick();
+//        jButton2.doClick();
+//        jButton3.doClick();
+//        jButton6.doClick();
+//        jButton4.doClick();
     }
 
     private void preencherFormaPagamento() {
@@ -1886,7 +1903,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             formaPagamento.buscarFormaPagamento();
             ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
             for (int i = 0; i < listaFormaPagamento.size(); i++) {
-                if (!listaFormaPagamento.get(i).getDescricao().equals("Fiado")) {
+                if (!listaFormaPagamento.get(i).getDescricao().equals("Credito")) {
                     jComboBox5.addItem(listaFormaPagamento.get(i).getDescricao());
                 }
             }
@@ -1895,7 +1912,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             formaPagamento.buscarFormaPagamento();
             ArrayList<FormaPagamento> listaFormaPagamento = formaPagamento.getListFormaPagamento();
             for (int i = 0; i < listaFormaPagamento.size(); i++) {
-                if (!listaFormaPagamento.get(i).getDescricao().equals("Fiado")) {
+                if (!listaFormaPagamento.get(i).getDescricao().equals("Credito")) {
                     jComboBox5.addItem(listaFormaPagamento.get(i).getDescricao());
                 }
             }
@@ -1930,7 +1947,6 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
 
     public void preencherMovimento(ArrayList<MovimentoCaixa> movimento) {
         DefaultTableModel dt;
-        ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
         ConsultaFormaPagamentoCompraMySQL c2 = new ConsultaFormaPagamentoCompraMySQL();
         dt = new DefaultTableModel(
                 new Object[][]{},
@@ -1950,7 +1966,7 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
             linha[1] = movimento.get(i).getDescricao();
             String valor = "<html>";
             if (Double.parseDouble(movimento.get(i).getValor().replace(",", ".")) > 0) {
-                linha[2] = c.buscarNomeForma(movimento.get(i).getFormaPagamento());
+                linha[2] = fp.get(movimento.get(i).getFormaPagamento());
                 valor += "<font color=\"blue\">" + formatador.format(Double.parseDouble(movimento.get(i).getValor().replace(",", "."))) + "</font></html>";
             } else {
                 linha[2] = c2.buscarNomeForma(movimento.get(i).getFormaPagamento());
@@ -2076,8 +2092,8 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
     private void preencherVendas(ArrayList<VendaGeral> venda) {
 
         DefaultTableModel dt;
-        ConsultaFormaDePagamentoMySQL c = new ConsultaFormaDePagamentoMySQL();
-        ConsultaVendaGeralMySQL cS = new ConsultaVendaGeralMySQL();
+
+
         dt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -2094,17 +2110,17 @@ public class JPanelMenuRelatorios extends javax.swing.JPanel {
         for (int i = 0; i < venda.size(); i++) {
             linha[0] = venda.get(i).getData();
             linha[1] = venda.get(i).getHora();
-            linha[2] = c.buscarNomeForma(venda.get(i).getIdFormaPagamento());
+            linha[2] = fp.get(venda.get(i).getIdFormaPagamento());
             if (venda.get(i).getIdStatus() != 3) {
                 total += Double.parseDouble(venda.get(i).getValor().replace(",", "."));
             }
             linha[3] = formatador.format(Double.parseDouble(venda.get(i).getValor().replace(",", ".")));
             String status = "<html>";
             if (venda.get(i).getIdStatus() == 2 || venda.get(i).getIdStatus() == 3) {
-                status += "<font color=\"red\">" + cS.buscaStatus(venda.get(i).getIdStatus()) + "</font></html>";
+                status += "<font color=\"red\">" + statusH.get(venda.get(i).getIdStatus()) + "</font></html>";
 
             } else {
-                status += cS.buscaStatus(venda.get(i).getIdStatus()) + "</html>";
+                status += statusH.get(venda.get(i).getIdStatus()) + "</html>";
             }
             linha[4] = status;
             linha[5] = venda.get(i).getIdVenda();

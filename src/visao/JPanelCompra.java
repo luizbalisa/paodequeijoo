@@ -133,7 +133,7 @@ public class JPanelCompra extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jSeparator3))
         );
@@ -327,6 +327,11 @@ public class JPanelCompra extends javax.swing.JPanel {
         jLabel20.setText("Quantidade: ");
 
         jTextField3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField3FocusLost(evt);
+            }
+        });
         jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField3KeyReleased(evt);
@@ -596,7 +601,7 @@ public class JPanelCompra extends javax.swing.JPanel {
 
     private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
         if (!jTextField3.getText().equals("")) {
-            if (!validar.checarInteiro(jTextField3.getText())) {
+            if (!validar.checarReal2(jTextField3.getText().replace(",", "."))) {
                 jTextField3.setText(anterior3);
             } else {
                 anterior3 = jTextField3.getText();
@@ -611,7 +616,7 @@ public class JPanelCompra extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(rootPane, "Preencha a quantidade.");
         } else {
             if (!jButton3.getText().equals("Editar")) {
-                Produto prod = new Produto(p.getProduto().getNome(), p.getProduto().getPreco(), true, Integer.parseInt(jTextField3.getText()), p.getProduto().getCategoria(), jTextField2.getText(), p.getProduto().getQntMinima());
+                Produto prod = new Produto(p.getProduto().getNome(), p.getProduto().getPreco(), true, jTextField3.getText(), p.getProduto().getCategoria(), jTextField2.getText(), p.getProduto().getQntMinima());
                 prod.setIdProduto(p.getProduto().getIdProduto());
                 c.getPedido().add(prod);
                 preencherPedido();
@@ -619,7 +624,7 @@ public class JPanelCompra extends javax.swing.JPanel {
                 calcTotal();
                 jTextField1.setText("");
             } else {
-                Produto prod = new Produto(antigo.getNome(), antigo.getPreco(), true, Integer.parseInt(jTextField3.getText()), antigo.getCategoria(), jTextField2.getText(), antigo.getQntMinima());
+                Produto prod = new Produto(antigo.getNome(), antigo.getPreco(), true, jTextField3.getText(), antigo.getCategoria(), jTextField2.getText(), antigo.getQntMinima());
                 prod.setIdProduto(antigo.getIdProduto());
                 c.editar(antigo, prod);
                 preencherPedido();
@@ -743,6 +748,16 @@ public class JPanelCompra extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jTextField4FocusLost
+
+    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+        if (!jTextField4.getText().equals("")) {
+            if (!validar.checarReal(jTextField4.getText())) {
+                jTextField4.setText(anterior3);
+            } else {
+                anterior3 = jTextField4.getText();
+            }
+        }
+    }//GEN-LAST:event_jTextField3FocusLost
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -873,7 +888,7 @@ public class JPanelCompra extends javax.swing.JPanel {
             linha[0] = listaProduto.get(i).getNome();
             linha[1] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
             linha[2] = listaProduto.get(i).getQnt();
-            linha[3] = formatador.format(listaProduto.get(i).getQnt() * Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+            linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")) * Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
             linha[4] = listaProduto.get(i).getIdProduto();
             tb.addRow(linha);
         }
@@ -910,4 +925,3 @@ public class JPanelCompra extends javax.swing.JPanel {
         repaint();
     }
 }
-

@@ -34,13 +34,14 @@ import javax.swing.table.TableColumn;
  * @author Rafael
  */
 public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
-
+    
     JFramePrincipal principal;
     private Component rootPane;
     FornecedorController fornecedor = new FornecedorController();
     ClienteController cliente = new ClienteController();
     ProdutoController produto = new ProdutoController();
     DecimalFormat formatador = new DecimalFormat("###0.00");
+    DecimalFormat formatadorQnt = new DecimalFormat("###0.000");
     FormaDePagamentoController formaPagamento = new FormaDePagamentoController();
 
     /**
@@ -545,7 +546,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         principal.gerenciarClientes(0, 0);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTable1.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o cliente");
@@ -555,7 +556,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             this.principal.gerenciarClientes(1, Integer.parseInt(id));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTable1.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o cliente");
@@ -565,7 +566,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             this.principal.editarCliente(Integer.parseInt(id));
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (jTable1.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o cliente");
@@ -582,7 +583,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         if (jTable2.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o produto");
@@ -599,7 +600,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         jPanel5.removeAll();
         jPanel5.add(new JPanelGerenciarProduto(0, 0, this));
@@ -607,7 +608,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jButton7.setEnabled(false);
         jButton5.setEnabled(false);
     }//GEN-LAST:event_jButton6ActionPerformed
-
+    
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         if (jTable2.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o Produto");
@@ -621,7 +622,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jButton5.setEnabled(false);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
-
+    
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         jPanel4.removeAll();
         jPanel4.add(new JPanelGerenciarFormaPagamento(0, 0, this));
@@ -629,7 +630,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jButton9.setEnabled(false);
         jButton10.setEnabled(false);
     }//GEN-LAST:event_jButton8ActionPerformed
-
+    
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         if (jTable4.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione a Forma de Pagamento");
@@ -643,11 +644,11 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jButton10.setEnabled(false);
         }
     }//GEN-LAST:event_jButton9ActionPerformed
-
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+    
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if (jTable3.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o fornecedor");
@@ -664,11 +665,11 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButton11ActionPerformed
-
+    
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         principal.gerenciarFornecedores(0, 0);
     }//GEN-LAST:event_jButton12ActionPerformed
-
+    
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         if (jTable3.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o fornecedor");
@@ -678,7 +679,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             this.principal.gerenciarFornecedores(2, Integer.parseInt(id));
         }
     }//GEN-LAST:event_jButton13ActionPerformed
-
+    
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         if (jTable3.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o fornecedor");
@@ -688,7 +689,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             this.principal.gerenciarFornecedores(1, Integer.parseInt(id));
         }
     }//GEN-LAST:event_jButton14ActionPerformed
-
+    
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
@@ -745,7 +746,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 new String[]{
                     "Id", "Nome", "Telefone", "Local de Trabalho"
                 }) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -759,7 +760,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             linha[3] = clientes.get(i).getLocalDeTrabalho();
             dt.addRow(linha);
         }
-
+        
         jTable1 = new JTable(dt);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
         jTable1.getColumnModel().getColumn(0).setMinWidth(0);
@@ -771,7 +772,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         repaint();
     }
-
+    
     private void preencherFornecedores() {
         fornecedor.buscarFornecedores();
         ArrayList<Fornecedor> fornecedores = fornecedor.getListaFornecedores();
@@ -781,7 +782,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                 new String[]{
                     "Id", "Empresa", "Telefone", "Vendedor"
                 }) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -795,7 +796,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             linha[3] = fornecedores.get(i).getVendedor();
             dt.addRow(linha);
         }
-
+        
         jTable3 = new JTable(dt);
         jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
         jTable3.getColumnModel().getColumn(0).setMinWidth(0);
@@ -807,13 +808,13 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         repaint();
     }
-
+    
     public void preencherProdutos() {
         this.produto.buscarProdutos();
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -833,10 +834,10 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             } else {
                 linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
             }
-            if (listaProduto.get(i).getQnt() < listaProduto.get(i).getQntMinima()) {
-                linha[4] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
+            if (Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")) < listaProduto.get(i).getQntMinima()) {
+                linha[4] = "<html><font color=\"red\">" + formatadorQnt.format(Double.parseDouble(listaProduto.get(i).getQnt().replace(",", "."))) + "</font></html>";
             } else {
-                linha[4] = listaProduto.get(i).getQnt();
+                linha[4] = formatadorQnt.format(Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")));
             }
             tb.addRow(linha);
         }
@@ -855,7 +856,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -865,16 +866,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         column1.setCellRenderer(centerRenderer);
         column2.setCellRenderer(centerRenderer);
         column3.setCellRenderer(centerRenderer);
-
+        
         repaint();
     }
-
+    
     public void preencherProdutosProduzidos() {
         this.produto.buscarProdutosCategoria(0);
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -885,10 +886,10 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
             linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
-            if (listaProduto.get(i).getQnt() < listaProduto.get(i).getQntMinima()) {
+            if (Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")) < listaProduto.get(i).getQntMinima()) {
                 linha[3] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
             } else {
-                linha[3] = listaProduto.get(i).getQnt();
+                linha[3] = (int) Double.parseDouble(listaProduto.get(i).getQnt().replace(",", "."));
             }
             tb.addRow(linha);
         }
@@ -905,7 +906,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -913,16 +914,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         column0.setCellRenderer(centerRenderer);
         column1.setCellRenderer(centerRenderer);
         column2.setCellRenderer(centerRenderer);
-
+        
         repaint();
     }
-
+    
     public void preencherProdutosAtacado() {
         this.produto.buscarProdutosCategoria(1);
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
-        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda","% de Lucro", "Quantidade"}) {
-
+        tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "% de Lucro", "Quantidade"}) {
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -934,11 +935,11 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             linha[1] = listaProduto.get(i).getNome();
             linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
             linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
-            linha[4] = formatador.format(((Double.parseDouble(listaProduto.get(i).getPreco().replace(",", "."))-Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")))*100)/Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
-            if (listaProduto.get(i).getQnt() < listaProduto.get(i).getQntMinima()) {
+            linha[4] = formatador.format(((Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")) - Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", "."))) * 100) / Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
+            if (Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")) < listaProduto.get(i).getQntMinima()) {
                 linha[5] = "<html><font color=\"red\">" + listaProduto.get(i).getQnt() + "</font></html>";
             } else {
-                linha[5] = listaProduto.get(i).getQnt();
+                linha[5] = (int) Double.parseDouble(listaProduto.get(i).getQnt().replace(",", "."));
             }
             tb.addRow(linha);
         }
@@ -959,7 +960,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -971,16 +972,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         column2.setCellRenderer(centerRenderer);
         column3.setCellRenderer(centerRenderer);
         column4.setCellRenderer(centerRenderer);
-
+        
         repaint();
     }
-
+    
     public void preencherProdutosMP() {
         this.produto.buscarProdutosCategoria(2);
         ArrayList<Produto> listaProduto = this.produto.getListProdutos();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -991,7 +992,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             linha[0] = listaProduto.get(i).getIdProduto();
             linha[1] = listaProduto.get(i).getNome();
             linha[2] = formatador.format(Double.parseDouble(listaProduto.get(i).getPrecoCusto().replace(",", ".")));
-            linha[3] = listaProduto.get(i).getQnt();
+            linha[3] = formatadorQnt.format(Double.parseDouble(listaProduto.get(i).getQnt().replace(",", ".")));
             tb.addRow(linha);
         }
         jTable2 = new JTable(tb);
@@ -1007,7 +1008,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setBorder(null);
         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -1015,16 +1016,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         column0.setCellRenderer(centerRenderer);
         column1.setCellRenderer(centerRenderer);
         column2.setCellRenderer(centerRenderer);
-
+        
         repaint();
     }
-
+    
     public void preencherFormaPagamento() {
         this.formaPagamento.buscarFormaPagamento();
         ArrayList<FormaPagamento> listaFormaPagamento = this.formaPagamento.getListFormaPagamento();
         DefaultTableModel tb;
         tb = new DefaultTableModel(new Object[][]{}, new String[]{"codigo", "descicao", "tipo"}) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -1034,7 +1035,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         for (int i = 0; i < listaFormaPagamento.size(); i++) {
             linha[0] = listaFormaPagamento.get(i).getIdformaPAgamento();
             linha[1] = listaFormaPagamento.get(i).getDescricao();
-
+            
             if (listaFormaPagamento.get(i).getTipoDePagamento() == 1) {
                 linha[2] = "À Vista";
             } else {
@@ -1051,16 +1052,16 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
         jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setBorder(null);
         jTable4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
         TableColumn column3 = jTable2.getColumnModel().getColumn(2);
         column0.setCellRenderer(centerRenderer);
         column3.setCellRenderer(centerRenderer);
-
+        
         repaint();
     }
-
+    
     public void ativarBotoes(int tipo) {
         jComboBox1.setSelectedIndex(0);
         if (tipo == 0) {
@@ -1071,7 +1072,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jButton5.setEnabled(true);
         }
     }
-
+    
     public void ativarBotoesFP(int tipo) {
         if (tipo == 0) {
             jButton9.setEnabled(true);
@@ -1081,18 +1082,18 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jButton10.setEnabled(true);
         }
     }
-
+    
     private void buscaDinamica() {
         jTextField1.addKeyListener(new KeyListener() {
-
+            
             public void keyTyped(KeyEvent e) {
             }
-
+            
             public void keyPressed(KeyEvent e) {
             }
-
+            
             public void keyReleased(KeyEvent e) {
-
+                
                 if (!jTextField1.getText().equals("")) {
                     if (jComboBox1.getSelectedIndex() == 0) {
                         ArrayList<Cliente> clientes = cliente.buscaDinamicaClientes(jTextField1.getText());
@@ -1102,7 +1103,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                                 new String[]{
                                     "Id", "Nome", "Telefone", "Local de Trabalho"
                                 }) {
-
+                            
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -1116,7 +1117,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                             linha[3] = clientes.get(i).getLocalDeTrabalho();
                             dt.addRow(linha);
                         }
-
+                        
                         jTable1 = new JTable(dt);
                         jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
                         jTable1.getColumnModel().getColumn(0).setMinWidth(0);
@@ -1134,15 +1135,15 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         });
         jTextField3.addKeyListener(new KeyListener() {
-
+            
             public void keyTyped(KeyEvent e) {
             }
-
+            
             public void keyPressed(KeyEvent e) {
             }
-
+            
             public void keyReleased(KeyEvent e) {
-
+                
                 if (!jTextField3.getText().equals("")) {
                     fornecedor.buscarFornecedores();
                     ArrayList<Fornecedor> fornecedores = fornecedor.buscaDinamicaFornecedores(jTextField3.getText());
@@ -1152,7 +1153,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                             new String[]{
                                 "Id", "Empresa", "Telefone", "Vendedor"
                             }) {
-
+                        
                         @Override
                         public boolean isCellEditable(int row, int col) {
                             return false;
@@ -1166,7 +1167,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         linha[3] = fornecedores.get(i).getVendedor();
                         dt.addRow(linha);
                     }
-
+                    
                     jTable3 = new JTable(dt);
                     jTable3.getColumnModel().getColumn(0).setMaxWidth(0);
                     jTable3.getColumnModel().getColumn(0).setMinWidth(0);
@@ -1183,21 +1184,21 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         });
         jTextField2.addKeyListener(new KeyListener() {
-
+            
             public void keyTyped(KeyEvent e) {
             }
-
+            
             public void keyPressed(KeyEvent e) {
             }
-
+            
             public void keyReleased(KeyEvent e) {
-
+                
                 if (jComboBox1.getSelectedIndex() == 0 || jComboBox1.getSelectedIndex() == 2) {
                     if (!jTextField2.getText().equals("")) {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Preco de venda", "Quantidade"}) {
-
+                            
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -1212,7 +1213,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                             } else {
                                 linha[2] = "";
                             }
-                            if (listaProduto.get(i).getPreco() != null) {
+                            if (listaProduto.get(i).getPreco() != null && !listaProduto.get(i).getPreco().equals("")) {
                                 linha[3] = formatador.format(Double.parseDouble(listaProduto.get(i).getPreco().replace(",", ".")));
                             } else {
                                 linha[3] = "";
@@ -1229,7 +1230,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         jTable2.getTableHeader().setReorderingAllowed(false);
                         jScrollPane2.setBorder(null);
                         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+                        
                         TableCellRenderer centerRenderer = new CenterRenderer();
                         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
                         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -1239,7 +1240,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         column1.setCellRenderer(centerRenderer);
                         column2.setCellRenderer(centerRenderer);
                         column3.setCellRenderer(centerRenderer);
-
+                        
                         repaint();
                     } else {
                         if (jComboBox1.getSelectedIndex() == 0) {
@@ -1253,7 +1254,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de venda", "Quantidade"}) {
-
+                            
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -1276,7 +1277,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         jTable2.getTableHeader().setReorderingAllowed(false);
                         jScrollPane2.setBorder(null);
                         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+                        
                         TableCellRenderer centerRenderer = new CenterRenderer();
                         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
                         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -1284,7 +1285,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         column0.setCellRenderer(centerRenderer);
                         column1.setCellRenderer(centerRenderer);
                         column2.setCellRenderer(centerRenderer);
-
+                        
                         repaint();
                     } else {
                         preencherProdutosProduzidos();
@@ -1294,7 +1295,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         ArrayList<Produto> listaProduto = produto.buscaDinamicaProdutos(jTextField2.getText());
                         DefaultTableModel tb;
                         tb = new DefaultTableModel(new Object[][]{}, new String[]{"Codigo", "Nome", "Preco de custo", "Quantidade"}) {
-
+                            
                             @Override
                             public boolean isCellEditable(int row, int col) {
                                 return false;
@@ -1317,7 +1318,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         jTable2.getTableHeader().setReorderingAllowed(false);
                         jScrollPane2.setBorder(null);
                         jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+                        
                         TableCellRenderer centerRenderer = new CenterRenderer();
                         TableColumn column0 = jTable2.getColumnModel().getColumn(0);
                         TableColumn column1 = jTable2.getColumnModel().getColumn(2);
@@ -1325,7 +1326,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
                         column0.setCellRenderer(centerRenderer);
                         column1.setCellRenderer(centerRenderer);
                         column2.setCellRenderer(centerRenderer);
-
+                        
                         repaint();
                     } else {
                         preencherProdutosMP();
@@ -1334,7 +1335,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         });
     }
-
+    
     private void preencherTipos() {
         CategoriasController c = new CategoriasController();
         c.buscaCategorias();
@@ -1343,7 +1344,7 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             jComboBox1.addItem(c.getListaCategorias().get(i).getDescricao());
         }
         jComboBox1.addActionListener(new ActionListener() {
-
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jComboBox1.getSelectedIndex() == 0) {
@@ -1362,9 +1363,9 @@ public class JPanelMenuGerenciarDados extends javax.swing.JPanel {
             }
         });
     }
-
+    
     class CenterRenderer extends DefaultTableCellRenderer {
-
+        
         public CenterRenderer() {
             setHorizontalAlignment(CENTER);
         }

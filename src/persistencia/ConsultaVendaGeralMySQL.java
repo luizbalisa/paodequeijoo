@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -21,7 +22,7 @@ public class ConsultaVendaGeralMySQL {
             + "VALUES (?,?,?,?,?,?,?)";
     private static final String SQL_BUSCAR_ID = "SELECT MAX(idVenda) FROM venda";
     private static final String SQL_BUSCAR = "SELECT * FROM venda";
-    private static final String SQL_BUSCA_STATUS = "SELECT descricao from status_venda WHERE idStatus=?";
+    private static final String SQL_BUSCA_STATUS = "SELECT * from status_venda ";
     private static final String SQL_BUSCAR_VENDA = "SELECT * FROM venda WHERE idVenda=?";
     private static final String SQL_PRODUTOS = "SELECT * FROM lista_produto WHERE idVenda=?";
     private static final String SQL_ATUALIZAR = "UPDATE venda SET idStatus=? WHERE idVenda=?";
@@ -41,19 +42,19 @@ public class ConsultaVendaGeralMySQL {
         }
     }
 
-    public ArrayList<int[]> buscarProdutos(int id) {
+    public ArrayList<String[]> buscarProdutos(int id) {
         Connection con;
         PreparedStatement stmt;
-        ArrayList<int[]> retorno = new ArrayList<int[]>();
+        ArrayList<String[]> retorno = new ArrayList<String[]>();
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_PRODUTOS);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int[] aux = new int[2];
-                aux[0] = rs.getInt("idProduto");
-                aux[1] = rs.getInt("quantidade");
+                String[] aux = new String[2];
+                aux[0] = rs.getString("idProduto");
+                aux[1] = rs.getString("quantidade");
                 retorno.add(aux);
             }
             con.close();
@@ -153,20 +154,20 @@ public class ConsultaVendaGeralMySQL {
         return retorno;
     }
 
-    public String buscaStatus(int idStatus) {
+    public HashMap<Integer, String> buscaStatus() {
         Connection con;
         PreparedStatement stmt;
+        HashMap<Integer, String> status = new HashMap<Integer, String>();
         try {
             con = ConexaoMySQL.conectar();
             stmt = con.prepareStatement(SQL_BUSCA_STATUS);
-            stmt.setInt(1, idStatus);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                return rs.getString("descricao");
+                status.put(rs.getInt("idStatus"), rs.getString("descricao"));
             }
             con.close();
         } catch (SQLException ex) {
         }
-        return null;
+        return status;
     }
 }

@@ -99,10 +99,10 @@ public class RelatoriosController {
                 title1 = new Paragraph();
                 title1.add(new Paragraph("Referente a " + mes(Integer.parseInt(aux[0])) + "/" + aux[1] + "\nDestino: " + destino, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
                 documento.add(title1);
-                t = new Table(((colunas.length) / 2) );
+                t = new Table(((colunas.length) / 2));
                 int auxCol[];
                 if (impar == 1) {
-                    auxCol = new int[col[1].length-1];
+                    auxCol = new int[col[1].length - 1];
                     for (int i = 0; i < auxCol.length; i++) {
                         auxCol[i] = col[1][i];
                     }
@@ -257,10 +257,10 @@ public class RelatoriosController {
                 title1 = new Paragraph();
                 title1.add(new Paragraph("Referente a " + mes(Integer.parseInt(aux[0])) + "/" + aux[1] + "\nOrigem: " + destino, FontFactory.getFont(FontFactory.TIMES, 14, Font.NORMAL)));
                 documento.add(title1);
-                t = new Table(((colunas.length) / 2) );
+                t = new Table(((colunas.length) / 2));
                 int auxCol[];
                 if (impar == 1) {
-                    auxCol = new int[col[1].length-1];
+                    auxCol = new int[col[1].length - 1];
                     for (int i = 0; i < auxCol.length; i++) {
                         auxCol[i] = col[1][i];
                     }
@@ -565,7 +565,7 @@ public class RelatoriosController {
         return tabela;
     }
 
-    public void criarDocumento(int i) {
+    public void criarDocumento(int i, int j) {
 
         try {
             //----CRIANDO DOCUMENTO
@@ -575,7 +575,11 @@ public class RelatoriosController {
                 documento = new Document(PageSize.A4, 28, 28, 25, 20);
             }
             OutputStream os;
-            os = new FileOutputStream("Relatório.pdf");
+            if (j == 0) {
+                os = new FileOutputStream("Relatório.pdf");
+            } else {
+                os = new FileOutputStream("Relatório2.pdf");
+            }
             PdfWriter.getInstance(documento, os);
             HeaderFooter footer = new HeaderFooter(new Phrase(""), new Phrase(""));
             footer.setAlignment(Element.ALIGN_CENTER);
@@ -628,10 +632,14 @@ public class RelatoriosController {
         return null;
     }
 
-    public void fecharDocumento() {
+    public void fecharDocumento(int j) {
         documento.close();
-
-        File pdf = new File("Relatório.pdf");
+        File pdf;
+        if (j == 0) {
+            pdf = new File("Relatório.pdf");
+        } else {
+            pdf = new File("Relatório2.pdf");
+        }
         try {
             Desktop.getDesktop().open(pdf);
         } catch (Exception ex) {

@@ -44,8 +44,8 @@ public class ProducaoController {
             if (valor.equals("n")) {
                 con.insertHistoricoProducao(producao.get(i));
             } else {
-                Double preco = Double.parseDouble(producao.get(i).getValor().replace(",", ".")) + Double.parseDouble(valor);
-                producao.get(i).setValor(formatador.format(preco));
+                // Double preco = Double.parseDouble(producao.get(i).getValor().replace(",", ".")) + Double.parseDouble(valor.replace(",", "."));
+                // producao.get(i).setValor(formatador.format(preco));
                 con.updateHistoricoProducao(producao.get(i));
             }
         }
@@ -64,11 +64,11 @@ public class ProducaoController {
         }
     }
 
-    public ControleProducao getProduto(int id, int qnt, int origem) {
+    public ControleProducao getProduto(int id, double qnt, int origem) {
         ControleProducao p = new ControleProducao();
         for (int i = 0; i < producao.size(); i++) {
             if (producao.get(i).getIdProd() == id
-                    && producao.get(i).getQnt() == qnt
+                    && Double.parseDouble(producao.get(i).getQnt().replace(",", ".")) == qnt
                     && producao.get(i).getIdDest() == origem) {
                 return producao.get(i);
             }
@@ -76,10 +76,10 @@ public class ProducaoController {
         return p;
     }
 
-    public void excluir(int id, int qnt, int origem) {
+    public void excluir(int id, double qnt, int origem) {
         for (int i = 0; i < producao.size(); i++) {
             if (producao.get(i).getIdProd() == id
-                    && producao.get(i).getQnt() == qnt
+                    && Double.parseDouble(producao.get(i).getQnt().replace(",", ".")) == qnt
                     && producao.get(i).getIdDest() == origem) {
                 producao.remove(i);
             }

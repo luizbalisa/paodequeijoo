@@ -10,6 +10,7 @@ import fachada.Cliente;
 import fachada.Pagamento;
 import fachada.ProdutoVenda;
 import fachada.VendaPrazo;
+import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import persistencia.ConsultaClienteMySQL;
+import persistencia.ConsultaListaProdutoVendaMySQL;
 
 /**
  *
@@ -336,10 +338,9 @@ public class JPanelContasReceber extends javax.swing.JPanel {
             }
         };
         Object[] linha = new Object[2];
-        ConsultaClienteMySQL c = new ConsultaClienteMySQL();
         for (int i = 0; i < lista.size(); i++) {
             linha[0] = lista.get(i).getIdVenda();
-            linha[1] = c.buscarClienteId(lista.get(i).getIdCliente()).getNome();
+            linha[1] = controle.getClientes().get(lista.get(i).getIdCliente());
             dt.addRow(linha);
         }
 
@@ -355,10 +356,12 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent e) {
+                setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 preencherDados();
                 pagamento.buscarPagamentos(controle.getVendaPrazo().getIdVenda());
                 preencherPagamentos(pagamento.getListaPagamento());
                 calcular();
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
 
@@ -461,6 +464,8 @@ public class JPanelContasReceber extends javax.swing.JPanel {
         if (linha != -1) {
             int idVenda = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
             controle.buscaVendaPrazo(idVenda);
+            ConsultaListaProdutoVendaMySQL c = new ConsultaListaProdutoVendaMySQL();
+        controle.getVendaPrazo().setListVenda(c.buscaListaProdutoVenda(controle.getVendaPrazo().getIdVenda()));
             jLabel7.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
             preencherItens(controle.getVendaPrazo().getListVendaDatas());
             jLabel10.setText(formatador.format(Double.parseDouble(controle.getVendaPrazo().getValor().replace(",", "."))));

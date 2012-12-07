@@ -338,7 +338,7 @@ public class JPanelProducao extends javax.swing.JPanel {
                 p.getProduto(Integer.parseInt(jTextField1.getText()));
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = new Date();
-                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data), p.getProduto().getPreco());
+                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(),jTextField3.getText(), sdf.format(data), p.getProduto().getPreco());
                 c.getProducao().add(con);
                 preencherEntrada();
                 iniciarTela();
@@ -348,7 +348,7 @@ public class JPanelProducao extends javax.swing.JPanel {
                 p.getProduto(Integer.parseInt(jTextField1.getText()));
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = new Date();
-                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), Integer.parseInt(jTextField3.getText()), sdf.format(data), p.getProduto().getPreco());
+                ControleProducao con = new ControleProducao(p.getProduto().getIdProduto(), jComboBox2.getSelectedIndex(), jTextField3.getText(), sdf.format(data), p.getProduto().getPreco());
                 c.editar(antigo, con);
                 preencherEntrada();
                 iniciarTela();

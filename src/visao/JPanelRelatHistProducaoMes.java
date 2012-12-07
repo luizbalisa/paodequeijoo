@@ -148,13 +148,12 @@ public class JPanelRelatHistProducaoMes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       RelatoriosController r = new RelatoriosController();
+        RelatoriosController r = new RelatoriosController();
         String data = m + " " + a;
-        r.criarDocumento(1);
-        r.relatorioProducaoMes(controle.getColunasMes(), jTable1, jComboBox1.getSelectedItem().toString(), data,jLabel3.getText());
-        r.fecharDocumento();
+        r.criarDocumento(1, 0);
+        r.relatorioProducaoMes(controle.getColunasMes(), jTable1, jComboBox1.getSelectedItem().toString(), data, jLabel3.getText());
+        r.fecharDocumento(0);
     }//GEN-LAST:event_jButton1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
@@ -181,7 +180,13 @@ public class JPanelRelatHistProducaoMes extends javax.swing.JPanel {
         Object[] linha = new Object[controle.getColunasMes().length];
         for (int i = 0; i < lista.size(); i++) {
             for (int j = 0; j < linha.length; j++) {
-                linha[j] = String.valueOf(lista.get(i)[j]);
+                if (j == 0) {
+                    linha[j] = String.valueOf(lista.get(i)[j]);
+                } else if (j == linha.length - 1) {
+                    linha[j] = Double.parseDouble(lista.get(i)[j].replace(",", "."));
+                } else {
+                    linha[j] = (int) Double.parseDouble(lista.get(i)[j].replace(",", "."));
+                }
             }
             linha[linha.length - 1] = formatador.format(Double.parseDouble(linha[linha.length - 1].toString().replace(",", ".")));
             dt.addRow(linha);

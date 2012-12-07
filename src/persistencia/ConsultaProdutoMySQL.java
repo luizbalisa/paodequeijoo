@@ -18,12 +18,12 @@ import java.util.ArrayList;
  */
 public class ConsultaProdutoMySQL {
 
-    private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1 AND quantidade<>0 AND idCategoria<>2 ORDER BY nome ";
+    private static final String SQL_BUSCA_PRODUTO = "SELECT * FROM produtos WHERE visivel=1 AND quantidade<>'0' AND idCategoria<>2 ORDER BY nome ";
     private static final String SQL_BUSCA_PRODUTO_ID = "SELECT * FROM produtos WHERE  codigo_produto=?";
     private static final String SQL_UPDATE = "UPDATE produtos SET quantidade=? WHERE codigo_produto=?";
     private static final String SQL_UPDATE_ESTORNO = "UPDATE produtos SET quantidade=quantidade+? WHERE codigo_produto=?";
-    private static final String SQL_UPDATE_COMPRA = "UPDATE produtos SET quantidade=quantidade+?, preco_custo=? WHERE codigo_produto=?";
-    private static final String SQL_UPDATE_ENTRADA = "UPDATE produtos SET quantidade=quantidade+? WHERE codigo_produto=?";
+    private static final String SQL_UPDATE_COMPRA = "UPDATE produtos SET quantidade=?, preco_custo=? WHERE codigo_produto=?";
+    private static final String SQL_UPDATE_ENTRADA = "UPDATE produtos SET quantidade=? WHERE codigo_produto=?";
 
     public ConsultaProdutoMySQL() {
     }
@@ -40,7 +40,7 @@ public class ConsultaProdutoMySQL {
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getString("preco_venda"));
                 prod.setCategoria(rs.getInt("idCategoria"));
-                prod.setQnt(rs.getInt("quantidade"));
+                prod.setQnt(rs.getString("quantidade"));
                 prod.setPrecoCusto(rs.getString("preco_custo"));
                 prod.setVisivel(rs.getInt("visivel") == 1);
                 produtos.add(prod);
@@ -65,7 +65,7 @@ public class ConsultaProdutoMySQL {
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getString("preco_venda"));
                 prod.setCategoria(rs.getInt("idCategoria"));
-                prod.setQnt(rs.getInt("quantidade"));
+                prod.setQnt(rs.getString("quantidade"));
                 prod.setPrecoCusto(rs.getString("preco_custo"));
                 prod.setVisivel(rs.getInt("visivel") == 1);
                 return prod;
@@ -91,26 +91,31 @@ public class ConsultaProdutoMySQL {
         }
     }
 
-    public void updateQntDoProdutoEstorno(int quantidade, int idProduto) {
+    public void updateQntDoProdutoEstorno(String quantidade, int idProduto) {
         Connection con;
         PreparedStatement stmt;
         try {
             con = ConexaoMySQL.conectar();
+            Produto prod = buscarProduto(idProduto);
+            double qntidade = Double.parseDouble(prod.getQnt().replace(",", ".")) + Double.parseDouble(quantidade.replace(",", "."));
             stmt = con.prepareStatement(SQL_UPDATE_ESTORNO);
-            stmt.setInt(1, quantidade);
+            stmt.setString(1, String.valueOf(qntidade));
             stmt.setInt(2, idProduto);
             stmt.executeUpdate();
             con.close();
         } catch (SQLException e) {
         }
     }
+
     public void updateCompra(Produto p) {
         Connection con;
         PreparedStatement stmt;
         try {
             con = ConexaoMySQL.conectar();
+            Produto prod = buscarProduto(p.getIdProduto());
+            double qntidade = Double.parseDouble(prod.getQnt().replace(",", ".")) + Double.parseDouble(p.getQnt().replace(",", "."));
             stmt = con.prepareStatement(SQL_UPDATE_COMPRA);
-            stmt.setInt(1, p.getQnt());
+            stmt.setString(1, String.valueOf(qntidade));
             stmt.setString(2, p.getPrecoCusto());
             stmt.setInt(3, p.getIdProduto());
             stmt.executeUpdate();
@@ -118,13 +123,16 @@ public class ConsultaProdutoMySQL {
         } catch (SQLException e) {
         }
     }
+
     public void updateEntrada(ControleProducao p) {
         Connection con;
         PreparedStatement stmt;
         try {
             con = ConexaoMySQL.conectar();
+            Produto prod = buscarProduto(p.getIdProd());
+            double qntidade = Double.parseDouble(prod.getQnt().replace(",", ".")) + Double.parseDouble(p.getQnt().replace(",", "."));
             stmt = con.prepareStatement(SQL_UPDATE_ENTRADA);
-            stmt.setInt(1, p.getQnt());
+            stmt.setString(1, String.valueOf(qntidade));
             stmt.setInt(2, p.getIdProd());
             stmt.executeUpdate();
         } catch (SQLException e) {

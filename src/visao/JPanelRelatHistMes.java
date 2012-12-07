@@ -28,6 +28,7 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
     HistSaidaProdutoMPController controle = new HistSaidaProdutoMPController();
     int m, a;
     DecimalFormat formatador = new DecimalFormat("###0.00");
+    DecimalFormat formatadorQtd = new DecimalFormat("###0.000");
 
     /**
      * Creates new form JPanelRelatProdMes
@@ -150,9 +151,9 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         RelatoriosController r = new RelatoriosController();
         String data = m + " " + a;
-        r.criarDocumento(1);
+        r.criarDocumento(1, 1);
         r.relatorioSaidaEstoqueMes(controle.getColunasMes(), jTable1, jComboBox1.getSelectedItem().toString(), data, jLabel3.getText());
-        r.fecharDocumento();
+        r.fecharDocumento(1);
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -180,7 +181,11 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
         Object[] linha = new Object[controle.getColunasMes().length];
         for (int i = 0; i < lista.size(); i++) {
             for (int j = 0; j < linha.length; j++) {
-                linha[j] = String.valueOf(lista.get(i)[j]);
+                if (j == 0) {
+                    linha[j] = lista.get(i)[j];
+                } else {
+                    linha[j] = formatadorQtd.format(Double.parseDouble(lista.get(i)[j].toString().replace(",", ".")));
+                }
             }
             linha[linha.length - 1] = formatador.format(Double.parseDouble(linha[linha.length - 1].toString().replace(",", ".")));
             dt.addRow(linha);
@@ -207,8 +212,8 @@ public class JPanelRelatHistMes extends javax.swing.JPanel {
         column.setCellRenderer(centerRenderer);
 
         for (int i = 1; i < linha.length - 2; i++) {
-            jTable1.getColumnModel().getColumn(i).setMaxWidth(40);
-            jTable1.getColumnModel().getColumn(i).setMinWidth(40);
+            jTable1.getColumnModel().getColumn(i).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(i).setMinWidth(50);
             column = jTable1.getColumnModel().getColumn(i);
             column.setCellRenderer(centerRenderer);
         }

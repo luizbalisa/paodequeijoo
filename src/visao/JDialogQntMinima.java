@@ -6,8 +6,7 @@ package visao;
 
 import controle.ProdutoController;
 import fachada.Produto;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -21,6 +20,8 @@ import javax.swing.table.TableColumn;
  * @author miserani
  */
 public class JDialogQntMinima extends javax.swing.JDialog {
+    
+    DecimalFormat formatadorQtd = new DecimalFormat("###0.000");
 
     /**
      * Creates new form JDialogQntMinima
@@ -142,7 +143,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
                 new Object[][]{},
                 new String[]{
                     "Produto", "Em estoque", "Est. Minimo"}) {
-
+            
             @Override
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -152,7 +153,7 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         for (int i = 0; i < list.size(); i++) {
             linha[0] = list.get(i).getNome();
             linha[2] = list.get(i).getQntMinima();
-            linha[1] = "<html><font color=\"red\">"+list.get(i).getQnt()+"</font></html>";
+            linha[1] = "<html><font color=\"red\">" + formatadorQtd.format(Double.parseDouble(list.get(i).getQnt().replace(",", "."))) + "</font></html>";
             dt.addRow(linha);
         }
         jTable1 = new JTable(dt);
@@ -164,19 +165,19 @@ public class JDialogQntMinima extends javax.swing.JDialog {
         jTable1.getColumnModel().getColumn(1).setMinWidth(85);
         jTable1.getColumnModel().getColumn(2).setMaxWidth(85);
         jTable1.getColumnModel().getColumn(2).setMinWidth(85);
-
+        
         TableCellRenderer centerRenderer = new CenterRenderer();
         TableColumn column = jTable1.getColumnModel().getColumn(1);
         TableColumn column1 = jTable1.getColumnModel().getColumn(2);
         column.setCellRenderer(centerRenderer);
         column1.setCellRenderer(centerRenderer);
-
+        
         repaint();
-
+        
     }
-
+    
     class CenterRenderer extends DefaultTableCellRenderer {
-
+        
         public CenterRenderer() {
             setHorizontalAlignment(CENTER);
         }

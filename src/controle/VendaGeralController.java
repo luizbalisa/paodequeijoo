@@ -35,15 +35,15 @@ public class VendaGeralController {
         MovimentoDeCaixaController mov = new MovimentoDeCaixaController();
         VendaController vendaPrazo = new VendaController();
 
-        ArrayList<int[]> prods = buscaProdutos();
+        ArrayList<String[]> prods = buscaProdutos();
         for (int i = 0; i < prods.size(); i++) {
-            prod.estornar(prods.get(i)[0], prods.get(i)[1]);
-            hist.estornar(prods.get(i)[1], prods.get(i)[0], venda.getData());
+            prod.estornar(Integer.parseInt(prods.get(i)[0]), prods.get(i)[1]);
+            hist.estornar(prods.get(i)[1], Integer.parseInt(prods.get(i)[0]), venda.getData());
         }
         if (venda.getIdVendaPrazo() != 0) {
             vendaPrazo.buscaVendaPrazo(venda.getIdVendaPrazo());
             for (int i = 0; i < prods.size(); i++) {
-                vendaPrazo.estornar(venda.getIdVendaPrazo(), prods.get(i)[0], venda.getData());
+                vendaPrazo.estornar(venda.getIdVendaPrazo(), Integer.parseInt(prods.get(i)[0]), venda.getData());
             }
             vendaPrazo.buscaVendaPrazo(venda.getIdVendaPrazo());
             double novoValor = 0;
@@ -73,7 +73,7 @@ public class VendaGeralController {
         return "Estorno realizado com sucesso.";
     }
 
-    public ArrayList<int[]> buscaProdutos() {
+    public ArrayList<String[]> buscaProdutos() {
         ConsultaVendaGeralMySQL c = new ConsultaVendaGeralMySQL();
         return c.buscarProdutos(venda.getIdVenda());
     }
@@ -184,6 +184,7 @@ public class VendaGeralController {
         String date = aux[2] + m + d;
         return Integer.parseInt(date);
     }
+
     public ArrayList<VendaGeral> ordenar(ArrayList<VendaGeral> lista) {
         ArrayList<Integer> datas = new ArrayList<Integer>();
         for (int i = 0; i < lista.size(); i++) {

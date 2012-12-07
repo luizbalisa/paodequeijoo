@@ -22,7 +22,7 @@ public class ProdutoController {
     public ProdutoController() {
     }
 
-    public void estornar(int idProd, int quantidade) {
+    public void estornar(int idProd, String quantidade) {
         ConsultaProdutoMySQL c = new ConsultaProdutoMySQL();
         c.updateQntDoProdutoEstorno(quantidade, idProd);
     }
@@ -30,7 +30,7 @@ public class ProdutoController {
     public ArrayList<String> getProdsQntMinima() {
         ArrayList<String> aux = new ArrayList<String>();
         for (int i = 0; i < listaProdutos.size(); i++) {
-            if (listaProdutos.get(i).getQnt() < listaProdutos.get(i).getQntMinima()) {
+            if (Double.parseDouble(listaProdutos.get(i).getQnt().replace(",", ".")) < listaProdutos.get(i).getQntMinima()) {
                 aux.add(listaProdutos.get(i).getNome());
             }
         }
@@ -40,7 +40,7 @@ public class ProdutoController {
     public ArrayList<Produto> getProdsQntMinimaProduto() {
         ArrayList<Produto> aux = new ArrayList<Produto>();
         for (int i = 0; i < listaProdutos.size(); i++) {
-            if (listaProdutos.get(i).getQnt() < listaProdutos.get(i).getQntMinima()) {
+            if (Double.parseDouble(listaProdutos.get(i).getQnt().replace(",", ".")) < listaProdutos.get(i).getQntMinima()) {
                 aux.add(listaProdutos.get(i));
             }
         }
@@ -71,6 +71,7 @@ public class ProdutoController {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         this.listaProdutos = consultaProdutoMySQL.buscarProdutoProducao();
     }
+
     public void buscarProdutosCompra() {
         ConsultasProdutoMySQL consultaProdutoMySQL = new ConsultasProdutoMySQL();
         this.listaProdutos = consultaProdutoMySQL.buscarProdutoCompra();

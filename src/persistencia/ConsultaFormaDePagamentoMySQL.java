@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -82,22 +83,21 @@ public class ConsultaFormaDePagamentoMySQL {
         return "Forma de pagamento alterada com sucesso ";
     }
 
-    public String buscarNomeForma(int id) {
+    public HashMap<Integer, String> buscarNomeForma() {
         Connection con;
         PreparedStatement stmt;
-
+        HashMap<Integer, String> retorno = new HashMap<Integer, String>();
         try {
             con = ConexaoMySQL.conectar();
-            stmt = con.prepareStatement(SQL_BUSCAR_FORMA_PAGAMENTO_ID);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement(SQL_BUSCA_FORMA_PAGAMENTO);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                return rs.getString("descricao");
+                retorno.put(rs.getInt("idforma_pagamento"), rs.getString("descricao"));
             }
             con.close();
         } catch (SQLException ex) {
         }
-        return "Erro";
+        return retorno;
     }
 
     public int buscarIdForma(String nome) {

@@ -11,6 +11,7 @@ import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import persistencia.ConsultaListaProdutoVendaMySQL;
 import persistencia.ConsultaVendaPrazoMySQL;
 import persistencia.ConsultaClienteMySQL;
@@ -20,32 +21,39 @@ import persistencia.ConsultaClienteMySQL;
  * @author Guil
  */
 public class VendaController {
-    
+
     private VendaPrazo venda = new VendaPrazo();
     private ArrayList<VendaPrazo> listaVenda = new ArrayList<VendaPrazo>();
-    
+    private HashMap<Integer, String> clientes = new HashMap<Integer, String>();
+
     public VendaController() {
     }
-    public void excluir(int id){
+
+    public void excluir(int id) {
         ConsultaVendaPrazoMySQL c = new ConsultaVendaPrazoMySQL();
         c.deleteVendaPrazo(id);
     }
-    public void estornar( int idVenda, int idProd, String data) {
+
+    public void estornar(int idVenda, int idProd, String data) {
         ConsultaListaProdutoVendaMySQL c = new ConsultaListaProdutoVendaMySQL();
         c.updateEstorno(idVenda, idProd, data);
     }
-    
+
     public void novoValor(String valor, int id) {
         ConsultaVendaPrazoMySQL c = new ConsultaVendaPrazoMySQL();
         c.updateVendaPrazoEstorno(valor, id);
     }
-    
+
     public void buscaVendas() {
         listaVenda = new ArrayList<VendaPrazo>();
         ConsultaVendaPrazoMySQL vendas = new ConsultaVendaPrazoMySQL();
         listaVenda = vendas.buscarTodas();
+        ConsultaClienteMySQL c = new ConsultaClienteMySQL();
+        for (int i = 0; i < listaVenda.size(); i++) {
+            clientes.put(listaVenda.get(i).getIdCliente(), c.buscarClienteId(listaVenda.get(i).getIdCliente()).getNome());
+        }
     }
-    
+
     public void buscaVendaPrazo(int id) {
         buscaVendas();
         for (int i = 0; i < listaVenda.size(); i++) {
@@ -56,7 +64,7 @@ public class VendaController {
             }
         }
     }
-    
+
     public void excluirProdutoVenda(int id, int qnt) {
         for (int i = 0; i < venda.getListVenda().size(); i++) {
             if (id == venda.getListVenda().get(i).getProduto().getIdProduto() && qnt == venda.getListVenda().get(i).getQnt()) {
@@ -64,7 +72,7 @@ public class VendaController {
             }
         }
     }
-    
+
     public void editarProdutoVenda(ProdutoVenda p, ProdutoVenda p2) {
         for (int i = 0; i < venda.getListVenda().size(); i++) {
             if (p.getProduto().getIdProduto() == venda.getListVenda().get(i).getProduto().getIdProduto() && p.getQnt() == venda.getListVenda().get(i).getQnt()) {
@@ -73,7 +81,7 @@ public class VendaController {
             }
         }
     }
-    
+
     public void inserirVendaPrazo() {
         ConsultaVendaPrazoMySQL vendaP = new ConsultaVendaPrazoMySQL();
         String banco = vendaP.bsucaCliente(venda.getIdCliente());
@@ -89,7 +97,7 @@ public class VendaController {
             venda.setIdVenda(vendaP.buscarID());
         }
     }
-    
+
     public void inserirProdutoVenda() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ProdutoController p = new ProdutoController();
@@ -114,16 +122,15 @@ public class VendaController {
             }
         }
     }
-    
+
     public ArrayList<VendaPrazo> buscaDinamicaClientes(String busca) {
-        ConsultaClienteMySQL c = new ConsultaClienteMySQL();
         String desc2 = busca;
         desc2 = Normalizer.normalize(desc2, Normalizer.Form.NFD);
         desc2 = desc2.replaceAll("[^\\p{ASCII}]", "");
         desc2 = desc2.toUpperCase();
         ArrayList<VendaPrazo> vendas = new ArrayList<VendaPrazo>();
         for (int i = 0; i < listaVenda.size(); i++) {
-            String comp = c.buscarClienteId(listaVenda.get(i).getIdCliente()).getNome();
+            String comp = clientes.get(listaVenda.get(i).getIdCliente());
             comp = Normalizer.normalize(comp, Normalizer.Form.NFD);
             comp = comp.replaceAll("[^\\p{ASCII}]", "");
             comp = comp.toUpperCase();
@@ -133,19 +140,27 @@ public class VendaController {
         }
         return vendas;
     }
-    
+
+    public HashMap<Integer, String> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(HashMap<Integer, String> clientes) {
+        this.clientes = clientes;
+    }
+
     public VendaPrazo getVendaPrazo() {
         return venda;
     }
-    
+
     public void setVendaPrazo(VendaPrazo venda) {
         this.venda = venda;
     }
-    
+
     public ArrayList<VendaPrazo> getListaVenda() {
         return listaVenda;
     }
-    
+
     public void setListaVenda(ArrayList<VendaPrazo> listaVenda) {
         this.listaVenda = listaVenda;
     }
